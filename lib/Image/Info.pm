@@ -1,6 +1,6 @@
 package Image::Info;
 
-# Copyright 1999-2001, Gisle Aas.
+# Copyright 1999-2000, Gisle Aas.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
@@ -10,7 +10,7 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '0.06';  # $Date: 2001/03/24 20:06:41 $
+$VERSION = '1.00';  # $Date: 2000/08/24 08:57:20 $
 
 require Exporter;
 *import = \&Exporter::import;
@@ -24,11 +24,21 @@ my @magic = (
    "\x89PNG\x0d\x0a\x1a\x0a" => "PNG",
    "GIF87a" => "GIF",
    "GIF89a" => "GIF",
+   "P1"     => "PPM",
+   "P2"     => "PPM",
+   "P3"     => "PPM",
+   "P4"     => "PPM",
+   "P5"     => "PPM",
+   "P6"     => "PPM",
 );
 
 sub image_info
 {
     my $source = shift;
+
+    if (@_) {
+	return { error => "Extra arguments reserved for future extensions" };
+    }
 
     if (!ref $source) {
         require Symbol;
@@ -127,30 +137,38 @@ sub clean_up
     }
 }
 
+sub get_info {
+    my($self, $n, $key, $delete) = @_;
+    my $v = $delete ? delete $self->[$n]{$key} : $self->[$n]{$key};
+    $v ||= [];
+    @$v;
+}
+
 1;
 
 __END__
 
 =head1 NAME
 
-Image::Info - Extract information from image files
-
-=head1 NOTE
-
-This is an B<alpha release> of the C<Image::Info> module.  The
-interface to the routines described below is likely to change.
+Image::Info - Extract meta information from image files
 
 =head1 SYNOPSIS
 
  use Image::Info qw(image_info dim);
 
  my $info = image_info("image.jpg");
+ if (my $error = $info->{error}) {
+     die "Can't parse image info: $error\n";
+ }
+ my $color = $info->{color_type};
+
  my($w, $h) = dim($info);
 
 =head1 DESCRIPTION
 
-This module provide functions to extract various information from
-image files.  The following functions are provided:
+This module provide functions to extract various kind of meta
+information from image files.  The following functions are provided by
+the C<Image::Info> module:
 
 =over
 
@@ -159,10 +177,10 @@ image files.  The following functions are provided:
 =item image_info( \$imgdata )
 
 This function takes the name of a file or a file handle as argument
-and will return one or more hashes describing the images inside the
-file.  If there is only one image in the file only one hash is
-returned.  In scalar context, only the hash for the first image is
-returned.
+and will return one or more hashes (actually hash references)
+describing the images inside the file.  If there is only one image in
+the file only one hash is returned.  In scalar context, only the hash
+for the first image is returned.
 
 In case of error, and hash containing the "error" key will be
 returned.  The corresponding value will be an appropriate error
@@ -180,29 +198,36 @@ dimensions as a string.
 
 =item html_dim( $info_hash )
 
-Returns the dimensions as a string suitable for embedding into HTML
-tags like <img src="...">.
+Returns the dimensions as a string suitable for embedding directly
+into HTML <img>-tags. E.g.:
+
+   print "<img src="..." @{[html_dim($info)]}>\n";
 
 =back
 
 =head1 Image descriptions
 
-The image_info() function return information about an image as a hash.
-The key values that can occur is based on the TIFF names.
+The image_info() function returns meta information about each image in
+the form of a reference to a hash.  The hash keys used are in most
+cases based on the TIFF element names.  All lower case keys are
+mandatory for all file formats and will always be there unless an
+error occured (in which case the "error" key will be present.)  Mixed
+case keys will only be present when the corresponding information
+element is available in the image.
 
-The following names are common for any image format:
+The following key names are common for any image format:
 
 =over
 
 =item file_media_type
 
 This is the MIME type that is appropriate for the given file format.
-This is a string like: "image/png" or "image/jpeg".
+The corresponding value is a string like: "image/png" or "image/jpeg".
 
 =item file_ext
 
 The is the suggested file name extention for a file of the given file
-format.  It is a 3 letter, lowercase string like "png", "jpg".
+format.  The value is a 3 letter, lowercase string like "png", "jpg".
 
 =item width
 
@@ -215,7 +240,7 @@ name ImageLength for this field.)
 
 =item color_type
 
-This is a short string describing what kind of values the pixels
+The value is a short string describing what kind of values the pixels
 encode.  The value can be one of the following:
 
   Gray
@@ -230,43 +255,42 @@ These names can also be prefixed by "Indexed-" if the image is
 composed of indexes into a palette.  Of these, only "Indexed-RGB" is
 likely to occur.
 
-It is similar to the TIFF field PhotometricInterpretation, but this
-name was found to be to long, so we used the PNG term instead :-)
+(It is similar to the TIFF field PhotometricInterpretation, but this
+name was found to be too long, so we used the PNG inpired term
+instead.)
+
+=item resolution
+
+The value of this field normally gives the physical size of the image
+on screen or paper. When the unit specifier is missing then this field
+denotes the squareness of pixels in the image.
+
+The syntax of this field is:
+
+   <res> <unit>
+   <xres> "/" <yres> <unit>
+   <xres> "/" <yres>
+
+The <res>, <xres> and <yres> fields are numbers.  The <unit> is a
+string like C<dpi>, C<dpm> or C<dpcm> (denoting "dots per
+inch/cm/meter).
 
 =item SamplesPerPixel
 
 This says how many channels there are in the image.  For some image
 formats this number might be higher than the number implied from the
-C<ColorType>.
+C<color_type>.
 
 =item BitsPerSample
 
-This says how many bits are used to encode each of samples.  The
-number of numbers here should be the same as C<SamplesPerPixel>.
-
-=item Resolution
-
-This field is instead of XResolution/YResolution when the pixels in
-the image are square.
-
-=item ResolutionUnit
-
-This is a string like C<dpi>, C<dpm>, C<dpcm> giving the physical size
-of the image on screen or paper.  If missing when
-XResolution/YResolution is present, then the resolution is used to
-denote the squareness of pixels in the image.
-
-=item XResolution
-
-The horizontal size of pixels.
-
-=item YResolution
-
-The vertical  size of pixels.
+This says how many bits are used to encode each of samples.  The value
+is a reference to an array containing numbers. The number of elements
+in the array should be the same as C<SamplesPerPixel>.
 
 =item Comment
 
-Textual comments found in the file.
+Textual comments found in the file.  The value is a reference to an
+array if there are multiple comments found.
 
 =item Interlace
 
@@ -277,11 +301,19 @@ used.
 
 This tell which compression algorithm is used.
 
+=item Gamma
+
+A number.
+
+=item LastModificationTime
+
+A ISO date string
+
 =back
 
 =head1 Supported Image Formats
 
-The following image file formats are supported:
+The following image file formats are currently supported:
 
 =over
 
@@ -292,7 +324,11 @@ application chunks.
 
 C<Exif> is the file format written by most digital cameras.  This
 encode things like timestamp, camera model, focal length, exposure
-time, aperture, flash usage, GPS position, etc.
+time, aperture, flash usage, GPS position, etc.  The following web
+page contain description of the fields that can be present:
+
+ http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html
+
 
 =item PNG
 

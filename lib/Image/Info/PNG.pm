@@ -70,7 +70,7 @@ sub process_file
 
 	    $info->push_info(0, "width", $w);
 	    $info->push_info(0, "height", $h);
-	    $info->push_info(0, "sample_format", "U$depth");
+	    $info->push_info(0, "SampleFormat", "U$depth");
 	    $info->push_info(0, "color_type", $ctype);
 
 	    $info->push_info(0, "Compression", $compression);
@@ -101,8 +101,12 @@ sub process_file
 	    }
 	    $res = ($res_x == $res_y) ? $res_x : "$res_x/$res_y";
 	    if ($unit) {
-		$unit = "dpm" if $unit == 1;
-		$res .= " $unit";
+		if ($unit == 1) {
+		    $res .= " dpm";
+		}
+		else {
+		    $res .= " png-unit-$unit";
+		}
 	    }
 	    $info->push_info(0, "resolution" => $res)
 	}
@@ -129,6 +133,10 @@ sub process_file
     }
 
     $info->push_info(0, "PNG_Chunks", @chunks);
+
+    unless ($info->get_info(0, "resolution")) {
+	$info->push_info(0, "resolution", "1/1");
+    }
 }
 
 1;

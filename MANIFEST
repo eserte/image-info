@@ -2,7 +2,6 @@ Changes
 MANIFEST
 Makefile.PL
 README
-exifdump		Test driver script
 imgdump			Test driver script
 test.jpg		An Exif example from my Digicam
 test.png		An PNG example
@@ -11,6 +10,7 @@ lib/Image/Info.pm
 lib/Image/Info/GIF.pm
 lib/Image/Info/JPEG.pm
 lib/Image/Info/PNG.pm
+lib/Image/Info/PPM.pm
 lib/Image/TIFF.pm	Parse TIFF tags
 t/exif.t
 t/png.t

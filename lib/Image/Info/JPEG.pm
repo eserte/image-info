@@ -136,19 +136,19 @@ sub process_app0_jfif
 	$info->push_info(0, "Debug", "Short JFIF chunk");
 	return;
     }
-    my($ver_hi, $ver_lo, $units, $x_density, $y_density, $x_thumb, $y_thumb) =
+    my($ver_hi, $ver_lo, $unit, $x_density, $y_density, $x_thumb, $y_thumb) =
 	unpack("CC C nn CC", substr($data, 0, 9, ""));
     $info->push_info(0, "JFIF_Version", sprintf("%d.%02d", $ver_hi, $ver_lo));
 
-    my $res = $x_density != $y_density || !$units
+    my $res = $x_density != $y_density || !$unit
 	? "$x_density/$y_density" : $x_density;
 
-    if ($units) {
-	$units = { 0 => "pixels",
-		   1 => "dpi",
-		   2 => "dpcm"
-		 }->{$units} || "units-$units";
-	$res .= " $units";
+    if ($unit) {
+	$unit = { 0 => "pixels",
+		  1 => "dpi",
+		  2 => "dpcm"
+		}->{$unit} || "jfif-unit-$unit";
+	$res .= " $unit";
     }
     $info->push_info(0, "resolution", $res);
 
@@ -196,13 +196,32 @@ sub process_app1_exif
 	for (@$ifd) {
 	    $info->push_info($i, $_->[0], $_->[3]);
 	}
+
+	# If we find JPEGInterchangeFormat/JPEGInterchangeFormatLngth,
+	# then we should apply process_file kind of recusively to extract
+	# information of this (thumbnail) image file...
+	if (my($ipos) = $info->get_info($i, "JPEGInterchangeFormat", 1)) {
+	    my($ilen) = $info->get_info($i, "JPEGInterchangeFormatLngth", 1);
+	    die unless $ilen;
+	    my $jdata = substr($data, $ipos, $ilen);
+	    #$info->push_info($i, "JPEGImage" => $jdata);
+
+	    require IO::String;
+	    my $fh = IO::String->new($jdata);
+	    process_file($info, $fh, $i);
+	}
+
+	# Turn XResolution/YResolution into 'resolution'
+	my($xres) = $info->get_info($i, "XResolution", 1);
+	my($yres) = $info->get_info($i, "YResolution", 1);
+	my($unit) = $info->get_info($i, "ResolutionUnit", 1);
+	my $res = "1/1";  # default;
+	if ($xres && $yres) {
+	    $res = ($xres == $yres) ? $xres : "$xres/$yres";
+	}
+	$res .= " $unit" if $unit && $unit ne "pixels";
+	$info->push_info($i, "resolution", $res);
     }
-
-    # XXX Should move XResolution/YResolution into 'resolution'
-
-    # XXX If we find JPEGInterchangeFormat/JPEGInterchangeFormatLngth,
-    # then we should apply process_file kind of recusively to extract
-    # information of this (thumbnail) image file...
 }
 
 sub process_app14_adobe

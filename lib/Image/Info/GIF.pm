@@ -58,8 +58,14 @@ sub process_file
     }
 
     if ($aspect) {
-	$info->push_info(0, "PixelAspectRatio" => ($aspect + 15) / 64);
-	# XXX shold set XResolution/YResulution...
+	$aspect = ($aspect + 15) / 64;
+	$info->push_info(0, "PixelAspectRatio" => $aspect);
+
+	# XXX is this correct????
+	$info->push_info(0, "resolution", "1/$aspect");
+    }
+    else {
+	$info->push_info(0, "resolution", "1/1");
     }
 
     $info->push_info(0, "file_media_type" => "image/gif");
@@ -82,7 +88,7 @@ sub process_file
 
 	    if (@comments) {
 		for (@comments) {
-		    $info->push_info(0, "comment", $_);
+		    $info->push_info(0, "Comment", $_);
 		}
 		@comments = ();
 	    }
@@ -151,7 +157,7 @@ sub process_file
     }
 
     for (@comments) {
-	$info->push_info(0, "comment", $_);
+	$info->push_info(0, "Comment", $_);
     }
 }
 
