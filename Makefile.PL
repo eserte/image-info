@@ -1,9 +1,10 @@
 require 5.005;
 use ExtUtils::MakeMaker;
+use File::Spec::Functions;
 
-my $tmpl = "./Info.pm.tmpl";
-my $info_pm = "./lib/Image/Info.pm";
-my $idir = "./lib/Image/Info";
+my $tmpl = catfile("Info.pm.tmpl");
+my $info_pm = catfile("lib", "Image", "Info.pm");
+my $idir = catdir("lib", "Image", "Info");
 opendir(DIR, $idir) || die "Can't opendir $idir: $!";
 my @code;
 my @desc;
@@ -11,7 +12,7 @@ for my $file (sort readdir(DIR)) {
     next unless $file =~ /^([a-zA-Z]\w*)\.pm$/;
     my $format = $1;
 
-    open(F, "$idir/$file") || die "Can't open '$idir/$file': $!";
+    open(F, catfile($idir, $file)) || die "Can't open '$idir/$file': $!";
     my @magic;
     my @desc;
     while (<F>) {

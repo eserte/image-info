@@ -1,3 +1,19 @@
+2001-12-14   Gisle Aas <gisle@ActiveState.com>
+
+    Release 1.09
+
+    Use File::Spec in Makefile.PL to improve portability.
+    Patch by Chris Nandor <pudge@pobox.com>.
+
+    Extended support for decoding of maker specific tags
+    for Nikon E995 and Olympus 3040Z.
+
+    TIFF support contributed by <clarsen@emf.net>.
+
+    Decoding of JPEG color components by <tkil@scrye.com>.
+
+
+
 2001-08-24   Gisle Aas <gisle@ActiveState.com>
 
     Release 1.08

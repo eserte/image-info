@@ -8,7 +8,7 @@ package Image::TIFF;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '0.10';
+$VERSION = '1.00';
 
 my @types = (
   undef,
@@ -164,11 +164,13 @@ my %makernotes = (
     "NIKON E950"  => [8, 'CoolPix', \%nikon1_tags],
     "NIKON E880"  => [0, 'CoolPix', \%nikon2_tags],
     "NIKON E990"  => [0, 'CoolPix', \%nikon2_tags],
+    "NIKON E995"  => [0, 'CoolPix', \%nikon2_tags],
     "NIKON CORPORATION NIKON D1"  => [0, 'NikonD1', \%nikon2_tags],
     "OLYMPUS OPTICAL CO.,LTD C2000Z"  => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD C2100UZ" => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD C2500L"  => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD C3030Z"  => [8, 'Olympus', \%olympus_tags],
+    "OLYMPUS OPTICAL CO.,LTD C3040Z"  => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD E-10"    => [8, 'Olympus', \%olympus_tags],
     "FUJIFILM FinePix4900ZOOM"  => [-1, 'FinePix', \%fujifilm_tags],
     "FUJIFILM FinePix40i"       => [-1, 'FinePix', \%fujifilm_tags],
@@ -282,6 +284,9 @@ my %tiff_tags = (
 	     2 => "ReducedResolution",
 	     3 => "SinglePage",
 	   },
+  256   => "width",
+  257   => "height",
+  258   => "BitsPerSample",
   259   => { __TAG__ => "Compression",
 	     1 => "PackBytes",
 	     2 => "CCITT Group3",
@@ -320,8 +325,14 @@ my %tiff_tags = (
 	     7 => "right_bot",
 	     8 => "left_bot",
 	   },
+  277   => "SamplesPerPixel",
+  278   => "RowsPerStrip",
+  279   => "StripByteCounts",
   282   => "XResolution",
   283   => "YResolution",
+  284   => {__TAG__ => "PlanarConfiguration",
+	    1 => "Chunky", 2 => "Planar",
+	},
   296   => {__TAG__ => "ResolutionUnit",
 	    1 => "pixels", 2 => "dpi", 3 => "dpcm",
 	   },

@@ -115,17 +115,24 @@ sub process_chunk
 	}
 
 	if (1) {
+	    my %comp_id_lookup = ( 1 => "Y",
+				   2 => "Cb",
+				   3 => "Cr",
+				   82 => "R",
+				   71 => "G",
+				   66 => "B" );
 	    while (length($data)) {
 		my($comp_id, $hv, $qtable) =
 		    unpack("CCC", substr($data, 0, 3, ""));
-		$comp_id = { 1 => "Y",
-			     2 => "Cb",
-			     3 => "Cr",
-			     82 => "R",
-			     71 => "G",
-			     66 => "B",
-			   }->{$comp_id} || $comp_id;
-		$info->push_info(0, "ColorComponents", [$comp_id, $hv, $qtable]);
+		my $horiz_sf = $hv >> 4 & 0x0f;
+		my $vert_sf = $hv & 0x0f;
+		$comp_id = $comp_id_lookup{$comp_id} || $comp_id;
+		$info->push_info($img_no, "ColorComponents",  [$comp_id, $hv, $qtable]);
+		$info->push_info($img_no, "ColorComponentsDecoded", 
+				 { ComponentIdentifier => $comp_id, 
+				   HorizontalSamplingFactor => $horiz_sf, 
+				   VerticalSamplingFactor => $vert_sf, 
+				   QuantizationTableDesignator => $qtable } );
 	    }
 	}
     }

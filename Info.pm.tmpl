@@ -10,7 +10,7 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.08';  # $Date: 2001/04/11 21:43:03 $
+$VERSION = '1.09';  # $Date: 2001/12/14 23:00:38 $
 
 require Exporter;
 *import = \&Exporter::import;
@@ -304,16 +304,18 @@ The following image file formats are currently supported:
 
 L<Image::Size>
 
-=head1 AUTHOR
+=head1 AUTHORS
 
 Copyright 1999-2001 Gisle Aas.
 
-GIF fixes by Ralf Steines <metamonk@yahoo.com>
+GIF fixes by Ralf Steines <metamonk@yahoo.com>.
 
 ASCII, BMP SVG, XPM and XBM support added by Jerrad Pierce
-<belg4mit@mit.edu>/<webmaster@pthbb.org>
+<belg4mit@mit.edu>/<webmaster@pthbb.org>.
 
-Exif MakerNote decoding by Jay Soffian <jay@loudcloud.com>
+Exif MakerNote decoding by Jay Soffian <jay@loudcloud.com>.
+
+TIFF support by <clarsen@emf.net>.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
