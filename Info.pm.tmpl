@@ -1,6 +1,6 @@
 package Image::Info;
 
-# Copyright 1999-2002, Gisle Aas.
+# Copyright 1999-2003, Gisle Aas.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
@@ -10,12 +10,14 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.12';
+$VERSION = '1.13';
 
 require Exporter;
 *import = \&Exporter::import;
 
 @EXPORT_OK = qw(image_info dim html_dim);
+
+my %mod_failure;
 
 sub image_info
 {
@@ -38,7 +40,7 @@ sub image_info
     }
 
     my $head;
-    read($source, $head, 32) == 32 or return _os_err("Can't read head");
+    read($source, $head, 32) or return _os_err("Can't read head");
     if (ref($source) eq "IO::String") {
 	# XXX workaround until we can trap seek() with a tied file handle
 	$source->setpos(0);
@@ -54,8 +56,14 @@ sub image_info
 	my $info = bless [], "Image::Info::Result";
 	eval {
 	    unless (defined &$sub) {
+	        if (my $fail = $mod_failure{$mod}) {
+		    die $fail;
+		}
 		eval "require $mod";
-		die $@ if $@;
+		if ($@) {
+		    $mod_failure{$mod} = $@;
+		    die $@;
+		}
 		die "$mod did not define &$sub" unless defined &$sub;
 	    }
 

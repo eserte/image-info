@@ -1,5 +1,6 @@
+#!perl -w
 
-if (1) {
+if ($] < 5.008) {
     eval {
 	require IO::String;
     };
@@ -10,28 +11,27 @@ if (1) {
     }
 }
 
-print "1..3\n";
+my @tests = glob("img/test.*");
+
+print "1..", scalar(@tests), "\n";
 
 use Image::Info qw(image_info);
 
 my $testno = 1;
-for my $type (qw(gif png jpg)) {
-    my $file = "test.$type";
-    if (!-f $file) {
-	print "Skipping $type test as '$file' can't be found\n";
-	print "ok $testno\n";
-	next;
-    }
+for my $file (@tests) {
+    print "# $file\n";
 
     my $h1 = image_info($file);
+
+    if (my $err = $h1->{error}) {
+	print "# - $err\n";
+    }
 
     my $img = cat($file);
     my $h2 = image_info(\$img);
 
     print "not " unless hash_equal($h1, $h2);
     print "ok $testno\n";
-}
-continue {
     $testno++;
 }
 
