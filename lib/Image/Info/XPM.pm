@@ -1,46 +1,82 @@
 package Image::Info::XPM;
-
-=begin register
-
-MAGIC: /^\/\* XPM \*\//
-
-See L<Image::Info::XPM> for details.
-
-=end register
-
-=cut
-
+$VERSION = '1.03';
+#Path to X11 RGB database
+$RGBLIB ||= "/usr/X11R6/lib/X11/rgb.txt";
+use strict;
 use Image::Xpm;
 
-$VERSION = '1.02';
 
 sub process_file{
-    my($info, $source) = @_;
+    my($info, $source, $opts) = @_;
     my(@comments, @warnings, $i);
 
-    *Image::Xpm::carp = sub { push @warnings, @_; };
+    *Image::Xpm::carp  = sub { push @warnings, @_; };
+    *Image::Xpm::croak = sub { $info->push_info(0, "error", @_); };
     if( $Image::Xpm::Version cmp '1.08' < 1){
 	push @warnings, "This version of Image::Xpm does not support filehandles or scalar references";
 	$source = $info->get_info(0, "FileName");
     }
+    if( $info->get_info(0, "error") ){
+	return; }
 
     $i = Image::Xpm->new(-file, $source);
     $info->push_info(0, "color_type" => "Indexed-RGB");
     $info->push_info(0, "file_ext" => "xpm");
     $info->push_info(0, "file_media_type" => "image/x-xpixmap");
     $info->push_info(0, "height", $i->get(-height));
+    $info->push_info(0, "resolution", "1/1");
     $info->push_info(0, "width", $i->get(-width));
     $info->push_info(0, "BitsPerSample" => 8);
-#    $info->push_info(0, "SamplesPerPixel", 1);
+    $info->push_info(0, "SamplesPerPixel", 1);
 
-    $info->push_info(0, "CharactersPerPixel" => $i->get(-cpp) );
+    $info->push_info(0, "XPM_CharactersPerPixel" => $i->get(-cpp) );
     # XXX is this always?
     $info->push_info(0, "ColorResolution", 8);
     $info->push_info(0, "ColorTableSize" => $i->get(-ncolours) );
-    $info->push_info(0, "RGB_Palette" => [keys %{$i->get(-cindex)}] );
+    if( $opts->{ColorPalette} ){
+	$info->push_info(0, "ColorPalette" => [keys %{$i->get(-cindex)}] );
+    }
+    if( $opts->{L1D_Histogram} ){
+	#Do Histograms
+	my(%RGB, @l1dhist, $R, $G, $B, $color);
+	for(my $y=0; $y<$i->get(-height); $y++){
+	    for(my $x=0; $x<$i->get(-width); $x++){
+		$color = $i->xy($x, $y);
+		if( $color !~ /^#/ ){
+		    unless( exists($RGB{white}) ){
+			local $_;
+			if( open(RGB, $Image::Info::XPM::RGBLIB) ){
+			    while(<RGB>){
+				/(\d+)\s+(\d+)\s+(\d+)\s+(.*)/;
+				$RGB{$4}=[$1,$2,$3];
+			    }
+			}
+			else{
+			    $RGB{white} = "0 but true";
+			    push @warnings, "Unable to open RGB database, you may need to set \$Image::Info::XPM::RGBLIB or define \$RGBLIB in ". __FILE__;
+			}
+		    }
+		    $R = $RGB{$color}->[0];
+		    $G = $RGB{$color}->[1];
+		    $B = $RGB{$color}->[2];
+		}
+		else{
+		    $R = hex(substr($color,1,2));
+		    $G = hex(substr($color,3,2));
+		    $B = hex(substr($color,5,2));
+		}
+		if( $opts->{L1D_Histogram} ){
+		    $l1dhist[(.3*$R + .59*$G + .11*$B)]++;
+		}
+	    }
+	}
+	if( $opts->{L1D_Histogram} ){
+	    $info->push_info(0, "L1D_Histogram", [@l1dhist]);
+	}
+    }
     $info->push_info(0, "HotSpotX" => $i->get(-hotx) );
     $info->push_info(0, "HotSpotY" => $i->get(-hoty) );
-    $info->push_info(0, ucfirst($i->get(-extname)) => $i->get(-extlines)) if
+    $info->push_info(0, 'XPM_Extension-'.ucfirst($i->get(-extname)) => $i->get(-extlines)) if
 	$i->get(-extname);
     push @comments, @{$i->get(-comments)};
 
@@ -74,27 +110,20 @@ Image::Info::XPM - XPM support for Image::Info
 
 =head1 DESCRIPTION
 
-This modules supplies the standard key names except for
-SamplesPerPixel and resolution. It also supplies the
-additional keys:
+This modules supplies the standard key names
+except for Compression, Gamma, Interlace, LastModificationTime, as well as:
 
 =over
 
-=item CharactersPerPixel
+=item ColorPalette
 
-This is typically 1 or 2.
-
-=item ColorResolution
-
-Always 8
+Reference to an array of all colors used.
+This key is only present if C<image_info> is invoked
+as C<image_info({ColorPaletteE<gt>=1})>.
 
 =item ColorTableSize
 
 The number of colors the image uses.
-
-=item RGB_Palette
-
-Reference to an array of all colors used.
 
 =item HotSpotX
 
@@ -106,11 +135,31 @@ Set to -1 if there is no hotspot.
 The y-coord of the image's hotspot.
 Set to -1 if there is no hotspot.
 
+=item L1D_Histogram
+
+Reference to an array representing a one dimensioanl luminance
+histogram. This key is only present if C<image_info> is invoked
+as C<image_info({L1D_Histogram=E<gt>1})>. The range is from 0 to 255,
+however auto-vivification is used so a null field is also 0,
+and the array may not actually contain 255 fields.
+
+=item XPM_CharactersPerPixel
+
+This is typically 1 or 2. See L<Image::Xpm>.
+
+=item XPM_Extension-.*
+
+XPM Extensions (the most common is XPMEXT) if present.
+
 =back
 
 =item FILES
 
 This module requires L<Image::Xpm>
+
+I<$Image::Info::XPM::RGBLIB> is set to F</usr/X11R6/lib/X11/rgb.txt>
+by default, this is used to resolve textual color names to their RGB
+counterparts.
 
 =head1 SEE ALSO
 
@@ -122,11 +171,27 @@ For more information about XPM see:
 
  ftp://ftp.x.org/contrib/libraries/xpm-README.html
 
+=head1 CAVEATS
+
+While the module attempts to be as robust as possible, it may not recognize
+older XBMs (Versions 1-3), if this is the case try inserting S</* XPM */>
+as the first line.
+
 =head1 AUTHOR
 
 Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
+
+=cut
+
+=begin register
+
+MAGIC: /(^\/\* XPM \*\/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)/
+
+See L<Image::Info::XPM> for details.
+
+=end register
 
 =cut

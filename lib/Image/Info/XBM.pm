@@ -1,39 +1,38 @@
 package Image::Info::XBM;
-
-=begin register
-
-MAGIC: /^#define\s+/
-
-See L<Image::Info::XBM> for details.
-
-=end register
-
-=cut
-
+$VERSION = '1.03';
+use strict;
 use Image::Xbm;
-$VERSION = '1.02';
 
 sub process_file{
-    my($info, $source) = @_;
-    my(@comments, @warnings, $i);
+    my($info, $source, $opts) = @_;
+    my(@comments, @warnings, $i, $imgdata);
 
-    *Image::Xbm::carp = sub { push @warnings, @_; };
+    *Image::Xbm::carp  = sub { push @warnings, @_; };
+    *Image::Xbm::croak = sub { $info->push_info(0, "error", @_); };
     if( $Image::Xbm::Version cmp '1.07' < 1){
 	push @warnings, "This version of Image::Xbm does not support filehandles or scalar references";
 	$source = $info->get_info(0, "FileName");
     }
+    if( $info->get_info(0, "error") ){
+	return; }
 
     $i = Image::Xbm->new(-file, $source);
     $info->push_info(0, "color_type" => "Grey");
     $info->push_info(0, "file_ext" => "xbm");
     $info->push_info(0, "file_media_type" => "image/x-xbitmap");
     $info->push_info(0, "height", $i->get(-height));
+    $info->push_info(0, "resolution", "1/1");
     $info->push_info(0, "width", $i->get(-width));
     $info->push_info(0, "BitsPerSample" => 1);
-#    $info->push_info(0, "SamplesPerPixel", 1);
+    $info->push_info(0, "SamplesPerPixel", 1);
 
-#    $info->push_info(0, "ColorResolution", 1);
-#    $info->push_info(0, "ColorTableSize" => 2 );
+    $info->push_info(0, "ColorTableSize" => 2 );
+    if(  $opts->{L1D_Histogram} ){
+	#Do Histogram
+	$imgdata = $i->as_binstring();
+	$info->push_info(0, "L1D_Histogram", [$imgdata =~ tr/0//d,
+					      $imgdata =~ tr/1//d ]);
+    }
     $info->push_info(0, "HotSpotX" => $i->get(-hotx) );
     $info->push_info(0, "HotSpotY" => $i->get(-hoty) );
 
@@ -67,9 +66,8 @@ Image::Info::XBM - XBM support for Image::Info
 
 =head1 DESCRIPTION
 
-This modules supplies the standard key names except for
-SamplesPerPixel and resolution. It also supplies the
-additional keys:
+This modules supplies the standard key names
+except for Compression, Gamma, Interlace, LastModificationTime, as well as:
 
 =over
 
@@ -82,6 +80,12 @@ Set to -1 if there is no hotspot.
 
 The y-coord of the image's hotspot.
 Set to -1 if there is no hotspot.
+
+=item L1D_Histogram
+
+Reference to an array representing a one dimensioanl luminance
+histogram. This key is only present if C<image_info> is invoked
+as C<image_info({L1D_Histogram=E<gt>1})>. The range is from 0 to 1.
 
 =back
 
@@ -105,5 +109,15 @@ Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
+
+=cut
+
+=begin register
+
+MAGIC: /^#define\s+/
+
+See L<Image::Info::XBM> for details.
+
+=end register
 
 =cut

@@ -96,7 +96,7 @@ sub process_file
 		push(@table, sprintf("#%02x%02x%02x",
 				     unpack("C3", substr($data, 0, 3, ""))));
 	    }
-	    $info->push_info(0, "RGB_Palette" => \@table);
+	    $info->push_info(0, "ColorPalette" => \@table);
 	}
 	elsif ($type eq "gAMA" && $len == 4) {
 	    $info->push_info(0, "Gamma", unpack("N", $data)/100_000);

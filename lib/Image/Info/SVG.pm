@@ -1,29 +1,17 @@
 package Image::Info::SVG;
+$VERSION = '1.01';
+use strict;
+no strict 'refs';
 use XML::Simple;
-
-=begin register
-
-MAGIC: /^<\?xml/
-
-SVG also provides (for) a plethora of attributes and metadata of an image.
-See L<Image::Info::SVG> for details.
-
-=end register
-
-=cut
-
-$VERSION = '1.00';
 
 sub process_file{
     my($info, $source) = @_;
     my(@comments, @warnings, %info, $comment, $img, $imgdata, $xs);
+    local($_);
 
     while(<$source>){
 	if( ! exists($info{standalone}) && /standalone="(.+?)"/ ){
 	    $info{standalone} = $1;
-	}
-	if( ! exists($info{dtd}) && /<!DOCTYPE\s+svg\s+.+?\s+"(.+?)">/ ){
-	    $info{dtd} = $1;
 	}
 	if( /<!--/ .. /-->/ ){
 	    $comment .= $_;
@@ -37,28 +25,39 @@ sub process_file{
 	}
 	$imgdata .= $_;
     }
+    if( $imgdata =~ /<!DOCTYPE\s+svg\s+.+?\s+"(.+?)">/ ){
+	$info{dtd} = $1;
+    }
+    elsif( $imgdata !~ /<svg/ ){
+	return $info->push_info(0, "error", "Not a valid SVG image");
+    }
 
-    *XML::Simple::carp = sub { push @warnings, @_; };
+    foreach my $pkg ( qw(SelectSaver
+		       IO::File
+		       IO::Seekable
+		       IO::Handle
+		       XML::Parser
+		       XML::Simple) ){
+	*{"${pkg}::carp"}  = sub { push @warnings, @_; };
+	*{"${pkg}::croak"} = sub { $info->push_info(0, "error", @_); };
+    }
     $xs = new XML::Simple();
     $img = $xs->XMLin($imgdata);
+    if( $info->get_info(0, "error") ){
+	return; }
 
-    use Data::Dumper;
-    print Dumper($img);
-
-    # XXX RGB? http://www.w3.org/TR/2000/CR-SVG-20000802/refs.html#ref-SRGB
     $info->push_info(0, "color_type" => "sRGB");
     $info->push_info(0, "file_ext" => "svg");
     # XXX not official type yet, may be image/svg+xml
     $info->push_info(0, "file_media_type" => "image/svg-xml");
     $info->push_info(0, "height", $img->{height});
+#    $info->push_info(0, "resolution", "1/1");
     $info->push_info(0, "width", $img->{width});
-    $info->push_info(0, "BitsPerSample", 8);
-    # XXX Compression? for ZVG/SVZ?
+#    $info->push_info(0, "BitsPerSample", 8);
     #$info->push_info(0, "SamplesPerPixel", -1);
 
-    if( local $_ = $img->{desc} ){
-	chomp $_;
-	$info->push_info(0, "ImageDescription", $_); }
+    # XXX Description, title etc. could be tucked away in a <g> :-(
+    $info->push_info(0, "ImageDescription", $img->{desc}) if $img->{desc};
     if( $img->{image} ){
 	if( ref($img->{image}) eq 'ARRAY' ){
 	    foreach my $img (@{$img->{image}}){
@@ -70,11 +69,8 @@ sub process_file{
 	}
     }
     $info->push_info(0, "SVG_StandAlone", $info{standalone});
-    if( local $_ = $img->{title} ){
-	chomp $_;
-	$info->push_info(0, "SVG_Title", $_); }
-#    $info->push_info(0, "SVG_Title", $img->{title}) if $img->{title};
-    $info->push_info(0, "SVG_Version", $info{dtd});
+    $info->push_info(0, "SVG_Title", $img->{title}) if $img->{title};
+    $info->push_info(0, "SVG_Version", $info{dtd}||'unknown');
 
     for (@comments) {
 	$info->push_info(0, "Comment", $_);
@@ -121,8 +117,7 @@ A functional yet thus far rudimentary SVG implementation.
 SVG also provides (for) a plethora of attributes and metadata of an image.
 
 This modules supplies the standard key names except for
-SamplesPerPixel and resolution. It also supplies the
-additional keys:
+BitsPerSample, Compression, Gamma, Interlace, LastModificationTime, as well as:
 
 =over
 
@@ -132,8 +127,8 @@ The image description, corresponds to <desc>.
 
 =item SVG_Image
 
-A scalar or reference to an array of scalars contaning the URI's of images
-(JPG or PNG) that are embedded in the image.
+A scalar or reference to an array of scalars containing the URI's of
+embedded images (JPG or PNG) that are embedded in the image.
 
 =item SVG_StandAlone
 
@@ -171,5 +166,16 @@ Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
+
+=cut
+
+=begin register
+
+MAGIC: /^<\?xml/
+
+SVG also provides (for) a plethora of attributes and metadata of an image.
+See L<Image::Info::SVG> for details.
+
+=end register
 
 =cut
