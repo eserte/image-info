@@ -1,3 +1,23 @@
+2002-12-30   Gisle Aas <gisle@ActiveState.com>
+
+    Release 1.12
+
+    Don't require IO::String for perl-5.8 as
+    it has that feature built in.  Based on patch
+    by Slaven Rezic <slaven.rezic@berlin.de>.
+
+    Looks like the TIFF support that was really
+    functional because I forgot to add
+    lib/Image/Info/TIFF.pm to the MANIFEST :-(
+
+    Support for Exif 2.2 tags contributed by
+    Stephane Bailliez <sbailliez@apache.org>.
+
+    Support Olympus C4000Z MakerNote also from
+    Stephane Bailliez.
+
+
+
 2002-07-04   Gisle Aas <gisle@ActiveState.com>
 
     Release 1.11

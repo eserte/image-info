@@ -13,7 +13,7 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.11';  # $Date: 2002/07/04 12:54:53 $
+$VERSION = '1.12';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -366,6 +366,11 @@ See L<Image::Info::SVG> for details.
 
 The C<TIFF> spec can be found at:
 http://partners.adobe.com/asn/developer/PDFS/TN/TIFF6.pdf
+
+Also good writeup on exif spec at:
+http://www.ba.wakwak.com/~tsuruzoh/Computer/Digicams/exif-e.html
+
+=item TIFF
 
 =item XBM
 

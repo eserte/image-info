@@ -170,6 +170,7 @@ my %makernotes = (
     "OLYMPUS OPTICAL CO.,LTD C2500L"  => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD C3030Z"  => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD C3040Z"  => [8, 'Olympus', \%olympus_tags],
+    "OLYMPUS OPTICAL CO.,LTD C4100Z,C4000Z" => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD E-10"    => [8, 'Olympus', \%olympus_tags],
     "FUJIFILM FinePix4900ZOOM"  => [-1, 'FinePix', \%fujifilm_tags],
     "FUJIFILM FinePix6900ZOOM"  => [-1, 'FinePix', \%fujifilm_tags],
@@ -255,17 +256,52 @@ my %exif_tags = (
 		1 => "Daylight",
 		2 => "Fluorescent",
 		3 => "Tungsten",
+		4 => "Flash",
+		# 5 .. 8 reserveed in EXIF 2.2
+		9 => "Fine weather",
+		10 => "Cloudy weather",
+		11 => "Shade",
+		12 => "Daylight fluorescent (D 5700-7100K)",
+		13 => "Day white fluorescent (N 4600-5400K)",
+		14 => "Cool white fluorescent (W 3900-4500K)",
+		15 => "White fluorescent (WW 3200-3700K)",		
 		17 => "Standard light A",
 		18 => "Standard light B",
 		19 => "Standard light C",
 		20 => "D55",
 		21 => "D65",
 		22 => "D75",
-		# 23 .. 254 reserved in EXIF 1.2
-		255 => "other",
+		23 => "D50",
+		24 => "ISO studio tungesten",		
+		# 25 .. 254 reserved in EXIF 2.2
+		255 => "other light source",
 	      },
-    0x9209 => "Flash",  # bitfield: (bit0: flash, bit1-2: returned light)
+    0x9209 => { __TAG__ => "Flash",
+		0x0000 => "Flash did not fire",
+		0x0001 => "Flash fired",
+		0x0005 => "Strobe return light not detected",
+		0x0007 => "Strobe return light detected",
+		0x0009 => "Flash fired, compulsory flash mode",
+		0x000D => "Flash fired, compulsory flash mode, return light not detected",
+		0x000F => "Flash fired, compulsory flash mode, return light detected",
+		0x0010 => "Flash did not fire, compulsory flash mode",
+		0x0018 => "Flash did not fire, auto mode",
+		0x0019 => "Flash fired, auto mode",
+		0x001D => "Flash fired, auto mode, return light not detected",
+		0x001F => "Flash fired, auto mode, return light detected",
+		0x0020 => "No flash function",
+		0x0041 => "Flash fired, red-eye reduction mode",
+		0x0045 => "Flash fired, red-eye reduction mode, return light not detected",
+		0x0047 => "Flash fired, red-eye reduction mode, return light detected",
+		0x0049 => "Flash fired, compulsory flash mode, red-eye reduction mode",
+		0x004D => "Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected",
+		0x004F => "Flash fired, compulsory flash mode, red-eye reduction mode, return light detected",
+		0x0059 => "Flash fired, auto mode, red-eye reduction mode",
+		0x005D => "Flash fired, auto mode, return light not detected, red-eye reduction mode",
+		0x005F => "Flash fired, auto mode, return light detected, red-eye reduction mode"
+		},
     0x920A => "FocalLength",
+    0x9214 => "SubjectArea",
     0x927C => "MakerNote",
     0x9286 => "UserComment",
     0x9290 => "SubSecTime",
@@ -275,6 +311,7 @@ my %exif_tags = (
     0xA001 => "ColorSpace",
     0xA002 => "ExifImageWidth",
     0xA003 => "ExifImageLength",
+    0xA004 => "RelatedAudioFile",
     0xA005 => {__TAG__ => "InteroperabilityOffset",
 	       __SUBIFD__ => \%exif_intr_tags,
 	      },
@@ -291,16 +328,81 @@ my %exif_tags = (
 	      },
     0xA214 => "SubjectLocation",              # 0x9214    -  -
     0xA215 => "ExposureIndex",                # 0x9215    -  -
-    0xA217 => "SensingMethod",                # 0x9217    -  -
+    0xA217 => {__TAG__ => "SensingMethod",
+		1 => "Not defined",
+		2 => "One-chip color area sensor",
+		3 => "Two-chip color area sensor",
+		4 => "Three-chip color area sensor",
+		5 => "Color sequential area sensor",
+		7 => "Trilinear sensor",
+		8 => "Color sequential linear sensor"
+		},
     0xA300 => {__TAG__ => "FileSource",
                DECODER => \&file_source_decoder,
               },
     0xA301 => {__TAG__ => "SceneType",
                DECODER => \&scene_type_decoder,
               },
+    0xA302 => "CFAPattern",
+    0xA401 => {__TAG__ => "CustomRendered",
+		0 => "Normal process",
+		1 => "Custom process"
+		},
+    0xA402 => {__TAG__ => "ExposureMode",
+		0 => "Auto exposure",
+		1 => "Manual exposure",
+		2 => "Auto bracket"
+		},
+    0xA403 => {__TAG__ => "WhiteBalance",
+		0 => "Auto white balance",
+		1 => "Manual white balance"
+		},
+    0xA404 => "DigitalZoomRatio",
+    0xA405 => "FocalLengthIn35mmFilm",
+    0xA406 => {__TAG__ => "SceneCaptureType",
+		0 => "Standard",
+		1 => "Landscape",
+		2 => "Portrait",
+		3 => "Night Scene"
+		},
+    0xA407 => {__TAG__ => "GainControl",
+		0 => "None",
+		1 => "Low gain up",
+		2 => "High gain up",
+		3 => "Low gain down",
+		4 => "High gain down"
+		},
+    0xA408 => {__TAG__ => "Contrast",
+		0 => "Normal",
+		1 => "Soft",
+		2 => "Hard"
+		},
+    0xA409 => {__TAG__ => "Saturation",
+		0 => "Normal",
+		1 => "Low saturation",
+		2 => "High saturation"
+		},
+    0xA40A => {__TAG__ => "Sharpness",
+		0 => "Normal",
+		1 => "Soft",
+		2 => "Hard"
+		},
+    0xA40B => "DeviceSettingDescription",
+    0xA40C => {__TAG__ => "SubjectDistanceRange",
+		0 => "Unknown",
+		1 => "Macro",
+		2 => "Close view",
+		3 => "Distant view"
+		},
+    0xA420 => "ImageUniqueID",
 );
 
 my %tiff_tags = (
+  254   => { __TAG__ => "NewSubfileType",
+	     1 => "ReducedResolution",
+	     2 => "SinglePage",
+	     4 => "TransparencyMask",
+	 },
   255   => { __TAG__ => "SubfileType",
 	     1 => "FullResolution",
 	     2 => "ReducedResolution",
@@ -321,7 +423,7 @@ my %tiff_tags = (
   262   => { __TAG__ => "PhotometricInterpretation",
 	     0 => "WhiteIsZero",
 	     1 => "BlackIsZero",
-             2 => "RGB",
+	     2 => "RGB",
 	     3 => "RGB Palette",
 	     4 => "Transparency Mask",
 	     5 => "CMYK",
@@ -333,10 +435,14 @@ my %tiff_tags = (
 	     2 => "OrderedDither",
 	     3 => "Randomized",
 	   },
+  266   => { __TAG__ => "FillOrder",
+	     1 => "LowInHigh",
+	     2 => "HighInLow",
+	   },
   270   => "ImageDescription",
   271   => "Make",
   272   => "Model",
-  273   => "StipOffset",
+  273   => "StripOffsets",
   274   => { __TAG__ => "Orientation",
 	     1 => "top_left",
 	     2 => "top_right",
@@ -358,12 +464,14 @@ my %tiff_tags = (
   296   => {__TAG__ => "ResolutionUnit",
 	    1 => "pixels", 2 => "dpi", 3 => "dpcm",
 	   },
+  297   => "PageNumber",
   301   => "TransferFunction",
   305   => "Software",
   306   => "DateTime",
   315   => "Artist",
   318   => "WhitePoint",
   319   => "PrimaryChromaticities",
+  320   => "ColorMap",
   513   => "JPEGInterchangeFormat",
   514   => "JPEGInterchangeFormatLngth",
   529   => "YCbCrCoefficients",
@@ -442,6 +550,11 @@ sub ifd
 sub tagname
 {
     $tiff_tags{$_[1]} || sprintf "Tag-0x%04x",$_[1];
+}
+
+sub exif_tagname
+{
+    $tiff_tags{$_[1]} || $exif_tags{$_[1]} || sprintf "Tag-0x%04x",$_[1];
 }
 
 sub add_fields
@@ -528,7 +641,7 @@ sub add_fields
 		}
 		#hack for UNDEFINED values, they all have different
 		#meanings depending on tag
-		$val = $tag->{DECODER}($self,$val) if defined($tag->{DECODER});
+		$val = &{$tag->{DECODER}}($self,$val) if defined($tag->{DECODER});
 		$val = $tag->{$val} if exists $tag->{$val};
 		$tag = $tag->{__TAG__};
 	    }
