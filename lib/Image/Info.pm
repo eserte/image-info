@@ -10,7 +10,7 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '0.03';  # $Date: 1999/12/25 22:36:39 $
+$VERSION = '0.04';  # $Date: 2000/01/03 20:10:01 $
 
 require Exporter;
 *import = \&Exporter::import;
@@ -38,7 +38,7 @@ sub image_info
         $source = $fh;
     }
     elsif (ref($source) eq "SCALAR") {
-	return { Error => "Literal image source not supported yet" }
+	return { error => "Literal image source not supported yet" }
     }
     else {
 	seek($source, 0, 0) or return _os_err("Can't rewind");
@@ -63,15 +63,15 @@ sub image_info
 	    &$sub($info, $source, @_);
 	    $info->clean_up;
 	};
-	return { Error => $@ } if $@;
+	return { error => $@ } if $@;
 	return wantarray ? @$info : $info->[0];
     }
-    return { Error => "Unrecognized file format" };
+    return { error => "Unrecognized file format" };
 }
 
 sub _os_err
 {
-    return { Error => "$_[0]: $!",
+    return { error => "$_[0]: $!",
 	     Errno => $!+0,
 	   };
 }
@@ -89,9 +89,9 @@ sub determine_file_format
 sub dim
 {
     my $img = shift || return;
-    my $x = $img->{ImageWidth} || return;
-    my $y = $img->{ImageHeight} || return;
-    wantarray ? ($x, $y) : "$x×$y";
+    my $x = $img->{width} || return;
+    my $y = $img->{height} || return;
+    wantarray ? ($x, $y) : "${x}x$y";
 }
 
 sub html_dim
@@ -155,8 +155,9 @@ file.  If there is only one image in the file only one hash is
 returned.  In scalar context, only the hash for the first image is
 returned.
 
-In case of error, and hash containing the "Error" key will be
-returned.
+In case of error, and hash containing the "error" key will be
+returned.  The corresponding value will be an appropriate error
+message.
 
 =item dim( $info_hash )
 
@@ -180,26 +181,26 @@ The following names are common for any image format:
 
 =over
 
-=item FileMediaType
+=item file_media_type
 
 This is the MIME type that is appropriate for the given file format.
 This is a string like: "image/png" or "image/jpeg".
 
-=item FileExt
+=item file_ext
 
 The is the suggested file name extention for a file of the given file
 format.  It is a 3 letter, lowercase string like "png", "jpg".
 
-=item ImageWidth
+=item width
 
 This is the number of pixels horizontally in the image.
 
-=item ImageHeight
+=item height
 
 This is the number of pixels vertically in the image.  (TIFF use the
 name ImageLength for this field.)
 
-=item ColorType
+=item color_type
 
 This is a short string describing what kind of values the pixels
 encode.  The value can be one of the following:
@@ -304,7 +305,7 @@ L<Image::Size>
 
 =head1 AUTHOR
 
-Copyright 1999 Gisle Aas.
+Copyright 1999-2000 Gisle Aas.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
