@@ -7,7 +7,7 @@ sub process_file{
     my(@comments, @warnings, @header, %info, $buf, $total);
 
     read($source, $buf, 54) == 54 or die "Can't reread BMP header: $!";
-    @header = unpack("SLS2L2V2S2L2V2L2", $buf);
+    @header = unpack("vVv2V2V2v2V2V2V2", $buf);
     $total += length($buf);
 
     if( $header[9] && $header[9] < 24 ){
@@ -46,7 +46,7 @@ sub process_file{
     if( $header[5] > 40 ){
 	read($source, $buf, $header[5]-40);  # XXX test
 	$total += length($buf);
-	my @v5 = unpack("L38", $buf);
+	my @v5 = unpack("V38", $buf);
 	splice(@v5, 5, 27);
 	$info->push_info(0, "BMP_MaskRed", $v5[0]);
 	$info->push_info(0, "BMP_MaskGreen", $v5[1]);

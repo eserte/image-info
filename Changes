@@ -1,3 +1,12 @@
+2001-04-10   Gisle Aas <gisle@ActiveState.com>
+
+    Release 1.07
+
+    Image::Info::BMP should not use architecture-dependent
+    unpack descriptors.  Fix by <Jost.Krieger@ruhr-uni-bochum.de>.
+
+
+
 2001-03-26   Gisle Aas <gisle@ActiveState.com>
 
     Release 1.06
