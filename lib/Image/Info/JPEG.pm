@@ -5,6 +5,24 @@ package Image::Info::JPEG;
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 
+=begin register
+
+MAGIC: /^\xFF\xD8/
+
+For JPEG files we extract information both from C<JFIF> and C<Exif>
+application chunks.
+
+C<Exif> is the file format written by most digital cameras.  This
+encode things like timestamp, camera model, focal length, exposure
+time, aperture, flash usage, GPS position, etc.  The following web
+page contain description of the fields that can be present:
+
+ http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html
+
+=end register
+
+=cut
+
 use strict;
 
 my %sof = (

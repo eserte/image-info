@@ -6,6 +6,8 @@ formats are supported:
    PNG
    GIF
    PBM/PGM/PPM
+   SVG
+   XBM/XPM
 
 Usage is something like this:
 

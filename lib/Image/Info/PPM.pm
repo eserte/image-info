@@ -5,6 +5,18 @@ package Image::Info::PPM;
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 
+=begin register
+
+MAGIC: /^P[1-6]/;
+
+=item PBM/PGM/PPM
+
+All information available is extracted.
+
+=end register
+
+=cut
+
 use strict;
 
 sub process_file

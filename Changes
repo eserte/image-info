@@ -1,3 +1,16 @@
+2000-10-10   Gisle Aas <gisle@ActiveState.com>
+
+    Release 1.02
+
+    Avoid direct hardcoding of image file magic and doc by
+    generating lib/Image/Info.pm in Makefile.PL
+
+    XBM/XPM/SVG support contributed by
+    Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
+
+    
+
+
 2000-10-31   Gisle Aas <gisle@ActiveState.com>
 
     Release 1.01

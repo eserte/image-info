@@ -10,27 +10,12 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.01';  # $Date: 2000/08/24 08:57:20 $
+$VERSION = '1.02';  # $Date: 2000/11/10 18:17:32 $
 
 require Exporter;
 *import = \&Exporter::import;
 
 @EXPORT_OK = qw(image_info dim html_dim);
-
-my @magic = (
-   "\xFF\xD8" => "JPEG",
-   "II*\0"    => "TIFF",
-   "MM\0*"    => "TIFF",
-   "\x89PNG\x0d\x0a\x1a\x0a" => "PNG",
-   "GIF87a" => "GIF",
-   "GIF89a" => "GIF",
-   "P1"     => "PPM",
-   "P2"     => "PPM",
-   "P3"     => "PPM",
-   "P4"     => "PPM",
-   "P5"     => "PPM",
-   "P6"     => "PPM",
-);
 
 sub image_info
 {
@@ -93,15 +78,7 @@ sub _os_err
 	   };
 }
 
-sub determine_file_format
-{
-    my $head = shift;
-    for (my $i = 0; $i < @magic; $i += 2) {
-	my $m = $magic[$i];
-	return $magic[$i+1] if substr($head, 0, length($m)) eq $m;
-    }
-    return;
-}
+%%DETERMINE_FILE_FORMAT%%
 
 sub dim
 {
@@ -317,34 +294,7 @@ The following image file formats are currently supported:
 
 =over
 
-=item JPEG
-
-For JPEG files we extract information both from C<JFIF> and C<Exif>
-application chunks.
-
-C<Exif> is the file format written by most digital cameras.  This
-encode things like timestamp, camera model, focal length, exposure
-time, aperture, flash usage, GPS position, etc.  The following web
-page contain description of the fields that can be present:
-
- http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html
-
-
-=item PNG
-
-Information from IHDR, PLTE, gAMA, pHYs, tEXt, tIME chunks are
-extracted.  The sequence of chunks are also given by the C<PNG_Chunks>
-key.
-
-=item GIF
-
-Both GIF87a and GIF89a are supported and the version number is found
-as C<GIF_Version> for the first image.  GIF files can contain multiple
-images, and information for all images will be returned if
-image_info() is called in list context.  The Netscape-2.0 extention to
-loop animation sequences is represented by the C<GIF_Loop> key for the
-first image.  The value is either "forever" or a number indicating
-loop count.
+%%FORMAT_DESC%%
 
 =back
 
@@ -355,6 +305,10 @@ L<Image::Size>
 =head1 AUTHOR
 
 Copyright 1999-2000 Gisle Aas.
+
+GIF fixes by Ralf Steines <metamonk@yahoo.com>
+
+SVG, X*M support added by Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

@@ -5,6 +5,18 @@ package Image::Info::PNG;
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 
+=begin register
+
+MAGIC: /^\x89PNG\x0d\x0a\x1a\x0a/
+
+Information from IHDR, PLTE, gAMA, pHYs, tEXt, tIME chunks are
+extracted.  The sequence of chunks are also given by the C<PNG_Chunks>
+key.
+
+=end register
+
+=cut
+
 use strict;
 
 sub my_read
