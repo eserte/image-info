@@ -1,3 +1,22 @@
+2000-10-31   Gisle Aas <gisle@ActiveState.com>
+
+    Release 1.01
+
+    GIF parsing fixes from Ralf Steines <metamonk@yahoo.com>:
+
+      - GIF 'DisposalMethod' and 'UserInput' now show proper values.
+
+      - GIF 'TransparencyIndex' now appears in the info hash.
+
+      - GIF anims with local color tables don't fail anymore
+        (table size calculation bug).
+
+      - Added: GIFs marked as 87a which contain graphics control
+        extension blocks don't fail anymore, GIF is parsed anyway
+        but $info->{warn} contains 'GIF 89a extensions in 87a'.
+
+
+
 2000-10-18   Gisle Aas <gisle@ActiveState.com>
 
     Release 1.00
