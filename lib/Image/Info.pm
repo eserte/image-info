@@ -13,7 +13,7 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.05';  # $Date: 2001/03/24 20:32:46 $
+$VERSION = '1.06';  # $Date: 2001/03/26 19:20:57 $
 
 require Exporter;
 *import = \&Exporter::import;
@@ -319,7 +319,8 @@ For more information see L<Image::Info::ASCII>.
 
 =item BMP
 
-This module supports the Microsoft Device Independent Bitmap format (BMP, DIB, RLE).
+This module supports the Microsoft Device Independent Bitmap format
+(BMP, DIB, RLE).
 
 For more information see L<Image::Info::BMP>.
 

@@ -1,12 +1,12 @@
 package Image::Info::BMP;
-$VERSION = '1.00';
+$VERSION = '1.01';
 use strict;
 
 sub process_file{
     my($info, $source, $opts) = @_;
     my(@comments, @warnings, @header, %info, $buf, $total);
 
-    sysread($source, $buf, 54);
+    read($source, $buf, 54) == 54 or die "Can't reread BMP header: $!";
     @header = unpack("SLS2L2V2S2L2V2L2", $buf);
     $total += length($buf);
 
@@ -44,7 +44,7 @@ sub process_file{
     #Version 5 Header ammendements
     # XXX Discard for now, need a test image
     if( $header[5] > 40 ){
-	sysread($source, $buf, $header[5]-40);
+	read($source, $buf, $header[5]-40);  # XXX test
 	$total += length($buf);
 	my @v5 = unpack("L38", $buf);
 	splice(@v5, 5, 27);
@@ -60,7 +60,7 @@ sub process_file{
     if( $header[9] < 24 && $opts->{ColorPalette} ){
 	my(@color, @palette);
 	for(my $i=0; $i<$header[14]; $i++){
-	    sysread($source, $buf, 4);
+	    read($source, $buf, 4) == 4 or die "Can't read: $!";
 	    $total += length($buf);
 	    @color = unpack("C3", $buf);
 	    # Damn M$, BGR instead of RGB
@@ -71,17 +71,17 @@ sub process_file{
     }
 
     #Verify size # XXX Cheat and do -s if it's an actual file?
-    while( sysread($source, $buf, 1024) ){
+    while( read($source, $buf, 1024) ){
 	$total += length($buf);
     }
     if( $header[1] != $total ){
 	push @warnings, "Size mismatch."
     }
-    
+
     for (@comments) {
 	$info->push_info(0, "Comment", $_);
     }
-    
+
     for (@warnings) {
 	$info->push_info(0, "Warn", $_);
     }
@@ -196,7 +196,8 @@ modify it under the same terms as Perl itself.
 
 MAGIC: /^BM/
 
-This module supports the Microsoft Device Independent Bitmap format (BMP, DIB, RLE).
+This module supports the Microsoft Device Independent Bitmap format
+(BMP, DIB, RLE).
 
 For more information see L<Image::Info::BMP>.
 

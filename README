@@ -8,6 +8,7 @@ formats are supported:
    PBM/PGM/PPM
    SVG
    XBM/XPM
+   BMP/DIB/RLE
 
 Usage is something like this:
 

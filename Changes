@@ -1,3 +1,12 @@
+2001-03-26   Gisle Aas <gisle@ActiveState.com>
+
+    Release 1.06
+
+    Avoid using sysread in Image::Info::BMP.  Avoids failures because
+    of mixing of hi- and low-level file reading operations.
+
+
+
 2001-03-24   Gisle Aas <gisle@ActiveState.com>
 
     Release 1.05
