@@ -1,3 +1,16 @@
+2000-11-30   Gisle Aas <gisle@ActiveState.com>
+
+    Release 1.04
+
+    Allow extra image_info() arguments to pass through to the
+    image format handlers.  This make the histogram and
+    color palette returns functional again.
+
+    Distribute a copy of lib/Image/Info.pm so that search.cpan.org
+    finds it.
+
+
+
 2000-11-13   Gisle Aas <gisle@ActiveState.com>
 
     Release 1.03

@@ -53,8 +53,13 @@ sub my_read
 
 sub process_file
 {
+    my($info, $fh, $cnf) = @_;
+    _process_file($info, $fh, 0);
+}
+
+sub _process_file
+{
     my($info, $fh, $img_no) = @_;
-    $img_no ||= 0;
 
     my $soi = my_read($fh, 2);
     die "SOI missing" unless $soi eq "\xFF\xD8";
@@ -191,7 +196,7 @@ sub process_app0_jfxx
 	eval {
 	    require IO::String;
 	    my $thumb_fh = IO::String->new($data);
-	    process_file($info, $thumb_fh, 1);
+	    _process_file($info, $thumb_fh, 1);
 	};
 	$info->push_info(1, "error" => $@) if $@;
     }
@@ -226,7 +231,7 @@ sub process_app1_exif
 
 	    require IO::String;
 	    my $fh = IO::String->new($jdata);
-	    process_file($info, $fh, $i);
+	    _process_file($info, $fh, $i);
 	}
 
 	# Turn XResolution/YResolution into 'resolution'

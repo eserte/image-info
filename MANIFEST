@@ -13,6 +13,7 @@ lib/Image/Info/PPM.pm
 lib/Image/Info/SVG.pm
 lib/Image/Info/XBM.pm
 lib/Image/Info/XPM.pm
+lib/Image/Info.pm
 lib/Image/TIFF.pm		Parse TIFF tags
 t/ascii.t
 t/bmp.t

@@ -85,7 +85,7 @@ Set to -1 if there is no hotspot.
 
 Reference to an array representing a one dimensioanl luminance
 histogram. This key is only present if C<image_info> is invoked
-as C<image_info({L1D_Histogram=E<gt>1})>. The range is from 0 to 1.
+as C<image_info($file, L1D_Histogram=E<gt>1)>. The range is from 0 to 1.
 
 =back
 

@@ -86,7 +86,7 @@ The number of colors the image uses.
 
 Reference to an array representing a one dimensioanl luminance
 histogram. This key is only present if C<image_info> is invoked
-as C<image_info({L1D_Histogram=E<gt>1})>. The range is from 0 to 127,
+as C<image_info($file, L1D_Histogram=E<gt>1)>. The range is from 0 to 127,
 however auto-vivification is used so a null field is also 0,
 and the array may not actually contain 127 fields. The index in
 the array corresponds to the C<ord> of the character and thusly

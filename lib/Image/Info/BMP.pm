@@ -146,7 +146,7 @@ the bitmap is a top-down DIB and its origin is the upper-left corner.
 
 Reference to an array of all colors used.
 This key is only present if C<image_info> is invoked
-as C<image_info({ColorPalette=E<gt>1})>.
+as C<image_info($file, ColorPalette=E<gt>1)>.
 
 =item ColorTableSize
 
