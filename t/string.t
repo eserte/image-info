@@ -39,6 +39,7 @@ sub cat {
     my $file = shift;
     local(*F, $/);
     open(F, $file) || die "Can't open $file: $!";
+    binmode F;
     my $c = <F>;
     close(F);
     $c;

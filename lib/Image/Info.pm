@@ -3,7 +3,7 @@
 
 package Image::Info;
 
-# Copyright 1999-2000, Gisle Aas.
+# Copyright 1999-2001, Gisle Aas.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
@@ -13,7 +13,7 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.04';  # $Date: 2000/11/30 19:58:12 $
+$VERSION = '1.05';  # $Date: 2001/03/24 20:32:46 $
 
 require Exporter;
 *import = \&Exporter::import;
@@ -376,12 +376,14 @@ L<Image::Size>
 
 =head1 AUTHOR
 
-Copyright 1999-2000 Gisle Aas.
+Copyright 1999-2001 Gisle Aas.
 
 GIF fixes by Ralf Steines <metamonk@yahoo.com>
 
 ASCII, BMP SVG, XPM and XBM support added by Jerrad Pierce
 <belg4mit@mit.edu>/<webmaster@pthbb.org>
+
+Exif MakerNote decoding by Jay Soffian <jay@loudcloud.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

@@ -3,6 +3,7 @@ Info.pm.tmpl			Will become lib/Image/Info.pm
 MANIFEST
 Makefile.PL
 README
+exifdump			Test driver script
 imgdump				Test driver script
 lib/Image/Info/ASCII.pm
 lib/Image/Info/BMP.pm
