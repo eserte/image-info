@@ -1,3 +1,26 @@
+2001-08-24   Gisle Aas <gisle@ActiveState.com>
+
+    Release 1.08
+
+    The html_dim() function did not work at all.
+    Patch by Hans-Georg <hgf@berlin.snafu.de>.
+
+    Removed ASCII image support.
+
+    TIFF rational numbers are now blessed and use overloading to
+    convert themselves to strings and numbers in a more sensible way.
+    They are still references to arrays containing 2 numbers.
+
+    GIF global color table reading fix.
+    Patch by Tom Hargreaves <admin@traderwebs.co.uk>.
+
+    Support for zTXt chunks in PNG.  This only works when the Compress::Zlib
+    module is available.  Contributed by Chip Marshall <chip@setzer.chocobo.cx>
+
+    Updated Exif URIs in documentation
+
+
+
 2001-04-10   Gisle Aas <gisle@ActiveState.com>
 
     Release 1.07

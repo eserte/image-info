@@ -5,7 +5,6 @@ Makefile.PL
 README
 exifdump			Test driver script
 imgdump				Test driver script
-lib/Image/Info/ASCII.pm
 lib/Image/Info/BMP.pm
 lib/Image/Info/GIF.pm
 lib/Image/Info/JPEG.pm
@@ -16,8 +15,8 @@ lib/Image/Info/XBM.pm
 lib/Image/Info/XPM.pm
 lib/Image/Info.pm
 lib/Image/TIFF.pm		Parse TIFF tags
-t/ascii.t
 t/bmp.t
+t/dim.t
 t/exif.t
 t/png.t
 t/string.t

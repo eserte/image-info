@@ -88,8 +88,10 @@ sub process_file
     $info->push_info(0, "file_ext" => "gif");
 
     # more??
-    my $color_table = my_read($fh, $color_table_size * 3);
-    #$info->push_info(0, "GlobalColorTable", color_table($color_table));
+    if ($global_color_table) {
+       my $color_table = my_read($fh, $color_table_size * 3);
+       #$info->push_info(0, "GlobalColorTable", color_table($color_table));
+    }
 
     my $img_no = 0;
     my @comments;

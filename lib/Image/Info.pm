@@ -13,7 +13,7 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.07';  # $Date: 2001/04/11 00:42:12 $
+$VERSION = '1.08';  # $Date: 2001/04/11 21:43:03 $
 
 require Exporter;
 *import = \&Exporter::import;
@@ -81,7 +81,6 @@ sub _os_err
 sub determine_file_format
 {
    local($_) = @_;
-   return "ASCII" if /^[\011\012\015\040-\176]*$/ && $_ !~ m%(^<\?xml)|(^#define\s+)|(^/\* XPM \*/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)%;
    return "BMP" if /^BM/;
    return "GIF" if /^GIF8[79]a/;
    return "JPEG" if /^\xFF\xD8/;
@@ -103,8 +102,8 @@ sub dim
 
 sub html_dim
 {
-    my($x, $y) = dim($_);
-    return unless $x;
+    my($x, $y) = dim(@_);
+    return "" unless $x;
     "WIDTH=$x HEIGHT=$y";
 }
 
@@ -313,10 +312,6 @@ The following image file formats are currently supported:
 =over
 
 
-=item ASCII
-
-For more information see L<Image::Info::ASCII>.
-
 =item BMP
 
 This module supports the Microsoft Device Independent Bitmap format
@@ -344,7 +339,11 @@ encode things like timestamp, camera model, focal length, exposure
 time, aperture, flash usage, GPS position, etc.  The following web
 page contain description of the fields that can be present:
 
- http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html
+ http://www.ba.wakwak.com/~tsuruzoh/Computer/Digicams/exif-e.html
+
+The C<Exif> spec can be found at:
+
+ http://www.pima.net/standards/it10/PIMA15740/exif.htm
 
 =item PNG
 

@@ -1,6 +1,6 @@
 package Image::Info::PNG;
 
-# Copyright 1999-200, Gisle Aas.
+# Copyright 1999-2000, Gisle Aas.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
@@ -18,6 +18,13 @@ key.
 =cut
 
 use strict;
+
+# Test for Compress::Zlib (for reading zTXt chunks)
+my $have_zlib = 0;
+eval {
+    require Compress::Zlib;
+    $have_zlib++;
+};
 
 sub my_read
 {
@@ -127,6 +134,15 @@ sub process_file
 	    # XXX should make sure $key is not in conflict with any
 	    # other key we might generate
 	    $info->push_info(0, $key, $val);
+	}
+	elsif ($type eq "zTXt" && $have_zlib) {
+		my($key, $val) = split(/\0/, $data, 2);
+		my($method,$ctext) = split(//, $val, 2);
+		if ($method == 0) {
+		    $info->push_info(0, $key, Compress::Zlib::uncompress($ctext));
+		} else {
+		    $info->push_info(0, "Chunk-$type" => $data);
+		}
 	}
 	elsif ($type eq "tIME" && $len == 7) {
 	    $info->push_info(0, "LastModificationTime",

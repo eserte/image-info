@@ -428,12 +428,7 @@ sub add_fields
 		my @v = $self->unpack("x$voff$tmpl", $_);
 		$val = (@v > 1) ? \@v : $v[0];
 
-		if ($type =~ /S?RATIONAL$/ && @v == 2 && $val->[1] &&
-		    !($val->[0] % $val->[1]))
-		{
-		    $val = $val->[0]/$val->[1];
-		}
-
+		bless $val, "Image::TIFF::Rational" if $type =~ /^S?RATIONAL$/;
 	    }
 	    $tag = $tags->{$tag} || $self->tagname($tag);
 
@@ -477,6 +472,30 @@ sub _push_field
     my $self = shift;
     my $ifds = shift;
     push(@$ifds, [@_]);
+}
+
+
+
+package Image::TIFF::Rational;
+
+use overload '""' => \&as_string,
+             '0+' => \&as_float,
+             fallback => 1;
+
+sub new {
+    my($class, $a, $b) = @_;
+    bless [$a, $b], $class;
+}
+
+sub as_string {
+    my $self = shift;
+    #warn "@$self";
+    "$self->[0]/$self->[1]";
+}
+
+sub as_float {
+    my $self = shift;
+    $self->[0] / $self->[1];
 }
 
 1;

@@ -17,7 +17,11 @@ encode things like timestamp, camera model, focal length, exposure
 time, aperture, flash usage, GPS position, etc.  The following web
 page contain description of the fields that can be present:
 
- http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html
+ http://www.ba.wakwak.com/~tsuruzoh/Computer/Digicams/exif-e.html
+
+The C<Exif> spec can be found at:
+
+ http://www.pima.net/standards/it10/PIMA15740/exif.htm
 
 =end register
 
