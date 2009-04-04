@@ -48,7 +48,6 @@ SKIP:
       if (exists $requires->{$x})
         {
         my $r = $requires->{$x};
-        print STDERR "# $x requires $r\n";
         skip( "Need $r for this test", 2 ) && next
           unless do {
             eval "use $r;";

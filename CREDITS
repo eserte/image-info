@@ -9,8 +9,7 @@ of Exif file format" and Thierry Bousch's Python module 'exifdump.py'
 
 The following list is in alphabetical order. If you contributed to
 Image::Info and miss your name on the list, please file a bug
-report at rt.cpan.org or send email to the current CPAN
-maintainer:
+report at rt.cpan.org or send email to the current maintainer:
 
 Adam Kennedy <cpan@ali.as>		image_type()
 Ben Wheeler <b.wheeler@ulcc.ac.uk>	TIFF bugfixes and patches
@@ -20,6 +19,8 @@ Gisle Aas				Main author and contributor
 Jay Soffian <jay@loudcloud.com>		Exif MakerNote decoding
 Jerrad Pierce <belg4mit@mit.edu>	ASCII, BMP SVG, XPM and XBM support
 José Pedro Oliveira <jpo@di.uminho.pt>	XBM/XPM/TIFF bug reports and patches
+					TIFF endian tests
+					Testing on Mac and PPC
 Phil Harvey <phil@ owl.phy.queensu.ca>	Panasonic Exif MakerNotes
 Ralf Steines <metamonk@yahoo.com> 	GIF fixes
 <srezic@cpan.org>			bug report #8522

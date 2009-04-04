@@ -1,5 +1,16 @@
 Revision history for Image::Info
 
+2006-05-01 v1.21 Tels 96 tests
+  * move the code to build Info.pm to dev/build.pl
+  * include a pre-generated Info.pm into MANIFEST
+    (fixes the indexing issue with CPAN)
+  * dont use Symbol(), it is required before its usage anyway
+  * allow exporting of determine_file_type and image_type
+  * remove a needless diag message in string.t (Thanx jpo!)
+  * add two test TIFFs (little/big endian) and a test file (Thanx jpo!)
+  * create a new, much smaller test.rle file
+  * more tests in t/bmp.t
+
 2006-03-13 v1.20 Tels 74 tests
   * a few additions to Panasonic MakerNote in EXIF parsing
   * use Module::Install 0.60 to fix breakage from 0.58
