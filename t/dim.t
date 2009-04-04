@@ -18,10 +18,10 @@ use Image::Info qw(image_info dim html_dim);
 my $info = image_info("../img/test.gif");
 my @dim = dim($info);
 
-is (join(" ", @dim), "400 300", 'dim()');
+is (join(" ", @dim), "200 150", 'dim()');
 
-is (dim($info), '400x300', 'dim($info)');
+is (dim($info), '200x150', 'dim($info)');
 
-is (html_dim($info), 'width="400" height="300"', 'html_dim()');
+is (html_dim($info), 'width="200" height="150"', 'html_dim()');
 
 is (html_dim(image_info('README')), '', 'no README in info');

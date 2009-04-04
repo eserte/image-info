@@ -1,5 +1,6 @@
 
 * add support for more image formats
 * Image::TIFF should not need to slurp
-* convert string,t to Test::More
-* get rid of the warning in pod_cov.t
+* convert the EXIF parsing code to just use something like
+  Image::Exiftool - our code is way to complicated, outdated,
+  and it's double work to maintain it

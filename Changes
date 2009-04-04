@@ -1,5 +1,35 @@
 Revision history for Image::Info
 
+2006-03-03 v1.18 Tels 61 tests
+  * fix bug #6558: Image::Info 1.16 -> fails two tests (Thanx jpo!)
+    + make string.t use strict, Test::More and simplify it
+    + let string.t skip tests if Image::XPM, Image::XBM or XML::Simple
+      are not installed (these would formerly silently fail)
+    + Image::Info::XPM and Image::Info::XBM now handle in-memory files better
+    + fix also pod_cov.t warnings (was "Image::Info.pm" vs "Image::Info")
+  * reduce img/test.gif in size, it did eat up 1/3 of the entire dist size
+  * reducing test.jpg with GIMP reveals a bug in EXIF parsing (not yet fixed)
+  * MakerNote parsing:
+    + add support for Panasonic cameras
+    + for the following manufacturers we do not check the camera model, this
+      gets all cameras, even yet unreleased ones to work:
+      + Canon
+      + Panasonic
+      + Casio
+      + Olympus
+      + Fujifilm
+    + UNDEFINED/ASCII strings from MakeNotes might have wrong length due to
+      trailing \x00 chars, so we remove them and set the correct length
+  * update one more URL for EXIF specs
+  * imgdump uses Data::Dumper (not Data::Dump)
+  * Install/build:
+    + use Module::Install and bundle it, clean Makefile.PL up
+    + add a compat Build.PL file
+  * add a CREDITS file
+  * PPM.pm: add VERSION, and POD
+  * various POD fixes and additions
+  * various small code cleanups
+
 2006-01-28 v1.17 Tels 48 tests
   * new maintainer: TELS
   * signed with my key

@@ -1,5 +1,5 @@
 package Image::Info::XPM;
-$VERSION = '1.03';
+$VERSION = '1.04';
 #Path to X11 RGB database
 $RGBLIB ||= "/usr/X11R6/lib/X11/rgb.txt";
 use strict;
@@ -13,7 +13,10 @@ sub process_file{
 	$info->push_info(0, "Warn", shift);
     };
 
-    my $i = Image::Xpm->new(-file, $source);
+    my $i = Image::Xpm->new()
+    # loading the file as a seperate step avoids a "-r" test, this would
+    # file with in-memory strings (aka fake files)
+    $i->load($source);
 
     $info->push_info(0, "color_type" => "Indexed-RGB");
     $info->push_info(0, "file_ext" => "xpm");
@@ -80,7 +83,6 @@ sub process_file{
 }
 1;
 __END__
-=pod
 
 =head1 NAME
 
@@ -170,6 +172,8 @@ as the first line.
 =head1 AUTHOR
 
 Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
+
+Now maintained by Tels - (c) 2006.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

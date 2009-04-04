@@ -1,36 +1,11 @@
-require 5.005;
-use ExtUtils::MakeMaker;
-use File::Spec;
+#!/usr/bin/perl -w
+
 use strict;
+use File::Spec;
 
-sub MY::metafile {
-  package MY;
-  my $self = shift;
-  if (!eval { require YAML; 1 })
-  {
-    warn ("YAML not installed, 'make dist' will not override 'META.yml'.");
-    return $self->SUPER::metafile_target(@_);
-  };
-
-  require YAML::Node;
-  my $node = YAML::Node->new({});
-
-  $node->{name}                 = $self->{DISTNAME};
-  $node->{version}              = $self->{VERSION};
-  $node->{version_from}         = $self->{VERSION_FROM};
-  $node->{license}              = 'perl';
-  $node->{distribution_type}    = 'module';
-  $node->{generated_by}         = "$self->{DISTNAME} version $self->{VERSION}";
-  $node->{installdirs}          = 'site';
-  $node->{requires}             = $self->{PREREQ_PM};
-
-  my $dump = YAML::Dump( $node );
-
-  $dump =~ s/^(.*)$/\t\$(NOECHO) \$(ECHO) "$1" >>META.yml/gm;
-  $dump =~ s/>>META\.yml/>META.yml/;
-
-  "metafile:\n$dump";
-}
+#############################################################################
+#############################################################################
+# Write the Info.pm file with system specific code from Info.pm.tmpl:
 
 my $tmpl = File::Spec->catfile("Info.pm.tmpl");
 my $info_pm = File::Spec->catfile("lib", "Image", "Info.pm");
@@ -103,19 +78,37 @@ while (<TMPL>) {
 close(INFO);
 close(TMPL);
 
-WriteMakefile(
-    NAME         => 'Image::Info',
-    AUTHOR       => 'Gisle Aas <gisle@ActiveState.com',
-    VERSION_FROM => $info_pm,
-    PREREQ_PM	=>
-	{
-		($] < 5.008 ? ('IO::String' => 1.03) : ()),
-		'Test::Simple' => 0,
-	},
-    ABSTRACT_FROM	=> 'lib/Image/Info.pm',
-    AUTHOR		=> 'Gisle Aas <gisle@ActiveState.com',
-    PREREQ_FATAL	=> 1,  # can't work w/o proper prereqs
-    clean        => { FILES => $info_pm },
-    dist         => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-);
+
+#############################################################################
+#############################################################################
+
+# Load the Module::Install bundled in ./inc/
+use inc::Module::Install;
+
+# The name of your distribution
+name		'Image-Info';
+
+# Get most of the details from the primary module
+all_from	$info_pm;
+
+requires	'IO::String'	=> 1.03 if $] < 5.008;
+
+recommends	'Image::XPM'	=> 0,
+		'Image::XBM'	=> 0,
+		'XML::Simple'	=> 0;
+
+build_requires  'Test::More'	=> 0.42;
+
+license		'perl';
+
+author		'Tels <nospam-abuse@bloodgate.com>';
+
+# Do not index these
+no_index        directory       => 'img';
+    
+# Auto-install all dependencies from CPAN
+auto_install;
+
+# Generate the Makefile
+WriteAll;
 

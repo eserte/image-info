@@ -18,11 +18,12 @@ All information available is extracted.
 =cut
 
 use strict;
+use vars qw/$VERSION/;
 
-sub process_file
-{
+$VERSION = 0.02;
+
+sub process_file {
     my($info, $fh) = @_;
-
 
     my @header;
     my $type;
@@ -84,3 +85,44 @@ sub process_file
 }
 
 1;
+
+=pod
+
+=head1 NAME
+
+Image::Info:PPM - PPM support Image::Info
+
+=head1 SYNOPSIS
+
+ use Image::Info qw(image_info dim);
+
+ my $info = image_info("image.ppm");
+ if (my $error = $info->{error}) {
+     die "Can't parse image info: $error\n";
+ }
+ my($w, $h) = dim($info);
+
+=head1 DESCRIPTION
+
+This modules adds ppm support to Image::Info.
+
+It is loaded and used automatically.
+
+=head1 METHODS
+
+=head2 process_file()
+    
+	$info->process_file($source, $options);
+
+Processes one file and sets the found info fields in the C<$info> object.
+
+=head1 AUTHOR
+
+Gisle Aas.
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=cut

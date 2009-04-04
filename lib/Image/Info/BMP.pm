@@ -2,7 +2,7 @@ package Image::Info::BMP;
 $VERSION = '1.01';
 use strict;
 
-sub process_file{
+sub process_file {
     my($info, $source, $opts) = @_;
     my(@comments, @warnings, @header, %info, $buf, $total);
 
@@ -88,23 +88,6 @@ sub process_file{
 }
 1;
 __END__
-warn if height is negative and compress is not RGB or BITFILEDS (0 or 3)
-ICO and CUR support?
-### v5
-If bit depth is 0, it relies upon underlying JPG/PNG :-(
-Extra Information
-    DWORD        bV5RedMask; 
-    DWORD        bV5GreenMask; 
-    DWORD        bV5BlueMask; 
-    DWORD        bV5AlphaMask; 
-    DWORD        bV5CSType; 
-    CIEXYZTRIPLE bV5EndPoints; #3*CIEXYZ #CIEXYZ = 3*FXPT2DOT30#FXPT2DOT30 = long
-    DWORD        bV5GammaRed; 
-    DWORD        bV5GammaGreen; 
-    DWORD        bV5GammaBlue; 
-    DWORD        bV5Intent; 
-    DWORD        bV5ProfileData; 
-    DWORD        bV5ProfileSize; 
 
 =pod
 
@@ -156,6 +139,14 @@ The number of color I<available> is 2 ^ B<BitsPerSample>.
 
 =back
 
+=head1 METHODS
+
+=head2 process_file()
+    
+	$info->process_file($source, $options);
+
+Processes one file and sets the found info fields in the C<$info> object.
+
 =head1 SEE ALSO
 
 L<Image::Info>
@@ -165,6 +156,26 @@ L<Image::Info>
 For more information about BMP see:
 
  http://msdn.microsoft.com
+
+Random notes:
+
+  warn if height is negative and compress is not RGB or BITFILEDS (0 or 3)
+  ICO and CUR support?
+  ### v5
+  If bit depth is 0, it relies upon underlying JPG/PNG :-(
+  Extra Information
+    DWORD        bV5RedMask; 
+    DWORD        bV5GreenMask; 
+    DWORD        bV5BlueMask; 
+    DWORD        bV5AlphaMask; 
+    DWORD        bV5CSType; 
+    CIEXYZTRIPLE bV5EndPoints; #3*CIEXYZ #CIEXYZ = 3*FXPT2DOT30#FXPT2DOT30 = long
+    DWORD        bV5GammaRed; 
+    DWORD        bV5GammaGreen; 
+    DWORD        bV5GammaBlue; 
+    DWORD        bV5Intent; 
+    DWORD        bV5ProfileData; 
+    DWORD        bV5ProfileSize; 
 
 =head1 DIAGNOSTICS
 
@@ -189,8 +200,6 @@ Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
-
-=cut
 
 =begin register
 

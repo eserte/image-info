@@ -1,0 +1,18 @@
+
+Special thanx go to Gisle Aas, the main author and contributor.
+
+The following list is in alphabetical order. If you contributed to
+Image::Info and miss your name on the list, please file a bug
+report at rt.cpan.org or send email to the current CPAN
+maintainer:
+
+<clarsen@emf.net>			TIFF support 
+Gisle Aas				Main author and contributor
+Jay Soffian <jay@loudcloud.com>		Exif MakerNote decoding
+Jerrad Pierce <belg4mit@mit.edu>	ASCII, BMP SVG, XPM and XBM support
+jpo <jpo@di.uminho.pt>			XBM/XPM bug reports and patches
+Phil Harvey <phil@ owl.phy.queensu.ca>	Panasonic Exif MakerNotes
+Ralf Steines <metamonk@yahoo.com> 	GIF fixes
+<srezic@cpan.org>			bug report #8522
+Tels <http://www.bloodgate.com>		Maintainer from 2006 on
+

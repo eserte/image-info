@@ -4,10 +4,10 @@ use lib "./lib";
 
 use strict;
 use Image::Info qw(image_info);
-use Data::Dump;
+use Data::Dumper;
 
 while (@ARGV) {
-    print Data::Dump::dump(image_info(shift)), "\n";
+    print Data::Dumper::Dumper(image_info(shift)), "\n";
 }
 
 

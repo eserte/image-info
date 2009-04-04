@@ -246,9 +246,18 @@ sub process_app1_exif
     require Image::TIFF;
     my $t = Image::TIFF->new(\$data);
 
+
     for my $i (0 .. $t->num_ifds - 1) {
 	my $ifd = $t->ifd($i);
+
+#	use Data::Dumper;
+#	print STDERR Dumper($ifd);
+
 	for (@$ifd) {
+#		use Devel::Peek;
+#		print STDERR "# pushing info $i $_->[0] $_->[3]\n";
+#		print STDERR Devel::Peek::Dump($_->[3]),"\n" if $_->[0] =~ /Olympus-/;
+
 	    $info->push_info($i, $_->[0], $_->[3]);
 	}
 

@@ -1,6 +1,7 @@
 package Image::TIFF;
 
 # Copyright 1999-2001, Gisle Aas.
+# Copyright 2006 Tels
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
@@ -8,7 +9,7 @@ package Image::TIFF;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.00';
+$VERSION = '1.02';
 
 my @types = (
   [ "BYTE",      "C1", 1],
@@ -303,45 +304,135 @@ my %canon_tags = (
     0x000c => "SerialNumber",
 );
 
-my %makernotes = (
-    "NIKON E700"  => [8, 'CoolPix', \%nikon1_tags],
-    "NIKON E800"  => [8, 'CoolPix', \%nikon1_tags],
-    "NIKON E900"  => [8, 'CoolPix', \%nikon1_tags],
-    "NIKON E900S" => [8, 'CoolPix', \%nikon1_tags],
-    "NIKON E910"  => [8, 'CoolPix', \%nikon1_tags],
-    "NIKON E950"  => [8, 'CoolPix', \%nikon1_tags],
-    "NIKON E880"  => [0, 'CoolPix', \%nikon2_tags],
-    "NIKON E990"  => [0, 'CoolPix', \%nikon2_tags],
-    "NIKON E995"  => [0, 'CoolPix', \%nikon2_tags],
-    "NIKON CORPORATION NIKON D1"  => [0, 'NikonD1', \%nikon2_tags],
-    "NIKON CORPORATION NIKON D70"  => [-2, 'NikonD1', \%nikon2_tags],
-    "NIKON CORPORATION NIKON D100"  => [-2, 'NikonD1', \%nikon2_tags],
-    "OLYMPUS OPTICAL CO.,LTD C2000Z"  => [8, 'Olympus', \%olympus_tags],
-    "OLYMPUS OPTICAL CO.,LTD C2100UZ" => [8, 'Olympus', \%olympus_tags],
-    "OLYMPUS OPTICAL CO.,LTD C2500L"  => [8, 'Olympus', \%olympus_tags],
-    "OLYMPUS OPTICAL CO.,LTD C3030Z"  => [8, 'Olympus', \%olympus_tags],
-    "OLYMPUS OPTICAL CO.,LTD C3040Z"  => [8, 'Olympus', \%olympus_tags],
-    "OLYMPUS OPTICAL CO.,LTD C4100Z,C4000Z" => [8, 'Olympus', \%olympus_tags],
-    "OLYMPUS OPTICAL CO.,LTD C700UZ"  => [8, 'Olympus', \%olympus_tags],
-    "OLYMPUS OPTICAL CO.,LTD E-10"    => [8, 'Olympus', \%olympus_tags],
-    "FUJIFILM FinePix4900ZOOM"  => [-1, 'FinePix', \%fujifilm_tags],
-    "FUJIFILM FinePix6900ZOOM"  => [-1, 'FinePix', \%fujifilm_tags],
-    "FUJIFILM FinePix40i"       => [-1, 'FinePix', \%fujifilm_tags],
-    "FUJIFILM FinePix2400Zoom" => [-1, 'FinePix', \%fujifilm_tags],
-    "FUJIFILM FinePix4700 ZOOM" => [-1, 'FinePix', \%fujifilm_tags],
-    "FUJIFILM FinePixS1Pro"     => [-1, 'FinePix', \%fujifilm_tags],
-    "CASIO QV-3000EX"  => [0, 'Casio', \%casio_tags],
-    "Canon Canon EOS 10D"            => [0, 'Canon', \%canon_tags],
-    "Canon Canon EOS D30"            => [0, 'Canon', \%canon_tags],
-    "Canon Canon EOS D60"            => [0, 'Canon', \%canon_tags],
-    "Canon Canon EOS DIGITAL REBEL"  => [0, 'Canon', \%canon_tags],
-    "Canon Canon DIGITAL IXUS"       => [0, 'Canon', \%canon_tags],
-    "Canon Canon DIGITAL IXUS 300"   => [0, 'Canon', \%canon_tags],
-    "Canon Canon PowerShot G1"       => [0, 'Canon', \%canon_tags],
-    "Canon Canon PowerShot Pro90 IS" => [0, 'Canon', \%canon_tags],
-    "Canon Canon PowerShot S10"      => [0, 'Canon', \%canon_tags],
-    "Canon Canon PowerShot S20"      => [0, 'Canon', \%canon_tags],
+# see http://www.compton.nu/panasonic.html
+
+my %panasonic_tags = (
+    0x0001 => { __TAG__ => "ImageQuality",
+	2 => 'High',
+	3 => 'Normal',
+	6 => 'Very High',	#3 (Leica)
+	7 => 'Raw', 		#3 (Leica)
+	},
+    0x0002 => "FirmwareVersion",
+    0x0003 => { __TAG__ => "WhiteBalance",
+	1 => 'Auto',
+	2 => 'Daylight',
+	3 => 'Cloudy',
+	4 => 'Halogen',
+	5 => 'Manual',
+	8 => 'Flash',
+	10 => 'Black & White', #3 (Leica)
+	},
+    0x0007 => { __TAG__ => "FocusMode",
+	1 => 'Auto',
+	2 => 'Manual',
+	},
+    0x000f => { __TAG__ => "SpotMode",
+	# XXX TODO: does not decode properly
+	"0,1" => 'On',
+	"0,16" => 'Off',
+	},
+    0x001a => { __TAG__ => "ImageStabilizer",
+	2 => 'On, Mode 1',
+	3 => 'Off',
+	4 => 'On, Mode 2',
+	},
+    0x001c => { __TAG__ => "MacroMode",
+	1 => 'On',
+	2 => 'Off',
+	},
+    0x001f => { __TAG__ => "ShootingMode",
+	1  => 'Normal',
+	2  => 'Portrait',
+	3  => 'Scenery',
+	4  => 'Sports',
+	5  => 'Night Portrait',
+	6  => 'Program',
+	7  => 'Aperture Priority',
+	8  => 'Shutter Priority',
+	9  => 'Macro',
+	11 => 'Manual',
+	13 => 'Panning',
+	18 => 'Fireworks',
+	19 => 'Party',
+	20 => 'Snow',
+	21 => 'Night Scenery',
+	},
+    0x0020 => { __TAG__ => "Audio",
+	1 => 'Yes',
+	2 => 'No',
+	},
+    0x0021 => "DataDump",
+    0x0022 => "Panasonic 0x0022",
+    0x0023 => "WhiteBalanceBias",
+    0x0024 => "FlashBias",
+    0x0025 => "SerialNumber",
+    0x0026 => "Panasonic 0x0026",
+    0x0027 => "Panasonic 0x0027",
+    0x0028 => { __TAG__ => "ColorEffect",
+	1 => 'Off',
+	2 => 'Warm',
+	3 => 'Cool',
+	4 => 'Black & White',
+	5 => 'Sepia',
+	},
+    0x0029 => "Panasonic 0x0029",
+    0x002a => "Panasonic 0x002a",
+    0x002b => "Panasonic 0x002b",
+    0x002c => { __TAG__ => "Contrast",
+	0 => 'Normal',
+	1 => 'Low',
+	2 => 'High',
+	0x100 => 'Low',		# Leica
+	0x110 => 'Normal',	# Leica
+	0x120 => 'High',	# Leica
+	},
+    0x002d => { __TAG__ => "NoiseReduction",
+	0 => 'Standard',
+	1 => 'Low',
+	2 => 'High',
+	},
+    0x002e => "Panasonic 0x002e",
+    0x002f => "Panasonic 0x002f",
+    0x0030 => "Panasonic 0x0030",
+    0x0031 => "Panasonic 0x0031",
+    0x0032 => "Panasonic 0x0032",
 );
+
+# format:
+#    "Make Model" => [ Offset, 'Tag_prefix', ptr to tags ]
+# Offset is either 0, or a positive number of Bytes.
+# Offset -1 or -2 means a kludge for Fuji or Nikon
+
+my %makernotes = (
+    "NIKON CORPORATION NIKON D1"	=> [0,  'NikonD1', \%nikon2_tags],
+    "NIKON CORPORATION NIKON D70"	=> [-2, 'NikonD1', \%nikon2_tags],
+    "NIKON CORPORATION NIKON D100"	=> [-2, 'NikonD1', \%nikon2_tags],
+
+    # For the following manufacturers we simple discard the model and always
+    # decode the MakerNote in the same manner. This makes it work with all
+    # models, even yet unreleased ones. (That's better than the very limited
+    # list of models we previously had)
+
+    "CANON"		=> [0, 'Canon', \%canon_tags],
+    'PANASONIC'		=> [12, 'Panasonic', \%panasonic_tags],
+    "FUJIFILM"		=> [-1, 'FinePix', \%fujifilm_tags],
+    "CASIO"		=> [0, 'Casio', \%casio_tags],
+    "OLYMPUS"		=> [8, 'Olympus', \%olympus_tags],
+);
+
+BEGIN
+  {
+  # add some Nikon cameras
+  for my $model (qw/E700 E800 E900 E900S E910 E950/)
+    {
+    $makernotes{'NIKON ' . $model} = [8, 'CoolPix', \%nikon1_tags];
+    }
+  for my $model (qw/E880 E990 E995/)
+    {
+    $makernotes{'NIKON ' . $model} = [0, 'CoolPix', \%nikon2_tags];
+    }
+  }
 
 my %exif_intr_tags = (
     0x1    => "InteroperabilityIndex",
@@ -733,7 +824,8 @@ sub ifd
     my $self = shift;
     my $num = shift || 0;
     my @ifd;
-    return $self->add_fields($self->{ifd}[$num], \@ifd);
+
+    $self->add_fields($self->{ifd}[$num], \@ifd);
 }
 
 sub tagname
@@ -756,7 +848,7 @@ sub add_fields
 	last if $offset > length($_) - 2;  # bad offset
 	my $entries = $self->unpack("x$offset n", $_);
 	my $max_entries = int((length($_) - $offset - 2) / 12);
-	#print "ENTRIES $entries $max_entries\n";
+	# print "ENTRIES $entries $max_entries\n";
 	if ($entries > $max_entries) {
 	    # Hmmm, something smells bad here...  parsing garbage
 	    $entries = $max_entries;
@@ -767,10 +859,11 @@ sub add_fields
 	    my $entry_offset = 2 + $offset + $i*12;
 	    my($tag, $type, $count, $voff) =
 		$self->unpack("nnNN", substr($_, $entry_offset, 12));
-	    #print "TAG $tag $type $count $voff\n";
+	    #print STDERR "TAG $tag $type $count $voff\n";
 
 	    if ($type == 0 || $type > @types) {
 		# unknown type code might indicate that we are parsing garbage
+		print STDERR "# Ignoring unknown type code $type\n";
 		next;
 	    }
 
@@ -784,6 +877,7 @@ sub add_fields
 	    }
 	    elsif ($voff + $count * $vlen > length($_)) {
 		# offset points outside of string, corrupt entry ignore
+		print STDERR "# ignoring offset pointer outside of string\n";
 		next;
 	    }
 	    else {
@@ -801,35 +895,54 @@ sub add_fields
 	    my $val = (@v > 1) ? \@v : $v[0];
 	    bless $val, "Image::TIFF::Rational" if $type =~ /^S?RATIONAL$/;
 
+	    # avoid things like "Foo\x00\x00\x00" by removing trailing nulls
+	    if ($type eq 'ASCII' || $type eq 'UNDEFINED')
+	      {
+	      $val =~ /^([^\x00]+)/;
+	      $val = '' . ($1 || '');
+	      }
+
 	    $tag = $tags->{$tag} || $self->tagname($tag);
 
-	    if ($tag eq 'MakerNote' && exists $makernotes{$self->{Make}.' '.$self->{Model}}) {
-                my ($ifd_off, $tag_prefix, $sub) = @{$makernotes{$self->{Make}.' '.$self->{Model}}};
-                $self->{tag_prefix} = $tag_prefix;
-	        if ($ifd_off == -1) {
-                    # fuji kludge -  http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html#APP4
-                    my $save_endian = $self->{little_endian};
-                    $self->{little_endian} = 1;
-                    $ifd_off = $self->unpack("N", substr($val, 8, 4));
-		    $self->add_fields($voff+$ifd_off, $ifds, $sub, $voff);
-                    $self->{little_endian} = $save_endian;
-                } elsif ($ifd_off == -2) {
-		    # Nikon D70/D100 kludge -- word "Nikon" and 5
-		    # bytes of data is tacked to the front of
-		    # MakerNote; all EXIF offsets are relative to
-		    # MakerNote section
-		    my ($nikon_voff);
-		    $nikon_voff = 0;
-		    if (substr($val, 0, 5) eq 'Nikon') {
-			$nikon_voff = $voff+10;
-		    }
-		    #print "IFD_OFF $ifd_off NIKON_VOFF $nikon_voff\n";
-	            $self->add_fields($voff+18, $ifds, $sub, $nikon_voff);
-		} else {
-	            $self->add_fields($voff+$ifd_off, $ifds, $sub)
-                }
-                delete $self->{tag_prefix};
-	        next FIELD;
+	    if ($tag eq 'MakerNote')
+		{
+        	my $maker = uc($self->{Make} || '');
+		$maker =~ /^([A-Z]+)/; $maker = $1 || ''; # "OLYMPUS ..." > "OLYMPUS"
+
+		# if 'Panasonic' doesn't exist, try 'Panasonic DMC-FZ5'
+		$maker = $self->{Make}.' '.$self->{Model}
+		    unless exists $makernotes{$maker};
+
+		if (exists $makernotes{$maker}) {
+                    my ($ifd_off, $tag_prefix, $sub) = @{$makernotes{$maker}};
+
+		    #print STDERR "# Decoding Makernotes from $maker\n";
+
+                    $self->{tag_prefix} = $tag_prefix;
+	            if ($ifd_off == -1) {
+               		# fuji kludge -  http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html#APP4
+                	my $save_endian = $self->{little_endian};
+                	$self->{little_endian} = 1;
+                	$ifd_off = $self->unpack("N", substr($val, 8, 4));
+			$self->add_fields($voff+$ifd_off, $ifds, $sub, $voff);
+                	$self->{little_endian} = $save_endian;
+                    } elsif ($ifd_off == -2) {
+			# Nikon D70/D100 kludge -- word "Nikon" and 5
+			# bytes of data is tacked to the front of MakerNote;
+			# all EXIF offsets are relative to MakerNote section
+			my ($nikon_voff);
+			$nikon_voff = 0;
+			if (substr($val, 0, 5) eq 'Nikon') {
+			    $nikon_voff = $voff+10;
+			}
+			#print "IFD_OFF $ifd_off NIKON_VOFF $nikon_voff\n";
+	        	$self->add_fields($voff+18, $ifds, $sub, $nikon_voff);
+		    } else {
+	        	$self->add_fields($voff+$ifd_off, $ifds, $sub)
+                    }
+            	    delete $self->{tag_prefix};
+	    	    next FIELD;
+		}
             }
 
 	    if (ref($tag)) {
@@ -846,14 +959,18 @@ sub add_fields
 		      if ( exists($sub->{$i}) )
 		      { if ( ref($sub->{$i}) eq "HASH" && exists($sub->{$i}->{__TAG__}) ) 
 		      	{ if ( exists($sub->{$i}->{$val->[$i]}) ) 
-		      		{ $self->_push_field($ifds, $prefix . $sub->{$i}->{__TAG__}, $type, $count, 
-		      		                 $sub->{$i}->{$val->[$i]} ); }
+		      	    {
+		  	    push @$ifds, [ $prefix . $sub->{$i}->{__TAG__}, $type, $count, 
+		      	         $sub->{$i}->{$val->[$i]} ]; 
+			    }
 		          else 
-		            { $self->_push_field($ifds, $prefix . $sub->{$i}->{__TAG__}, $type, $count, 
-		      		                 "Unknown (" . $val->[$i] . ")") ; }
+		            { 
+				push @$ifds, [ $prefix . $sub->{$i}->{__TAG__}, $type, $count, 
+				   "Unknown (" . $val->[$i] . ")" ];
+			    }
 		      	}
 		        else
-		        { $self->_push_field($ifds, $prefix . $sub->{$i}, $type, $count, $val->[$i]); }
+		        { push @$ifds, [ $prefix . $sub->{$i}, $type, $count, $val->[$i] ]; }
 		      }
 		    }
 		    next FIELD;
@@ -866,19 +983,15 @@ sub add_fields
 	    }
 
         $tag = $self->{tag_prefix} . '-' . $tag if $self->{tag_prefix};
+
         #if ( $val =~ m/ARRAY/ ) { $val = join(', ',@$val); }
-	    $self->_push_field($ifds, $tag, $type, $count, $val);
+	    push @$ifds, [ $tag, $type, $count, $val ];
+
         $self->{$tag} = $val if ($tag eq 'Make' or $tag eq 'Model');
 	}
     }
-    $ifds;
-}
 
-sub _push_field
-{
-    my $self = shift;
-    my $ifds = shift;
-    push(@$ifds, [@_]);
+    $ifds;
 }
 
 sub components_configuration_decoder
@@ -907,7 +1020,7 @@ sub file_source_decoder
             );
     $val = $self->unpack('c',$val); 
     return $v{$val} if $v{$val};
-return "Other";
+    "Other";
 }
 
 sub scene_type_decoder
@@ -919,7 +1032,7 @@ sub scene_type_decoder
             );
     $val = $self->unpack('c',$val); 
     return $v{$val} if $v{$val};
-return "Other";
+    "Other";
 }
 
 package Image::TIFF::Rational;

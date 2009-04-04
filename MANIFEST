@@ -1,7 +1,9 @@
 Changes
+CREDITS
 Info.pm.tmpl			Will become lib/Image/Info.pm
 MANIFEST
 Makefile.PL
+Build.PL
 README
 SIGNATURE
 TODO
@@ -12,13 +14,13 @@ img/test.gif			An GIF example
 img/test.jpg			An Exif example from my Digicam
 img/test.pbm
 img/test.pgm
+img/tiny.pgm
 img/test.png			An PNG example
 img/test.ppm
 img/test.rle
 img/test.svg
 img/test.xbm
 img/test.xpm
-img/tiny.pgm
 lib/Image/Info/BMP.pm
 lib/Image/Info/GIF.pm
 lib/Image/Info/JPEG.pm
@@ -38,3 +40,17 @@ t/tiny-pgm.t
 t/pod.t
 t/pod_cov.t
 META.yml			Module meta-data
+
+inc/Module/AutoInstall.pm
+inc/Module/Install.pm
+inc/Module/Install/AutoInstall.pm
+inc/Module/Install/Base.pm
+inc/Module/Install/Build.pm
+inc/Module/Install/Can.pm
+inc/Module/Install/Fetch.pm
+inc/Module/Install/Include.pm
+inc/Module/Install/Makefile.pm
+inc/Module/Install/Metadata.pm
+inc/Module/Install/Win32.pm
+inc/Module/Install/WriteAll.pm
+

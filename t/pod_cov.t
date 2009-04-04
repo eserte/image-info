@@ -16,26 +16,26 @@ SKIP:
   {
   skip("Test::Pod::Coverage 1.00 required for testing POD coverage", $tests)
     unless do {
-    eval ("use Test::Pod::Coverage 1.00");
+    eval "use Test::Pod::Coverage;";
     $@ ? 0 : 1;
     };
   for my $m (qw[
-    Image::Info.pm
-    Image::Info::BMP.pm
-    Image::Info::PPM.pm
-    Image::Info::SVG.pm
-    Image::Info::XBM.pm
-    Image::Info::XPM.pm
+    Info
+    Info::BMP
+    Info::PPM
+    Info::SVG
+    Info::XBM
+    Info::XPM
     ])
     {
-    pod_coverage_ok( $m, "$m is covered" );
+    pod_coverage_ok( 'Image::' . $m, "$m is covered" );
     }
   # XXX TODO:
-#    TIFF.pm
-#    Info::TIFF.pm
-#    Info::GIF.pm
-#    Info::PNG.pm
-#    Info::JPEG.pm
+#    Image::TIFF
+#    Info::TIFF
+#    Info::GIF
+#    Info::PNG
+#    Info::JPEG
 
   }
 

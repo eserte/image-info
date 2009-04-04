@@ -5,14 +5,14 @@ package Image::Info;
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 #
-# Now maintained by Tels.
+# Now maintained by Tels - (c) 2006.
 
 use strict;
 use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.17';
+$VERSION = '1.18';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -198,6 +198,12 @@ into HTML or SVG <img>-tags. E.g.:
 
    print "<img src="..." @{[html_dim($info)]}>\n";
 
+=item determine_file_format( $file )
+
+Determines the file format from the passed file data, and returns
+either undef for an unknown file format, or a string describing
+the format, like "BMP" or "JPEG".
+
 =back
 
 =head1 Image descriptions
@@ -250,9 +256,9 @@ These names can also be prefixed by "Indexed-" if the image is
 composed of indexes into a palette.  Of these, only "Indexed-RGB" is
 likely to occur.
 
-(It is similar to the TIFF field PhotometricInterpretation, but this
+It is similar to the TIFF field PhotometricInterpretation, but this
 name was found to be too long, so we used the PNG inpired term
-instead.)
+instead.
 
 =item resolution
 
@@ -294,7 +300,7 @@ used.
 
 =item Compression
 
-This tell which compression algorithm is used.
+This tells you which compression algorithm is used.
 
 =item Gamma
 
@@ -332,6 +338,10 @@ ASCII, BMP SVG, XPM and XBM support added by Jerrad Pierce
 Exif MakerNote decoding by Jay Soffian <jay@loudcloud.com>.
 
 TIFF support by <clarsen@emf.net>.
+
+Now maintained by Tels - (c) 2006.
+
+=head1 LICENSE
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

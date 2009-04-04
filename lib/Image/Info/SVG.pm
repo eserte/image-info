@@ -6,7 +6,7 @@ use strict;
 no strict 'refs';
 use XML::Simple;
 
-sub process_file{
+sub process_file {
     my($info, $source) = @_;
     my(@comments, @warnings, %info, $comment, $img, $imgdata, $xs);
     local($_);
@@ -77,16 +77,6 @@ sub process_file{
 }
 1;
 __END__
-Colors
-    # iterate over polygon,rect,circle,ellipse,line,polyline,text for style->stroke: style->fill:?
-    #  and iterate over each of these within <g> too?! and recurse?!
-    # append <color>'s
-    # perhaps even deep recursion through <svg>'s?
-ColorProfile <color-profile>
-RenderingIntent ?
-requiredFeatures
-requiredExtensions
-systemLanguage
 
 =pod
 
@@ -149,11 +139,22 @@ L<Image::Info>, L<XML::Simple>, L<expat>
 
 =head1 NOTES
 
-SVG is not yet a standard,
-though much software exists which is capable of creating and displaying SVG images. 
 For more information about SVG see:
 
  http://www.w3.org/Graphics/SVG/
+
+Random notes:
+
+  Colors
+    # iterate over polygon,rect,circle,ellipse,line,polyline,text for style->stroke: style->fill:?
+    #  and iterate over each of these within <g> too?! and recurse?!
+    # append <color>'s
+    # perhaps even deep recursion through <svg>'s?
+  ColorProfile <color-profile>
+  RenderingIntent ?
+  requiredFeatures
+  requiredExtensions
+  systemLanguage
 
 =head1 AUTHOR
 
@@ -161,8 +162,6 @@ Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
-
-=cut
 
 =begin register
 

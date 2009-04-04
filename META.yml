@@ -1,10 +1,10 @@
 ---
 name: Image-Info
-version: 1.17
+version: 1.18
 version_from: lib/Image/Info.pm
 license: perl
 distribution_type: module
-generated_by: Image-Info version 1.17
+generated_by: Image-Info version 1.18
 installdirs: site
 requires:
   Test::Simple: 0

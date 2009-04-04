@@ -1,16 +1,19 @@
 package Image::Info::XBM;
-$VERSION = '1.04';
+$VERSION = '1.05';
 use strict;
 use Image::Xbm 1.07;
 
-sub process_file{
+sub process_file {
     my($info, $source, $opts) = @_;
 
     $SIG{__WARN__} = sub {
 	$info->push_info(0, "Warn", shift);
     };
 
-    my $i = Image::Xbm->new(-file, $source);
+    my $i = Image::Xbm->new();
+    # loading the file as a seperate step avoids a "-r" test, this would
+    # file with in-memory strings (aka fake files)
+    $i->load($source);
 
     $info->push_info(0, "color_type" => "Grey");
     $info->push_info(0, "file_ext" => "xbm");
@@ -33,7 +36,6 @@ sub process_file{
 }
 1;
 __END__
-=pod
 
 =head1 NAME
 
@@ -93,6 +95,8 @@ For more information about XBM see:
 =head1 AUTHOR
 
 Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
+
+Now maintained by Tels - (c) 2006.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

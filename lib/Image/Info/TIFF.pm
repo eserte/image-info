@@ -5,11 +5,11 @@ package Image::Info::TIFF;
 MAGIC: /^MM\x00\x2a/
 MAGIC: /^II\x2a\x00/
 
-The C<TIFF> spec can be found at:
-http://partners.adobe.com/asn/developer/PDFS/TN/TIFF6.pdf
+The C<TIFF> spec can be found at (requires a login):
+L<http://partners.adobe.com/asn/developer/PDFS/TN/TIFF6.pdf>
 
-Also good writeup on exif spec at:
-http://www.ba.wakwak.com/~tsuruzoh/Computer/Digicams/exif-e.html
+The EXIF spec can be found at:
+L<http://www.exif.org/>
 
 =end register
 

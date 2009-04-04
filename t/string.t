@@ -1,39 +1,75 @@
-#!perl -w
+#!/usr/bin/perl -w
 
-if ($] < 5.008) {
-    eval {
-	require IO::String;
-    };
-    if ($@) {
-	print "1..0\n";
-	print $@;
-	exit;
-    }
-}
+# Load file into a string into memory and then test it
 
-my @tests = glob("img/test*");
+use strict;
+use Test::More;
+use File::Spec;
 
-print "1..", scalar(@tests), "\n";
+my (@tests, $tests);
 
-use Image::Info qw(image_info);
+BEGIN
+   {
+   @tests = glob("img/test*");
+   $tests = (scalar @tests) * 2;
+   plan tests => $tests;
+   chdir 't' if -d 't';
+   use lib '../lib';
+   };
 
-my $testno = 1;
-for my $file (@tests) {
-    print "# $file\n";
+my $requires = 
+  {
+  xpm => 'Image::XPM',
+  xbm => 'Image::XBM',
+  svg => 'XML::Simple',
+  };
 
-    my $h1 = image_info($file);
+SKIP:
+  {
+  skip( 'Need either Perl 5.008 or greater, or IO::String for these tests', $tests )
+    unless $] >= 5.008 || do
+      {
+      eval "use IO::String;";
+      $@ ? 0 : 1;
+      };
 
-    if (my $err = $h1->{error}) {
-	print "# - $err\n";
-    }
+  use Image::Info qw(image_info);
 
-    my $img = cat($file);
-    my $h2 = image_info(\$img);
+  my $updir = File::Spec->updir();
 
-    print "not " unless hash_equal($h1, $h2);
-    print "ok $testno\n";
-    $testno++;
-}
+  for my $f (@tests)
+    {
+    # extract the extension of the image file
+    $f =~ /\.([a-z]+)\z/i; my $x = lc($1 || '');
+
+    SKIP:
+      {
+      # test for loading the nec. library
+      if (exists $requires->{$x})
+        {
+        my $r = $requires->{$x};
+        print STDERR "# $x requires $r\n";
+        skip( "Need $r for this test", 2 ) && next
+          unless do {
+            eval "use $r;";
+            $@ ? 0 : 1;
+          };
+        }
+
+      # 2 tests follow:
+
+      my $file = File::Spec->catfile($updir,$f);
+      my $h1 = image_info($file);
+
+      is ($h1->{error}, undef, 'no error');
+
+      my $img = cat($file);
+      my $h2 = image_info(\$img);
+
+      is_deeply ($h1, $h2, $file);
+      } # end inner SKIP
+    } # end for each file
+  } # end SKIP all block
 
 sub cat {
     my $file = shift;
@@ -45,18 +81,3 @@ sub cat {
     $c;
 }
 
-sub hash_equal {
-    my($h1, $h2) = @_;
-    # This is a sloppy compare, but good enough for this
-    # test script
-    my @k1 = sort keys %$h1;
-    my @k2 = sort keys %$h2;
-    return 0 if "@k1" ne "@k2";
-    for (@k1) {
-	next if ref($h1->{$_});
-	return 0 if ref($h2->{$_});
-	#print "comparing $_: $h1->{$_} == $h2->{$_}?\n";
-	return 0 if $h1->{$_} ne $h2->{$_};
-    }
-    return 1;
-}
