@@ -6,12 +6,17 @@ use strict;
 # test SVG images
 
 BEGIN
-   {
-   plan tests => 13;
-   chdir 't' if -d 't';
-   use lib '../lib';
-   use_ok ("Image::Info") or die($@);
-   };
+  {
+  chdir 't' if -d 't';
+  use lib '../lib';
+
+  plan skip_all => "Need XML::Simple for this test",
+  unless do {
+    eval "use XML::Simple;";
+    $@ ? 0 : 1;
+    };
+  plan tests => 12;
+  }
 
 use Image::Info qw(image_info dim);
 

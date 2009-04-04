@@ -1,10 +1,19 @@
----
-name: Image-Info
-version: 1.18
-version_from: lib/Image/Info.pm
-license: perl
+abstract: Extract meta information from image files
+author: Tels <nospam-abuse@bloodgate.com>
+build_requires: 
+  Test::More: 0.42
 distribution_type: module
-generated_by: Image-Info version 1.18
-installdirs: site
-requires:
-  Test::Simple: 0
+generated_by: Module::Install version 0.64
+license: perl
+name: Image-Info
+no_index: 
+  directory: 
+    - img
+    - dev
+    - inc
+    - t
+recommends: 
+  Image::Xbm: 1
+  Image::Xpm: 1
+  XML::Simple: 0
+version: 1.23

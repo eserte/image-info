@@ -15,14 +15,14 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 38dd40d4fe9a8a408648f2f2c1a2a3ac76bbac72 Build.PL
-SHA1 276a773fef354f81b060d54aeeba27368b8ade94 CHANGES
-SHA1 bd6ff7cd74710575f4c85787ece08a4d31863f1e CREDITS
-SHA1 d6ee60549518b034eaa81360995eb39ce0c36875 MANIFEST
-SHA1 0f7a267683dec85e19aab794d0055057b1caafc3 META.yml
-SHA1 e90fb11c323ad14ab3cfd960a66f00b4eea43271 Makefile.PL
+SHA1 f662648e23c373c1dfd16b34928ba47c4a206c47 CHANGES
+SHA1 7ed93f98d7f723e088c5f0c673716559eaba8789 CREDITS
+SHA1 718a28564199da67b682e7862c5faaa00ce0ddaa MANIFEST
+SHA1 e95bd9db3410fe492f08af22cda247138234c4cb META.yml
+SHA1 83dae3d31423d4f2b45799e18cc4eb7c09dc7d54 Makefile.PL
 SHA1 c5e9f300fdd743947ed1ce0fe676cf20d65cb5d0 README
 SHA1 61d95b3f38d12cc08817e518d1cc863fccf08208 TODO
-SHA1 dfa66fe264d19db57020a73d0c20ad02eeef2ad8 dev/Info.pm.tmpl
+SHA1 d6eb3f17e319c83d42e0150ef387653ef9fa15d3 dev/Info.pm.tmpl
 SHA1 d3d01a60781b852da7df22ebcad2db57979b6d4e dev/build.pl
 SHA1 38b386e67725abff64ea00abb8e92c46f38e2f59 exifdump
 SHA1 c11f86df48ca57d0364c9afd1449683ebf1979f4 img/be.tif
@@ -43,26 +43,26 @@ SHA1 8a8f9bfb0a791f01f5aeecb29d095bdb94b16d43 img/test.xbm
 SHA1 d7ead6bd7acf3aa703424697913c5a0e9c2e9244 img/test.xpm
 SHA1 d33e338aa7a45dc6fa4cefcdd376916e2267f3f9 img/tiny.pgm
 SHA1 376cc1bd8424b1123f0073df81ce5433be4df58e imgdump
-SHA1 e974f78178f53c88fb7e3f8d20f7df184d13e1d0 inc/Module/AutoInstall.pm
-SHA1 017bedfcba1e0c72b36301e6ef21b8712b84d175 inc/Module/Install.pm
-SHA1 bcfb15c6a158831c45b5100a7aa94e0f88fced9f inc/Module/Install/AutoInstall.pm
-SHA1 b1a70869c098ba602151631386fc510b5bfd3511 inc/Module/Install/Base.pm
-SHA1 a99b9f364efdf726ce4ab51e3b66d7af4b7104ef inc/Module/Install/Build.pm
-SHA1 dd7313db23119d49ae78593bfa576554fb5b0fd8 inc/Module/Install/Can.pm
-SHA1 7c3a5153a5574556d895f23e121a41e680da11c1 inc/Module/Install/Fetch.pm
-SHA1 2e9c012e58c778a4a83c5eaea20c3aed306ad0c5 inc/Module/Install/Include.pm
-SHA1 176d68fe7c07b6ab7cfe09093078b8127bbde786 inc/Module/Install/Makefile.pm
-SHA1 8b37b38215d14f922b3d5132ce33d11d21d531ba inc/Module/Install/Metadata.pm
-SHA1 7eb44b00058c44795038d7fa4c0c77470f20a7f8 inc/Module/Install/Win32.pm
-SHA1 6d05967a5e1680b5f118315aaa6b8a1e143d79d8 inc/Module/Install/WriteAll.pm
-SHA1 da10365f2f937c697e9aa62b97f7c04b304df63a lib/Image/Info.pm
+SHA1 603bb9de29fb8cba7f13409c546750972eff645d inc/Module/AutoInstall.pm
+SHA1 9b2f9d83bcf77860f53a0c07c90a4a59ad9f5df1 inc/Module/Install.pm
+SHA1 ad955f51ad2c40d4ba35395c27f5ed899a80bf7a inc/Module/Install/AutoInstall.pm
+SHA1 abe32855d75ab13747cf65765af9947b7a8c3057 inc/Module/Install/Base.pm
+SHA1 da9dfbb8ae4a8a8bac0ab9cd7ef7dc89e4cb5dbe inc/Module/Install/Build.pm
+SHA1 95b81d1e91bd634467bf633571eff4420e9c04eb inc/Module/Install/Can.pm
+SHA1 1fe98c63cf9d7271c8cb4183ba230f152df69e26 inc/Module/Install/Fetch.pm
+SHA1 0606a8b02a420600bc3e2b65ab82f70266784926 inc/Module/Install/Include.pm
+SHA1 2249171a2b72cd73ff2c0a06597d29f86e5df456 inc/Module/Install/Makefile.pm
+SHA1 381bb98ea3877bba49ae85e7a7ea130645fd3dbf inc/Module/Install/Metadata.pm
+SHA1 0c2118868ef82ac517eb6d9c3bd93e6eb9bbf83e inc/Module/Install/Win32.pm
+SHA1 e827d6d43771032fa3df35c0ad5e5698d0e54cda inc/Module/Install/WriteAll.pm
+SHA1 82eb276ea9c06af5bbb38a2d6065c8e794b0581a lib/Image/Info.pm
 SHA1 9f0dd1235685ad2efb78ccb70f824eb5ecbb9add lib/Image/Info/BMP.pm
 SHA1 b47fa780d8a4b1012c60ac58b9f36ea024637bc8 lib/Image/Info/GIF.pm
 SHA1 c1511117c5cd6365673ee804f309f9df25e6318f lib/Image/Info/JPEG.pm
 SHA1 24a4d91c9d86469a2017119847e83451a1056e9a lib/Image/Info/PNG.pm
 SHA1 dffb9c70bdc96fc0e8649e5a205aad5a38f7ee89 lib/Image/Info/PPM.pm
 SHA1 5d79a2a37b15024fdf0ed23424ba169369eac94f lib/Image/Info/SVG.pm
-SHA1 1f6a7206557fbf3a0a6739ee9f0730f097a4ce92 lib/Image/Info/TIFF.pm
+SHA1 76ecd2ca992ea6ba00feb9fb3f7491b80921e9ae lib/Image/Info/TIFF.pm
 SHA1 64fd553234970072b2d3e482c2669ed2bb300569 lib/Image/Info/XBM.pm
 SHA1 69f6ac1388bb51ef1993bc73cd5740fe70892900 lib/Image/Info/XPM.pm
 SHA1 4cd105012d2f4d5af5653feb9a4010fff36222fa lib/Image/TIFF.pm
@@ -73,18 +73,18 @@ SHA1 3b005676e1fba556f2ba18fea2bfeebc7742e23e t/png.t
 SHA1 cc217a37ee14356bb57e4ea32c1eda94d1a2d8c9 t/pod.t
 SHA1 a8867b6d1a97c51e22eb650cc26e80178f4264e5 t/pod_cov.t
 SHA1 90032ccc1d7c8bdf65097fe077d9da3b380f558d t/string.t
-SHA1 992c7b6ea73e0e2e352dec3263fa03d3e3e1cb36 t/svg.t
+SHA1 838f5cbb41e41a2bec24944c2199b6b3f72f9dcf t/svg.t
 SHA1 bfe313465a99a8cf75c2da4ea5ea4c56cbba84e8 t/tiff.t
 SHA1 76e7e08522799dc0f39896c8925aff1d42b09da4 t/tiff_e.t
 SHA1 21c60748e74cd08f3e8cb12a5e652d225c39f108 t/tiny-pgm.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.2 (GNU/Linux)
 
-iQEVAwUBRLo0w3cLPEOTuEwVAQJK/Af+NgzuogV7Rio8CT0A2OWVBXVlY5pJm1xl
-JlRiv92z7lvS1rE0//LrYPplqmBuBkqrGn6FgBkG8ZoN8t8woHni/kOHQ82FDrG1
-jsMEJ1s0U6zDBvfduKj6Tf7B9zqt5VCyBEPmbJqyWoDVsMBaIb3OtXidQZU3O2ke
-QUrPLDEzYUzv7zP5uRkzhSTM7BbKsl+uID4mwZh5O7xlxHUj8ZhAyIkUGI9ZAJ4o
-ddYTFJ4sPD8iBqOVol5CSAOo7rFvFmpRPeEjEfqp49r0/VFgNtfEUmEukyWHHSXi
-pObdmbd6SX5kkcnARcZMePVziBjJ0LcLyQP8KMLZEf2ZPhKW2hiYng==
-=irAH
+iQEVAwUBRR5hGXcLPEOTuEwVAQLbcgf/RzVdpAx1Gm7kaWTUSwtTl+RJDPbVDK1c
+zLPBRg/PfIl/IoV3O+c63r32Pt0qqm0ijhzdbl3wS/9iMgbqmYLLvO/tjsyd+T54
+9S9wx1pg7nlPsr4CXXL/0z6lpuAhGk6emj1BAxFiNzM53mI+sF4k2U4UMTU90LcW
+F9Ee/Xm5/Qi8P2cbgdIn7/eTkRByQmYpVeDoDrKCwKAl/b/7eRVuASVScls6RCh6
+L2bKV1j/Xs0DnNFZsvVzBQBi3MfVB1lBFihapsDT8dko2EKSq2wPuMBu9foqOD6c
+FM8il6mlIPMq5onOVHtBnIcFh25mTfyfuc0trdIFsqiM1nmyWu2tIA==
+=+xP0
 -----END PGP SIGNATURE-----

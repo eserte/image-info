@@ -1,8 +1,9 @@
 CHANGES
 CREDITS
+Build.PL
 MANIFEST
 Makefile.PL
-Build.PL
+META.yml			Module meta-data
 README
 SIGNATURE
 TODO
@@ -49,7 +50,6 @@ t/tiff_e.t
 t/tiny-pgm.t
 t/pod.t
 t/pod_cov.t
-META.yml			Module meta-data
 
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm

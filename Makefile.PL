@@ -27,12 +27,11 @@ license		'perl';
 author		'Tels <nospam-abuse@bloodgate.com>';
 
 # Do not index these
-no_index        directory       => 'img',
-		directory	=> 'dev';
+no_index        directory       => 'img';
+no_index 	directory	=> 'dev';
     
 # Auto-install all dependencies from CPAN
 auto_install;
 
 # Generate the Makefile
 WriteAll;
-

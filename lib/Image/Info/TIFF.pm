@@ -200,7 +200,7 @@ sub _process_ifds {
 	if ($tn eq "ExifOffset") {
 	    # parse ExifSubIFD
             # print "ExifSubIFD at $value_offset\n";
-	    process_ifds($info,$fh,$page,$tagsseen,$byteorder,$value_offset);
+	    _process_ifds($info,$fh,$page,$tagsseen,$byteorder,$value_offset);
 	}
 	$info->push_info($page, $tn => $val);
 	$n--;

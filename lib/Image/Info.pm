@@ -17,7 +17,7 @@ package Image::Info;
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.22';
+$VERSION = '1.23';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -478,8 +478,7 @@ All information available is extracted.
 
 =item SVG
 
-SVG also provides (for) a plethora of attributes and metadata of an image.
-See L<Image::Info::SVG> for details.
+Provides a plethora of attributes and metadata of an SVG vector grafic.
 
 =item TIFF
 

@@ -1,5 +1,10 @@
 Revision history for Image::Info
 
+2006-09-30 v1.23 Tels 122 tests
+  * regenerate the stale META.yml file
+  * fix svg.t failing if no XML::Simple was installed (bug #21166)
+  * fix _process_ifds call (missing underscore) (Thanx to Dermot Paikkos!)
+
 2006-07-16 v1.22 Tels 123 tests
   * fix bug #19071: byteorder for TIFF on 64-bit systems broken
   * better error message in case SOI is missing in a JPEG
