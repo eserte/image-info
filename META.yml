@@ -16,4 +16,4 @@ recommends:
   Image::Xbm: 1
   Image::Xpm: 1
   XML::Simple: 0
-version: 1.23
+version: 1.24

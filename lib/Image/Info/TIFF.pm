@@ -151,22 +151,18 @@ sub _process_ifds {
 	    my @bytes = unpack("C4", $value_offset_orig);
 	    for (my $i=0; $i < 4 - $len; $i++) { shift @bytes; }
 	    $value_offset_orig = pack("C$len", @bytes);
-          }
-	}
-        if ($typelen * $count <= 4) {
+          } 
           @$val = unpack($typepack x $count, $value_offset_orig);
-	} elsif ($fieldtype == 5 || $fieldtype == 10) { 
-	  ## Rationals
-	  my $num;
-	  my $denom;
-	  $val = [];
-	  if ($fieldtype == 5) {
-            ## Unsigned
-	    _readrational($fh,$value_offset,$byteorder,$count,$val,0);
-	  } else {
-	    ## Signed 
-	    _readrational($fh,$value_offset,$byteorder,$count,$val,1);
-	  }
+        } elsif ($fieldtype == 2) {
+          ## ASCII text. The last byte is a NUL, which we don't need
+          ## to include in the Perl string, so read one less than the count.
+          @$val = _readbytes($fh, $value_offset, $count - 1);
+	} elsif ($fieldtype == 5) {
+	  ## Unsigned Rational
+	  _readrational($fh,$value_offset,$byteorder,$count,$val,0);
+        } elsif ($fieldtype == 10) {
+	  ## Signed Rational
+          _readrational($fh,$value_offset,$byteorder,$count,$val,1);
         } else {
           ## Just read $count thingies from the offset
 	  @$val = unpack($typepack x $count, _readbytes($fh, $value_offset, $typelen * $count));

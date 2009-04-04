@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2007-02-24 v1.24 Tels 122 tests
+  * fix bug #22507: add missing compression modes for TIFF
+  * fix bug #25032: fix TIFF ASCII text field handling (Thanx BJWHEELER!)
+    (This enables, among other things the ImageDescription tag for TIFF
+     files)
+
 2006-09-30 v1.23 Tels 122 tests
   * regenerate the stale META.yml file
   * fix svg.t failing if no XML::Simple was installed (bug #21166)
