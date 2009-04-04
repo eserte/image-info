@@ -19,8 +19,8 @@ BEGIN
 
 my $requires = 
   {
-  xpm => 'Image::XPM',
-  xbm => 'Image::XBM',
+  xpm => 'Image::Xpm',
+  xbm => 'Image::Xbm',
   svg => 'XML::Simple',
   };
 

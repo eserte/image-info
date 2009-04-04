@@ -1,5 +1,4 @@
 
-* add support for more image formats
 * Image::TIFF should not need to slurp
 * convert the EXIF parsing code to just use something like
   Image::Exiftool - our code is way to complicated, outdated,

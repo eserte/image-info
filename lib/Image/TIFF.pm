@@ -9,7 +9,7 @@ package Image::TIFF;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.02';
+$VERSION = '1.03';
 
 my @types = (
   [ "BYTE",      "C1", 1],
@@ -326,6 +326,7 @@ my %panasonic_tags = (
     0x0007 => { __TAG__ => "FocusMode",
 	1 => 'Auto',
 	2 => 'Manual',
+	5 => 'Auto, Continuous',
 	},
     0x000f => { __TAG__ => "SpotMode",
 	# XXX TODO: does not decode properly

@@ -1,6 +1,6 @@
 package Image::Info::SVG;
 
-$VERSION = '1.02';
+$VERSION = '1.03';
 
 use strict;
 no strict 'refs';
@@ -128,6 +128,14 @@ The image title, corresponds to <title>
 The URI of the DTD the image conforms to.
 
 =back
+
+=head1 METHODS
+
+=head2 process_file()
+    
+	$info->process_file($source, $options);
+
+Processes one file and sets the found info fields in the C<$info> object.
 
 =head1 FILES
 

@@ -1,9 +1,21 @@
 Revision history for Image::Info
 
+2006-03-05 v1.19 Tels 74 tests
+  * finally fix bug #6558: (Thanx jpo!)
+    + fix typos: Image::X(B|P)M must be Image::X(p|b)m (Thanx jpo!)
+    + fix missing semicolon in Image/Info/XPM.pm
+    + Image::Info::XPM and Image::Info::XBM: add -width and -height to new()
+  * add POD for process_file() into SVG, Xbm and Xpm
+  * a few additions to Panasonic MakerNote in EXIF parsing
+  * add doc about EXIF being wholly incomplete and using Image::ExifTool
+  * apply patch, tests and add test.tif from Ben Wheeler, Thanx!:
+    + fix bug #7442 Infinite loop of errors in Image::Info::TIFF 
+    + fix bug #3698 Broken BitsPerSample handling in TIFFs
+
 2006-03-03 v1.18 Tels 61 tests
   * fix bug #6558: Image::Info 1.16 -> fails two tests (Thanx jpo!)
     + make string.t use strict, Test::More and simplify it
-    + let string.t skip tests if Image::XPM, Image::XBM or XML::Simple
+    + let string.t skip tests if Image::Xpm, Image::Xbm or XML::Simple
       are not installed (these would formerly silently fail)
     + Image::Info::XPM and Image::Info::XBM now handle in-memory files better
     + fix also pod_cov.t warnings (was "Image::Info.pm" vs "Image::Info")

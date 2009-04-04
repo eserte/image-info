@@ -6,7 +6,7 @@ my $tests;
 
 BEGIN
    {
-   $tests = 6;
+   $tests = 7;
    plan tests => $tests;
    chdir 't' if -d 't';
    use lib '../lib';
@@ -26,13 +26,13 @@ SKIP:
     Info::SVG
     Info::XBM
     Info::XPM
+    Info::TIFF
     ])
     {
     pod_coverage_ok( 'Image::' . $m, "$m is covered" );
     }
   # XXX TODO:
-#    Image::TIFF
-#    Info::TIFF
+#    TIFF
 #    Info::GIF
 #    Info::PNG
 #    Info::JPEG

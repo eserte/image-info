@@ -1,5 +1,5 @@
 package Image::Info::XBM;
-$VERSION = '1.05';
+$VERSION = '1.06';
 use strict;
 use Image::Xbm 1.07;
 
@@ -10,7 +10,7 @@ sub process_file {
 	$info->push_info(0, "Warn", shift);
     };
 
-    my $i = Image::Xbm->new();
+    my $i = Image::Xbm->new(-width => 0, -height => 0);
     # loading the file as a seperate step avoids a "-r" test, this would
     # file with in-memory strings (aka fake files)
     $i->load($source);
@@ -77,6 +77,16 @@ histogram. This key is only present if C<image_info> is invoked
 as C<image_info($file, L1D_Histogram=E<gt>1)>. The range is from 0 to 1.
 
 =back
+
+=head1 METHODS
+
+=head2 process_file()
+    
+	$info->process_file($source, $options);
+
+Processes one file and sets the found info fields in the C<$info> object.
+
+=head1 AUTHOR
 
 =head1 FILES
 

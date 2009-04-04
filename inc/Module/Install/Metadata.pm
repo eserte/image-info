@@ -4,7 +4,7 @@ package Module::Install::Metadata;
 use Module::Install::Base;
 @ISA = qw{Module::Install::Base};
 
-$VERSION = '0.57';
+$VERSION = '0.58';
 
 use strict 'vars';
 
@@ -161,7 +161,9 @@ sub features {
     while ( my ( $name, $mods ) = splice( @_, 0, 2 ) ) {
         $self->feature( $name, @$mods );
     }
-    return @{ $self->{values}{features} };
+    return $self->{values}->{features}
+    	? @{ $self->{values}->{features} }
+    	: ();
 }
 
 sub no_index {

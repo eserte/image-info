@@ -12,7 +12,7 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.18';
+$VERSION = '1.19';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -314,7 +314,7 @@ A ISO date string
 
 =head1 Supported Image Formats
 
-The following image file formats are currently supported:
+The following image file formats are supported:
 
 =over
 
@@ -322,9 +322,19 @@ The following image file formats are currently supported:
 
 =back
 
+=head1 CAVEATS
+
+Note that while the module is still maintained, no new features
+will be added.
+
+Especially the EXIF parsing code is buggy, not tested at all,
+and quite incomplete (a lot of manufacturer's MakerNotes and tags are
+not parsed at all). If you want a stable, feature-complete, up-to-date
+and tested EXIF parsing library, please use Image::ExifTool. 
+
 =head1 SEE ALSO
 
-L<Image::Size>
+L<Image::Size>, L<Image::ExifTool>
 
 =head1 AUTHORS
 

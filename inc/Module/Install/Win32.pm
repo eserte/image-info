@@ -4,7 +4,7 @@ package Module::Install::Win32;
 use Module::Install::Base;
 @ISA = qw(Module::Install::Base);
 
-$VERSION = '0.57';
+$VERSION = '0.58';
 
 use strict;
 

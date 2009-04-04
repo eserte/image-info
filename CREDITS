@@ -1,12 +1,20 @@
 
 Special thanx go to Gisle Aas, the main author and contributor.
 
+The Exif code is written based on TsuruZoh Tachibanaya's "Description
+of Exif file format" and Thierry Bousch's Python module 'exifdump.py'
+
+   http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html
+   http://topo.math.u-psud.fr/~bousch/exifdump.py
+
 The following list is in alphabetical order. If you contributed to
 Image::Info and miss your name on the list, please file a bug
 report at rt.cpan.org or send email to the current CPAN
 maintainer:
 
-<clarsen@emf.net>			TIFF support 
+Ben Wheeler <b.wheeler@ulcc.ac.uk>	TIFF bugfixes and patches
+<clarsen@emf.net>			TIFF support
+Doug Larrick <doug@ties.org>		Nikon D70/D100 MakerNote patch 
 Gisle Aas				Main author and contributor
 Jay Soffian <jay@loudcloud.com>		Exif MakerNote decoding
 Jerrad Pierce <belg4mit@mit.edu>	ASCII, BMP SVG, XPM and XBM support
@@ -15,4 +23,3 @@ Phil Harvey <phil@ owl.phy.queensu.ca>	Panasonic Exif MakerNotes
 Ralf Steines <metamonk@yahoo.com> 	GIF fixes
 <srezic@cpan.org>			bug report #8522
 Tels <http://www.bloodgate.com>		Maintainer from 2006 on
-

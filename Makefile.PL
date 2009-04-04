@@ -93,8 +93,8 @@ all_from	$info_pm;
 
 requires	'IO::String'	=> 1.03 if $] < 5.008;
 
-recommends	'Image::XPM'	=> 0,
-		'Image::XBM'	=> 0,
+recommends	'Image::Xpm'	=> 1.0,
+		'Image::Xbm'	=> 1.0,
 		'XML::Simple'	=> 0;
 
 build_requires  'Test::More'	=> 0.42;

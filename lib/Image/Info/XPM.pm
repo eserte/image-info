@@ -1,5 +1,5 @@
 package Image::Info::XPM;
-$VERSION = '1.04';
+$VERSION = '1.06';
 #Path to X11 RGB database
 $RGBLIB ||= "/usr/X11R6/lib/X11/rgb.txt";
 use strict;
@@ -13,7 +13,7 @@ sub process_file{
 	$info->push_info(0, "Warn", shift);
     };
 
-    my $i = Image::Xpm->new()
+    my $i = Image::Xpm->new(-width => 0, -height => 0);
     # loading the file as a seperate step avoids a "-r" test, this would
     # file with in-memory strings (aka fake files)
     $i->load($source);
@@ -144,6 +144,16 @@ This is typically 1 or 2. See L<Image::Xpm>.
 XPM Extensions (the most common is XPMEXT) if present.
 
 =back
+
+=head1 METHODS
+
+=head2 process_file()
+    
+	$info->process_file($source, $options);
+
+Processes one file and sets the found info fields in the C<$info> object.
+
+=head1 AUTHOR
 
 =head1 FILES
 

@@ -19,6 +19,7 @@ img/test.png			An PNG example
 img/test.ppm
 img/test.rle
 img/test.svg
+img/test.tif
 img/test.xbm
 img/test.xpm
 lib/Image/Info/BMP.pm
@@ -36,6 +37,7 @@ t/dim.t
 t/exif.t
 t/png.t
 t/string.t
+t/tiff.t
 t/tiny-pgm.t
 t/pod.t
 t/pod_cov.t
