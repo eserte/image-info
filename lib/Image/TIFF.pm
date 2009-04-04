@@ -818,7 +818,15 @@ sub new
 	while ($ifd) {
 	    push(@{$self->{ifd}}, $ifd);
 	    my($num_fields) = $self->unpack("x$ifd n", $_);
-	    $ifd = $self->unpack("N", substr($_, $ifd + 2 + $num_fields*12, 4));
+	    my $next_ifd = $self->unpack("N", substr($_, $ifd + 2 + $num_fields*12, 4));
+	    # guard against (bug #26127)
+	    $next_ifd = 0 if $next_ifd > length($_);
+	    # guard against looping ifd (bug #26130)
+	    if ($next_ifd <= $ifd) {
+		# bad TIFF header - would cause a loop or strange results
+	        last;
+            }
+        $ifd = $next_ifd;
 	}
     }
 

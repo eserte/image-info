@@ -1,56 +1,28 @@
+Build.PL
 CHANGES
 CREDITS
-Build.PL
-MANIFEST
-Makefile.PL
-META.yml			Module meta-data
-README
-SIGNATURE
-TODO
 dev/build.pl
 dev/Info.pm.tmpl		Will become lib/Image/Info.pm
 exifdump			Test driver script
-imgdump				Test driver script
+img/be.tif
+img/cynic_hang.jpg		cycle in IFD's causing hangs in older than v1.25
 img/gps.jpg
 img/graph.svg
+img/interlace.png		Interlaced PNG example
+img/le.tif
 img/test.gif			An GIF example
 img/test.jpg			An Exif example from my Digicam
 img/test.pbm
 img/test.pgm
-img/tiny.pgm
 img/test.png			An PNG example
-img/interlace.png		Interlaced PNG example
 img/test.ppm
 img/test.rle
 img/test.svg
 img/test.tif
 img/test.xbm
 img/test.xpm
-img/be.tif
-img/le.tif
-lib/Image/Info.pm
-lib/Image/Info/BMP.pm
-lib/Image/Info/GIF.pm
-lib/Image/Info/JPEG.pm
-lib/Image/Info/PNG.pm
-lib/Image/Info/PPM.pm
-lib/Image/Info/SVG.pm
-lib/Image/Info/TIFF.pm
-lib/Image/Info/XBM.pm
-lib/Image/Info/XPM.pm
-lib/Image/TIFF.pm		Parse TIFF tags
-t/00_basics.t
-t/bmp.t
-t/exif.t
-t/png.t
-t/string.t
-t/svg.t
-t/tiff.t
-t/tiff_e.t
-t/tiny-pgm.t
-t/pod.t
-t/pod_cov.t
-
+img/tiny.pgm
+imgdump				Test driver script
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
@@ -63,4 +35,33 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-
+lib/Image/Info.pm
+lib/Image/Info/BMP.pm
+lib/Image/Info/GIF.pm
+lib/Image/Info/JPEG.pm
+lib/Image/Info/PNG.pm
+lib/Image/Info/PPM.pm
+lib/Image/Info/SVG.pm
+lib/Image/Info/TIFF.pm
+lib/Image/Info/XBM.pm
+lib/Image/Info/XPM.pm
+lib/Image/TIFF.pm		Parse TIFF tags
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+META.yml			Module meta-data
+README
+SIGNATURE
+t/00_basics.t
+t/bmp.t
+t/exif.t
+t/jpg_hang.t
+t/png.t
+t/pod.t
+t/pod_cov.t
+t/string.t
+t/svg.t
+t/tiff.t
+t/tiff_e.t
+t/tiny-pgm.t
+TODO

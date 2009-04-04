@@ -1,6 +1,10 @@
 Revision history for Image::Info
 
-2007-02-24 v1.24 Tels 122 tests
+2007-05-25 v1.25 Tels 127 tests
+  * fix bug #26130 - hang in parsing JPG/TIFF images with repeating
+    block numbers
+
+2007-02-24 v1.24 Tels 125 tests
   * fix bug #22507: add missing compression modes for TIFF
   * fix bug #25032: fix TIFF ASCII text field handling (Thanx BJWHEELER!)
     (This enables, among other things the ImageDescription tag for TIFF
