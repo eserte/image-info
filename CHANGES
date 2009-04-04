@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2007-12-15 v1.27 Tels 128 tests
+  * add both main authors to META.yml (does not work yet due to bug
+    in Module::Install)
+  * fix bug #30890: [PATCH] Transposed lines in documentation
+  * fix bug #31165: Add attribute for parsing TIFF images (Thanx Adam Witney!)
+
 2007-09-09 v1.26 Tels 128 tests
   * clarify the license by adding "v5.8.8" (otherwise it is quite unclear
     which Perl version, release or product the license text refers to)

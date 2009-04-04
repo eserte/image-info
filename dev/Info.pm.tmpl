@@ -17,7 +17,7 @@ package Image::Info;
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.26';
+$VERSION = '1.27';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -264,26 +264,24 @@ directly.
 The image_info() function also take optional key/value style arguments
 that can influence what information is returned.
 
-=item image_type( $filename )
+=item image_type( \$imgdata )
 
 Returns a hash with only one key, C<< file_type >>. The value
 will be the type of the file. On error, sets the two keys
 C<< error >> and C<< Errno >>.
-
-=item image_info( \$imgdata )
 
 This function is a dramatically faster alternative to the image_info
 function for situations in which you B<only> need to find the image type.
 
 It uses only the internal file-type detection to do this, and thus does
 not need to load any of the image type-specific driver modules, and does
-not access to entire file. It also only needs access to the first 32
+not access to entire file. It also only needs access to the first 11
 bytes of the file.
 
 To maintain some level of compatibility with image_info, image_type
 returns in the same format, with the same error message style. That is,
-it returns a HASH reference, with the $type->{error} key set if there
-was an error.
+it returns a HASH reference, with the C<< $type->{error} >> key set if
+there was an error.
 
 On success, the HASH reference will contain the single key 'file_type',
 which represents the type of the file, expressed as the type code used for

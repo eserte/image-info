@@ -772,6 +772,7 @@ my %tiff_tags = (
   305   => "Software",
   306   => "DateTime",
   315   => "Artist",
+  316   => "Host",
   318   => "WhitePoint",
   319   => "PrimaryChromaticities",
   320   => "ColorMap",
