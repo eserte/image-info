@@ -1,5 +1,5 @@
 --- 
-abstract: Extract meta information from image files
+abstract: Extract meta information from image files (DEPRECATED)
 author: Tels <nospam-abuse@bloodgate.com>
 build_requires: 
   Test::More: 0.42
@@ -20,4 +20,4 @@ recommends:
   Image::Xbm: 1
   Image::Xpm: 1
   XML::Simple: 0
-version: 1.25
+version: 1.26

@@ -1,15 +1,15 @@
 package Image::TIFF;
 
 # Copyright 1999-2001, Gisle Aas.
-# Copyright 2006 Tels
+# Copyright 2006, 2007 Tels
 #
 # This library is free software; you can redistribute it and/or
-# modify it under the same terms as Perl itself.
+# modify it under the same terms as Perl v5.8.8 itself.
 
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.04';
+$VERSION = '1.06';
 
 my @types = (
   [ "BYTE",      "C1", 1],
@@ -19,11 +19,14 @@ my @types = (
   [ "RATIONAL",  "N2", 8],
   [ "SBYTE",     "c1", 1],
   [ "UNDEFINED", "a1", 1],
+  [ "BINARY",    "a1", 1],  # treat binary data as UNDEFINED	
   [ "SSHORT",    "n1", 2],
   [ "SLONG",     "N1", 4],
   [ "SRATIONAL", "N2", 8],
   [ "FLOAT",     "f1", 4],  # XXX 4-byte IEEE format
   [ "DOUBLE",    "d1", 8],  # XXX 8-byte IEEE format
+# XXX TODO:
+#  [ "IFD",      "??", ?],  # See ExifTool
 );
 
 my %nikon1_tags = (
@@ -873,6 +876,8 @@ sub add_fields
 {
     my($self, $offset, $ifds, $tags, $voff_plus) = @_;
     return unless $offset;
+    # guard against finding the same offset twice (bug #29088)
+    return if $self->{seen_offset}{$offset}++;
     $tags ||= \%tiff_tags;
 
     for (${$self->{source}}) {  # alias as $_
@@ -901,7 +906,8 @@ sub add_fields
 	    # extract type information
 	    my($tmpl, $vlen);
 	    ($type, $tmpl, $vlen) = @{$types[$type-1]};
-	    die "Assert" unless $type;
+
+	    die "Undefined type while parsing" unless $type;
 
 	    if ($count * $vlen <= 4) {
 		$voff = $entry_offset + 8;
@@ -914,6 +920,7 @@ sub add_fields
 	    else {
 		$voff += $voff_plus || 0;
 	    }
+
 	    $tmpl =~ s/(\d+)$/$count*$1/e;
 
 	    my @v = $self->unpack("x$voff $tmpl", $_);
@@ -926,12 +933,24 @@ sub add_fields
 	    my $val = (@v > 1) ? \@v : $v[0];
 	    bless $val, "Image::TIFF::Rational" if $type =~ /^S?RATIONAL$/;
 
-	    # avoid things like "Foo\x00\x00\x00" by removing trailing nulls
 	    if ($type eq 'ASCII' || $type eq 'UNDEFINED')
-	      {
-	      $val =~ /^([^\x00]+)/;
-	      $val = '' . ($1 || '');
-	      }
+		{
+		if ($val =~ /\0[^\0]+\z/)
+		    {
+		    # cut out the first "ASCII\0" and take the remaining text
+		    # (fix bug #29243 parsing of UserComment)
+		    # XXX TODO: this needs to handle UNICODE, too:
+		    $val =~ /\0([^\0]+)/;
+		    $val = '' . ($1 || '');
+		    }
+		else
+		    {
+		    # avoid things like "Foo\x00\x00\x00" by removing trailing nulls
+		    # this needs to handle UNICODE, too:
+		    $val =~ /^([^\0]*)/;
+		    $val = '' . ($1 || '');
+		    }
+		}
 
 	    $tag = $tags->{$tag} || $self->tagname($tag);
 

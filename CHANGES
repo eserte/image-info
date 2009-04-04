@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2007-09-09 v1.26 Tels 128 tests
+  * clarify the license by adding "v5.8.8" (otherwise it is quite unclear
+    which Perl version, release or product the license text refers to)
+  * fix bug #29088 - Another hanging image
+  * fix bug #29243 - Exiftext fields (like UserComment) not parsed correctly
+
 2007-05-25 v1.25 Tels 127 tests
   * fix bug #26130 - hang in parsing JPG/TIFF images with repeating
     block numbers

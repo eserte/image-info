@@ -30,5 +30,5 @@ not parsed at all). If you want a stable, feature-complete, up-to-date
 and tested EXIF parsing library, please use Image::ExifTool. 
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+it under the same terms as Perl v5.8.8 itself.
 
