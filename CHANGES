@@ -1,5 +1,16 @@
 Revision history for Image::Info
 
+2008-03-30 v1.28 Tels 128 tests
+  * raise minimum required Perl version to v5.6.2
+    (it doesn't work on 5.005 anyway, open() with three arguments
+     is not supported there and I don't have time to rewrite the code
+     for outdated Perl versions. If you need it to run on 5.005, write
+     a patch and file a bug report please.)
+  * fix bug #15167: Incorrect width and height for JPG files
+    (the fix now keeps the highest value for width/height, instead of
+     creating an array ref with all the values)
+  * remove Build.PL (bundle Module::Install 0.71)
+
 2007-12-15 v1.27 Tels 128 tests
   * add both main authors to META.yml (does not work yet due to bug
     in Module::Install)

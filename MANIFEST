@@ -1,4 +1,3 @@
-Build.PL
 CHANGES
 CREDITS
 dev/build.pl
@@ -27,7 +26,6 @@ inc/Module/AutoInstall.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
 inc/Module/Install/Base.pm
-inc/Module/Install/Build.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
 inc/Module/Install/Include.pm

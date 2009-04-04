@@ -21,4 +21,6 @@ recommends:
   Image::Xbm: 1
   Image::Xpm: 1
   XML::Simple: 0
-version: 1.27
+requires:
+  perl: 5.6.2
+version: 1.28

@@ -5,6 +5,10 @@ package Image::Info::JPEG;
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 
+# maintained by Tels 2007 - 2008
+
+$VERSION = 0.02;
+
 =begin register
 
 MAGIC: /^\xFF\xD8/
@@ -117,8 +121,13 @@ sub process_chunk
         my($precision, $height, $width, $num_comp) =
             unpack("CnnC", substr($data, 0, 6, ""));
 	$info->push_info($img_no, "JPEG_Type", $sof{$mark});
-	$info->push_info($img_no, "width", $width);
-	$info->push_info($img_no, "height", $height);
+
+	# fix bug #15167 by keeping the highest values
+	my $old_w = $info->get_info($img_no, "width") || -1;
+	my $old_h = $info->get_info($img_no, "height") || -1;
+
+	$info->replace_info($img_no, "width", $width) if $old_w < $width;
+	$info->replace_info($img_no, "height", $height) if $old_h < $height;
 
 	for (1..$num_comp) {
 	    $info->push_info($img_no, "BitsPerSample", $precision);

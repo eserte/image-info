@@ -1,15 +1,11 @@
-#!/usr/bin/perl -w
-
-use strict;
-use File::Spec;
 
 #############################################################################
 
+require 5.006002;
+use strict;
+
 # Load the Module::Install bundled in ./inc/
 use inc::Module::Install;
-
-# The name of your distribution
-name		'Image-Info';
 
 # Get most of the details from the primary module
 all_from	'lib/Image/Info.pm';

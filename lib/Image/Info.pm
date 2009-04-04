@@ -12,12 +12,12 @@ package Image::Info;
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl v5.8.8 itself.
 #
-# Now maintained by Tels - (c) 2006 - 2007.
+# Now maintained by Tels - (c) 2006 - 2008.
 
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.27';
+$VERSION = '1.28';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -174,6 +174,12 @@ sub push_info
 {
     my($self, $n, $key) = splice(@_, 0, 3);
     push(@{$self->[$n]{$key}}, @_);
+}
+
+sub replace_info
+{
+    my($self, $n, $key) = splice(@_, 0, 3);
+    $self->[$n]{$key}[0] = $_[0];
 }
 
 sub clean_up
@@ -532,7 +538,7 @@ Copyright 1999-2004 Gisle Aas.
 
 See the CREDITS file for a list of contributors and authors.
 
-Now maintained by Tels - (c) 2006 - 2007.
+Now maintained by Tels - (c) 2006 - 2008.
 
 =head1 LICENSE
 
