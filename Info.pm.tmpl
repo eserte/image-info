@@ -4,13 +4,15 @@ package Image::Info;
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
+#
+# Now maintained by Tels.
 
 use strict;
 use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.16';
+$VERSION = '1.17';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -65,7 +67,7 @@ sub image_info
 	        if (my $fail = $mod_failure{$mod}) {
 		    die $fail;
 		}
-		eval "require $mod";
+		eval "require $mod;";
 		if ($@) {
 		    $mod_failure{$mod} = $@;
 		    die $@;
@@ -103,7 +105,7 @@ sub html_dim
 {
     my($x, $y) = dim(@_);
     return "" unless $x;
-    "WIDTH=$x HEIGHT=$y";
+    "width=\"$x\" height=\"$y\"";
 }
 
 package Image::Info::Result;
@@ -192,7 +194,7 @@ dimensions as a string.
 =item html_dim( $info_hash )
 
 Returns the dimensions as a string suitable for embedding directly
-into HTML <img>-tags. E.g.:
+into HTML or SVG <img>-tags. E.g.:
 
    print "<img src="..." @{[html_dim($info)]}>\n";
 

@@ -1,14 +1,26 @@
-print "1..2\n";
+#!/usr/bin/perl -w
+
+use Test::More;
+use strict;
+
+# test dim(), html_dim() and image_info()
+
+BEGIN
+   {
+   plan tests => 4;
+   chdir 't' if -d 't';
+   use lib '../lib';
+   use_ok ("Image::Info") or die($@);
+   };
 
 use Image::Info qw(image_info dim);
 
-my $i = image_info("img/test.png") || die;
+my $i = image_info("../img/test.png") ||
+  die ("Couldn't read test.png: $!");
 
 #use Data::Dump; print Data::Dump::dump($i), "\n";
 
-print "not " unless $i->{color_type} eq "Indexed-RGB" &&
-                    $i->{LastModificationTime} eq "1999-12-25 22:29:06";
-print "ok 1\n";
+is ($i->{color_type}, 'Indexed-RGB', 'color_type');
+is ($i->{LastModificationTime}, "1999-12-25 22:29:06", 'LastModificationTime');
 
-print "not " unless dim($i) eq "400x300";
-print "ok 2\n";
+is (dim($i), '400x300', 'dim()');

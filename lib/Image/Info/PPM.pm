@@ -57,22 +57,28 @@ sub process_file
 	$info->push_info(0, "width", shift @header);
 	$info->push_info(0, "height", shift @header);
 	$info->push_info(0, "resolution", "1/1");
-	if ($type eq "ppm") {
+
+        if ($type eq "ppm") {
+	    my $MSV = shift @header;
+
+	    $info->push_info(0, "MaxSampleValue", $MSV);
 	    $info->push_info(0, "color_type", "RGB");
-	    $info->push_info(0, "SamplesPerPixel", 3);
+
+	    my $double = 1; $double = 2 if $MSV > 256;
+	    $info->push_info(0, "SamplesPerPixel", $double * 3);
 	    if ($binary) {
 		for (1..3) {
-		    $info->push_info(0, "BitsPerSample", 8);
+		    $info->push_info(0, "BitsPerSample", int(log($MSV + 1) / log(2) ) );
 		}
-	    }
+           }
 	}
 	else {
 	    $info->push_info(0, "color_type", "Gray");
 	    $info->push_info(0, "SamplesPerPixel", 1);
 	    $info->push_info(0, "BitsPerSample", ($type eq "pbm") ? 1 : 8)
 		if $binary;
+	    $info->push_info(0, "MaxSampleValue", shift @header) if $type ne 'pbm';
 	}
-	$info->push_info(0, "MaxSampleValue", shift @header) if $type ne "pbm";
 	last;
     }
 }

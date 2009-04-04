@@ -1,18 +1,27 @@
-print "1..4\n";
+#!/usr/bin/perl -w
+
+use Test::More;
+use strict;
+
+# test dim(), html_dim() and image_info()
+
+BEGIN
+   {
+   plan tests => 5;
+   chdir 't' if -d 't';
+   use lib '../lib';
+   use_ok ("Image::Info") or die($@);
+   };
 
 use Image::Info qw(image_info dim html_dim);
 
-my $info = image_info("img/test.gif");
+my $info = image_info("../img/test.gif");
 my @dim = dim($info);
 
-print "not" unless "@dim" eq "400 300";
-print "ok 1\n";
+is (join(" ", @dim), "400 300", 'dim()');
 
-print "not" unless dim($info) eq "400x300";
-print "ok 2\n";
+is (dim($info), '400x300', 'dim($info)');
 
-print "not " unless html_dim($info) eq "WIDTH=400 HEIGHT=300";
-print "ok 3\n";
+is (html_dim($info), 'width="400" height="300"', 'html_dim()');
 
-print "not " unless html_dim(image_info("README")) eq "";
-print "ok 4\n";
+is (html_dim(image_info('README')), '', 'no README in info');

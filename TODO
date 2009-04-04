@@ -1,0 +1,5 @@
+
+* add support for more image formats
+* Image::TIFF should not need to slurp
+* convert string,t to Test::More
+* get rid of the warning in pod_cov.t

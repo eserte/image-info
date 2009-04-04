@@ -21,7 +21,7 @@ page contain description of the fields that can be present:
 
 The C<Exif> spec can be found at:
 
- http://www.pima.net/standards/it10/PIMA15740/exif.htm
+ http://www.exif.org/specifications.html
 
 =end register
 
@@ -256,14 +256,16 @@ sub process_app1_exif
 	# then we should apply process_file kind of recusively to extract
 	# information of this (thumbnail) image file...
 	if (my($ipos) = $info->get_info($i, "JPEGInterchangeFormat", 1)) {
-	    my($ilen) = $info->get_info($i, "JPEGInterchangeFormatLngth", 1);
-	    die unless $ilen;
-	    my $jdata = substr($data, $ipos, $ilen);
-	    #$info->push_info($i, "JPEGImage" => $jdata);
+	    my($ilen) = $info->get_info($i, "JPEGInterchangeFormatLength", 1);
+	    if ($ilen)
+		{
+		my $jdata = substr($data, $ipos, $ilen);
+		#$info->push_info($i, "JPEGImage" => $jdata);
 
-	    with_io_string {
-		_process_file($info, $_, $i);
-	    } $jdata;
+		with_io_string {
+		    _process_file($info, $_, $i);
+		} $jdata;
+	    }
 	}
 
 	# Turn XResolution/YResolution into 'resolution'

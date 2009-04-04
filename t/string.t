@@ -11,7 +11,7 @@ if ($] < 5.008) {
     }
 }
 
-my @tests = glob("img/test.*");
+my @tests = glob("img/test*");
 
 print "1..", scalar(@tests), "\n";
 

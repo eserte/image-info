@@ -143,7 +143,7 @@ XPM Extensions (the most common is XPMEXT) if present.
 
 =back
 
-=item FILES
+=head1 FILES
 
 This module requires L<Image::Xpm>
 

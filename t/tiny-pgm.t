@@ -1,17 +1,27 @@
-#!perl -w
+#!/usr/bin/perl -w
 
-print "1..2\n";
-
+use Test::More;
 use strict;
+
+# test dim(), html_dim() and image_info()
+
+BEGIN
+   {
+   plan tests => 4;
+   chdir 't' if -d 't';
+   use lib '../lib';
+   use_ok ("Image::Info") or die($@);
+   };
+
 use Image::Info qw(image_info);
 
-my $h = image_info("img/tiny.pgm");
+my $h = image_info("../img/tiny.pgm")
+  || die ("Cannot read tiny.pgm: $!");
 
 # use Data::Dump; Data::Dump::dump($h);
 
-print "not " unless $h->{file_media_type} eq "image/pgm";
-print "ok 1\n";
+is ($h->{file_media_type}, "image/pgm", 'file_media_type');
 
-print "not " unless $h->{width} == 1 && $h->{height} == 1;
-print "ok 2\n";
+is ($h->{width}, 1, 'width=1');
+is ($h->{height}, 1, 'height=1');;
 

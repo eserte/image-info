@@ -76,7 +76,7 @@ as C<image_info($file, L1D_Histogram=E<gt>1)>. The range is from 0 to 1.
 
 =back
 
-=item FILES
+=head1 FILES
 
 This module requires L<Image::Xbm>
 

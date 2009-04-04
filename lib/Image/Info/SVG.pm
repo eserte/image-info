@@ -139,7 +139,7 @@ The URI of the DTD the image conforms to.
 
 =back
 
-=item FILES
+=head1 FILES
 
 This module requires L<XML::Simple>
 

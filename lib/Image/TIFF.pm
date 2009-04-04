@@ -37,6 +37,7 @@ my %nikon1_tags = (
 );
 
 my %nikon2_tags = (
+    0x0001 => "NikonVersion",
     0x0002 => "ISOSetting",
     0x0003 => "ColorMode",
     0x0004 => "Quality",
@@ -44,9 +45,12 @@ my %nikon2_tags = (
     0x0006 => "ImageSharpening",
     0x0007 => "FocusMode",
     0x0008 => "FlashSetting",
+    0x0009 => "FlashMetering",
+    0x000B => "WBAdjustment",
     0x000F => "ISOSelection",
     0x0080 => "ImageAdjustment",
     0x0082 => "AuxiliaryLens",
+    0x0084 => "Lens",
     0x0085 => "ManualFocusDistance",
     0x0086 => "DigitalZoom",
     0x0088 => { __TAG__ => "AFFocusPosition",
@@ -56,6 +60,9 @@ my %nikon2_tags = (
                 pack("xCxx",3) => "Left",
                 pack("xCxx",4) => "Right",
               },
+    0x008d => "ColorMode",
+    0x0090 => "FlashType",
+    0x0095 => "NoiseReduction",
     0x0010 => "DataDump",
 );
 
@@ -307,6 +314,8 @@ my %makernotes = (
     "NIKON E990"  => [0, 'CoolPix', \%nikon2_tags],
     "NIKON E995"  => [0, 'CoolPix', \%nikon2_tags],
     "NIKON CORPORATION NIKON D1"  => [0, 'NikonD1', \%nikon2_tags],
+    "NIKON CORPORATION NIKON D70"  => [-2, 'NikonD1', \%nikon2_tags],
+    "NIKON CORPORATION NIKON D100"  => [-2, 'NikonD1', \%nikon2_tags],
     "OLYMPUS OPTICAL CO.,LTD C2000Z"  => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD C2100UZ" => [8, 'Olympus', \%olympus_tags],
     "OLYMPUS OPTICAL CO.,LTD C2500L"  => [8, 'Olympus', \%olympus_tags],
@@ -465,11 +474,9 @@ my %exif_tags = (
     0xA20E => "FocalPlaneXResolution",        # 0x920E    -  -
     0xA20F => "FocalPlaneYResolution",        # 0x920F    -  -
     0xA210 => { __TAG__ => "FocalPlaneResolutionUnit",     # 0x9210    -  -
-		1 => "dpi",  # 25.4
-		2 => "dpm",  # 25.4??
-		3 => "dpcm", # 10
-		4 => "dpmm", # 1
-		5 => "dpµm", # .001
+		1 => "pixels",
+		2 => "dpi",
+		3 => "dpcm",
 	      },
     0xA214 => "SubjectLocation",              # 0x9214    -  -
     0xA215 => "ExposureIndex",                # 0x9215    -  -
@@ -652,7 +659,7 @@ my %tiff_tags = (
   319   => "PrimaryChromaticities",
   320   => "ColorMap",
   513   => "JPEGInterchangeFormat",
-  514   => "JPEGInterchangeFormatLngth",
+  514   => "JPEGInterchangeFormatLength",
   529   => "YCbCrCoefficients",
   530   => "YCbCrSubSampling",
   531   => "YCbCrPositioning",
@@ -799,15 +806,27 @@ sub add_fields
 	    if ($tag eq 'MakerNote' && exists $makernotes{$self->{Make}.' '.$self->{Model}}) {
                 my ($ifd_off, $tag_prefix, $sub) = @{$makernotes{$self->{Make}.' '.$self->{Model}}};
                 $self->{tag_prefix} = $tag_prefix;
-	        if ($ifd_off < 0) {
+	        if ($ifd_off == -1) {
                     # fuji kludge -  http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html#APP4
                     my $save_endian = $self->{little_endian};
                     $self->{little_endian} = 1;
                     $ifd_off = $self->unpack("N", substr($val, 8, 4));
 		    $self->add_fields($voff+$ifd_off, $ifds, $sub, $voff);
                     $self->{little_endian} = $save_endian;
-                } else {
-	            $self->add_fields($voff+$ifd_off, $ifds, $sub);
+                } elsif ($ifd_off == -2) {
+		    # Nikon D70/D100 kludge -- word "Nikon" and 5
+		    # bytes of data is tacked to the front of
+		    # MakerNote; all EXIF offsets are relative to
+		    # MakerNote section
+		    my ($nikon_voff);
+		    $nikon_voff = 0;
+		    if (substr($val, 0, 5) eq 'Nikon') {
+			$nikon_voff = $voff+10;
+		    }
+		    #print "IFD_OFF $ifd_off NIKON_VOFF $nikon_voff\n";
+	            $self->add_fields($voff+18, $ifds, $sub, $nikon_voff);
+		} else {
+	            $self->add_fields($voff+$ifd_off, $ifds, $sub)
                 }
                 delete $self->{tag_prefix};
 	        next FIELD;
