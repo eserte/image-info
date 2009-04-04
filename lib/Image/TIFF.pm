@@ -9,7 +9,7 @@ package Image::TIFF;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.03';
+$VERSION = '1.04';
 
 my @types = (
   [ "BYTE",      "C1", 1],
@@ -327,6 +327,7 @@ my %panasonic_tags = (
 	1 => 'Auto',
 	2 => 'Manual',
 	5 => 'Auto, Continuous',
+	4 => 'Auto, Focus button',
 	},
     0x000f => { __TAG__ => "SpotMode",
 	# XXX TODO: does not decode properly
@@ -378,8 +379,12 @@ my %panasonic_tags = (
 	5 => 'Sepia',
 	},
     0x0029 => "Panasonic 0x0029",
-    0x002a => "Panasonic 0x002a",
-    0x002b => "Panasonic 0x002b",
+    0x002a => { __TAG__ => "BurstMode",
+	0 => 'Off',
+	1 => 'Low/High Quality',
+	2 => 'Infinite',
+	},
+    0x002b => "ImageSequenceNumber",
     0x002c => { __TAG__ => "Contrast",
 	0 => 'Normal',
 	1 => 'Low',
@@ -393,7 +398,11 @@ my %panasonic_tags = (
 	1 => 'Low',
 	2 => 'High',
 	},
-    0x002e => "Panasonic 0x002e",
+    0x002e => { __TAG__ => "SelfTimer",
+	1 => 'Off',
+	2 => '10s',
+	3 => '2s',
+	},
     0x002f => "Panasonic 0x002f",
     0x0030 => "Panasonic 0x0030",
     0x0031 => "Panasonic 0x0031",

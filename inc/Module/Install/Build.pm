@@ -1,10 +1,10 @@
-#line 1 "inc/Module/Install/Build.pm - /usr/local/lib/perl5/site_perl/5.8.6/Module/Install/Build.pm"
+#line 1
 package Module::Install::Build;
 
 use Module::Install::Base;
 @ISA = qw(Module::Install::Base);
 
-$VERSION = '0.58';
+$VERSION = '0.60';
 
 use strict;
 

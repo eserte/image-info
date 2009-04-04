@@ -1,5 +1,17 @@
 Revision history for Image::Info
 
+2006-03-13 v1.20 Tels 74 tests
+  * a few additions to Panasonic MakerNote in EXIF parsing
+  * use Module::Install 0.60 to fix breakage from 0.58
+  * fix bug #8193: Adds direct access to the determine_file_format logic
+    With the following changes:
+    + read only 11 bytes to determine file format (tiny.pgm is 11 bytes long)
+    + fix provided patch to really work
+  * fix bug #18147: 
+    + new TIFF code failed if the system endianness didn't match the TIFF
+       image endianness - thanx jpo!
+  * replace the link to the TIFF spec with a public link - thanx jpo!
+
 2006-03-05 v1.19 Tels 74 tests
   * finally fix bug #6558: (Thanx jpo!)
     + fix typos: Image::X(B|P)M must be Image::X(p|b)m (Thanx jpo!)

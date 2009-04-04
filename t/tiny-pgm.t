@@ -18,7 +18,7 @@ use Image::Info qw(image_info);
 my $h = image_info("../img/tiny.pgm")
   || die ("Cannot read tiny.pgm: $!");
 
-# use Data::Dump; Data::Dump::dump($h);
+#use Data::Dumper; print STDERR "# ", Data::Dumper::Dumper($h), "\n";
 
 is ($h->{file_media_type}, "image/pgm", 'file_media_type');
 

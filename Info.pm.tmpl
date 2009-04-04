@@ -12,19 +12,71 @@ use Symbol ();
 
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.19';
+$VERSION = '1.20';
 
 require Exporter;
 *import = \&Exporter::import;
 
 @EXPORT_OK = qw(image_info dim html_dim);
 
+# already required and failed sub-modules are remembered here
 my %mod_failure;
 
 sub image_info
 {
-    my($source, %cnf) = @_;
+    my $source = _source(shift);
+    return $source if ref $source eq 'HASH'; # Pass on errors
 
+    # What sort of file is it?
+    my $head = _head($source);
+
+    return $head if ref($head) eq 'HASH';	# error?
+
+    my $format = determine_file_format($head)
+        or return { error => 'Unrecognized file format' };
+
+    no strict 'refs';
+    my $mod = "Image::Info::$format";
+    my $sub = "$mod\::process_file";
+    my $info = bless [], "Image::Info::Result";
+    eval {
+        unless (defined &$sub) {
+	    # already required and failed?
+            if (my $fail = $mod_failure{$mod}) {
+                die $fail;
+            }
+            eval "require $mod";
+            if ($@) {
+                $mod_failure{$mod} = $@;
+                die $@;
+            }
+            die "$mod did not define &$sub" unless defined &$sub;
+        }
+
+        my %cnf = @_;
+        &$sub($info, $source, \%cnf);
+        $info->clean_up;
+    };
+    return { error => $@ } if $@;
+    return wantarray ? @$info : $info->[0];
+}
+
+sub image_type
+{
+    my $source = _source(shift);
+    return $source if ref $source eq 'HASH'; # Pass on errors
+
+    # What sort of file is it?
+    my $head = _head($source) or return _os_err("Can't read head");
+    my $format = determine_file_format($head)
+        or return { error => "Unrecognized file format" };
+
+    return { file_type => $format };
+}
+
+sub _source
+{
+    my $source = shift;
     if (!ref $source) {
         require Symbol;
         my $fh = Symbol::gensym();
@@ -47,41 +99,28 @@ sub image_info
 	seek($source, 0, 0) or return _os_err("Can't rewind");
     }
 
+    $source;
+}
+
+sub _head
+{
+    my $source = shift;
     my $head;
-    read($source, $head, 32) or return _os_err("Can't read head");
+
+    # tiny.pgm is 11 bytes
+    my $to_read = 11;
+    my $read = read($source, $head, $to_read);
+
+    return _os_err("Couldn't read $to_read bytes") if $read != $to_read;
+
     if (ref($source) eq "IO::String") {
 	# XXX workaround until we can trap seek() with a tied file handle
 	$source->setpos(0);
     }
     else {
-	seek($source, 0, 0) or _os_err("Can't rewind");
+	seek($source, 0, 0) or return _os_err("Can't rewind");
     }
-
-    if (my $format = determine_file_format($head)) {
-	no strict 'refs';
-	my $mod = "Image::Info::$format";
-	my $sub = "$mod\::process_file";
-	my $info = bless [], "Image::Info::Result";
-	eval {
-	    unless (defined &$sub) {
-	        if (my $fail = $mod_failure{$mod}) {
-		    die $fail;
-		}
-		eval "require $mod;";
-		if ($@) {
-		    $mod_failure{$mod} = $@;
-		    die $@;
-		}
-		die "$mod did not define &$sub" unless defined &$sub;
-	    }
-
-	    &$sub($info, $source, \%cnf);
-	    $info->clean_up;
-	};
-	return { error => $@ } if $@;
-	return wantarray ? @$info : $info->[0];
-    }
-    return { error => "Unrecognized file format" };
+    $head;
 }
 
 sub _os_err
@@ -151,7 +190,13 @@ Image::Info - Extract meta information from image files
      die "Can't parse image info: $error\n";
  }
  my $color = $info->{color_type};
-
+ 
+ my $type = image_type("image.jpg");
+ if (my $error = $type->{error}) {
+     die "Can't determine file type: $error\n";
+ }
+ die "No gif files allowed!" if $type->{file_type} eq 'GIF';
+ 
  my($w, $h) = dim($info);
 
 =head1 DESCRIPTION
@@ -184,6 +229,35 @@ directly.
 
 The image_info() function also take optional key/value style arguments
 that can influence what information is returned.
+
+=item image_type( $file )
+
+=item image_info( \$imgdata )
+
+This function is a dramatically faster alternative to the image_info
+function for situations in which you B<only> need to find the image type.
+
+It uses only the internal file-type detection to do this, and thus does
+not need to load any of the image type-specific driver modules, and does
+not access to entire file. It also only needs access to the first 32
+bytes of the file.
+
+To maintain some level of compatibility with image_info, image_type
+returns in the same format, with the same error message style. That is,
+it returns a HASH reference, with the $type->{error} key set if there
+was an error.
+
+On success, the HASH reference will contain the single key 'file_type',
+which represents the type of the file, expressed as the type code used for
+the various drivers ('GIF', 'JPEG', 'TIFF' and so on).
+
+If there are multiple images within the file they will be ignored, as this
+function provides only the type of the overall file, not of the various
+images within it. This function will not return multiple hashes if the file
+contains multiple images.
+
+Of course, in all (or at least effectively all) cases the type of the images
+inside the file is going to be the same as that of the file itself.
 
 =item dim( $info_hash )
 
@@ -340,14 +414,7 @@ L<Image::Size>, L<Image::ExifTool>
 
 Copyright 1999-2004 Gisle Aas.
 
-GIF fixes by Ralf Steines <metamonk@yahoo.com>.
-
-ASCII, BMP SVG, XPM and XBM support added by Jerrad Pierce
-<belg4mit@mit.edu>/<webmaster@pthbb.org>.
-
-Exif MakerNote decoding by Jay Soffian <jay@loudcloud.com>.
-
-TIFF support by <clarsen@emf.net>.
+See the CREDITS file for a list of contributors and authors.
 
 Now maintained by Tels - (c) 2006.
 

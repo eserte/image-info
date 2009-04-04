@@ -97,13 +97,14 @@ sub process_file
     my($info, $fh) = @_;
 
     my $soi = _read($fh, 4);
-    die "SOI missing" unless (defined($order{$soi}));
+    die "TIFF: SOI missing" unless (defined($order{$soi}));
     # XXX: should put this info in all pages?
     $info->push_info(0, "file_media_type" => "image/tiff");
     $info->push_info(0, "file_ext" => "tif");
 
     my $byteorder = $order{$soi};
-    # print "TIFF byte order $byteorder, our byte order: $Config{byteorder}\n";
+#    print "TIFF byte order $byteorder, our byte order: $Config{byteorder}\n";
+
     my $ifdoff = unpack("L",_read_order($fh,4,$byteorder));
     my $page = 0;
     do {
@@ -135,6 +136,14 @@ sub _process_ifds {
 	my $val;
         ## The 4 bytes of $value_offset may actually contains the value itself,
         ## if it fits into 4 bytes.
+        my $len = $typelen * $count;
+        if ($len <= 4) {
+	  if (($byteorder ne $Config{byteorder}) && ($len != 4)) {
+	    my @bytes = unpack("C4", $value_offset_orig);
+	    for (my $i=0; $i < 4 - $len; $i++) { shift @bytes; }
+	    $value_offset_orig = pack("C$len", @bytes);
+          }
+	}
         if ($typelen * $count <= 4) {
           @$val = unpack($typepack x $count, $value_offset_orig);
 	} elsif ($fieldtype == 5 || $fieldtype == 10) { 
@@ -247,8 +256,8 @@ modify it under the same terms as Perl itself.
 MAGIC: /^MM\x00\x2a/
 MAGIC: /^II\x2a\x00/
 
-The C<TIFF> spec can be found at (requires a login):
-L<http://partners.adobe.com/asn/developer/PDFS/TN/TIFF6.pdf>
+The C<TIFF> spec can be found at:
+L<http://partners.adobe.com/public/developer/tiff/>
 
 The EXIF spec can be found at:
 L<http://www.exif.org/>

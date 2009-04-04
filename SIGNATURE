@@ -14,9 +14,9 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 
 SHA1 38dd40d4fe9a8a408648f2f2c1a2a3ac76bbac72 Build.PL
-SHA1 d067b85671f991f0dbf9dcd203a26c884dcb8014 CREDITS
-SHA1 b368e267974dc79831ddf6635f2388fdc93bef1b Changes
-SHA1 878ad00d94743e6b10afbda4c2eddae62deb1930 Info.pm.tmpl
+SHA1 f80e06a8f226a188aa0ce90bba444bd7a2cdf1e9 CREDITS
+SHA1 97c62ff5720a88406930ee061e83cc91f4563c0f Changes
+SHA1 e699ff654de083790751616ae302db3469d86048 Info.pm.tmpl
 SHA1 5a6f046d5e233bc959474b203ef62b87e1c580b9 MANIFEST
 SHA1 0f7a267683dec85e19aab794d0055057b1caafc3 META.yml
 SHA1 98963495d490fcdb564524d97d56fed944034be6 Makefile.PL
@@ -37,28 +37,28 @@ SHA1 8a8f9bfb0a791f01f5aeecb29d095bdb94b16d43 img/test.xbm
 SHA1 d7ead6bd7acf3aa703424697913c5a0e9c2e9244 img/test.xpm
 SHA1 d33e338aa7a45dc6fa4cefcdd376916e2267f3f9 img/tiny.pgm
 SHA1 376cc1bd8424b1123f0073df81ce5433be4df58e imgdump
-SHA1 08b7cd26c5ff1954c27754bcef03d64a7e206ebb inc/Module/AutoInstall.pm
-SHA1 856b0784985f9cce51b0e28a268a9f2806b326ae inc/Module/Install.pm
-SHA1 12d34e422cbb414cfdfad081259392d80f96e411 inc/Module/Install/AutoInstall.pm
-SHA1 5d81ac8c2bf4ae0435d78a3f29d6fe84dd08cfc2 inc/Module/Install/Base.pm
-SHA1 b4a3961e879f4896c2e8b347495905f801226d1f inc/Module/Install/Build.pm
-SHA1 2025e1a762ee2c310a2409d859f83589b2043220 inc/Module/Install/Can.pm
-SHA1 dd432e42e22bc429051d0eca417220481057fefa inc/Module/Install/Fetch.pm
-SHA1 0323f0d1d427f92fbd77cdeafca5aec17cb4146e inc/Module/Install/Include.pm
-SHA1 9e1cee9fee3e1a0e88aee02e63d5eb8b27738ff9 inc/Module/Install/Makefile.pm
-SHA1 bfe69daf78a4bcfff698ff436b504b4783fe26c3 inc/Module/Install/Metadata.pm
-SHA1 1a8e13a33d0684670201e2c29103c96e25b55d89 inc/Module/Install/Win32.pm
-SHA1 b388ec7575301939ef985bcfb263f275ac3386b7 inc/Module/Install/WriteAll.pm
+SHA1 0bb5ddbe64424d40536acdee2f09e853ab39087d inc/Module/AutoInstall.pm
+SHA1 ec2e3f89726d91338c33adb8d9ab85889671546a inc/Module/Install.pm
+SHA1 50902e3aef30d518a259882853065c89fae1b3a0 inc/Module/Install/AutoInstall.pm
+SHA1 6ef459d9db32305cf709f938ff72b5a526d11f58 inc/Module/Install/Base.pm
+SHA1 ff11f9f19d35a35e9745eaa7c0046e5de6320c45 inc/Module/Install/Build.pm
+SHA1 e524d42baa11997ca1fc9b48797e2df663fb1511 inc/Module/Install/Can.pm
+SHA1 1a6f1d0d2731525ba7c897352c989794ca5152b7 inc/Module/Install/Fetch.pm
+SHA1 83a68a6afd488964afe7a2cfb20ce2588444a65a inc/Module/Install/Include.pm
+SHA1 2fd3502290372f63ea3c3c230ab4d0bffacc5740 inc/Module/Install/Makefile.pm
+SHA1 b3f60463cb90ba74f1db41598a49478257b1c1ff inc/Module/Install/Metadata.pm
+SHA1 542a6aa745e8b3649e4af07e913baaeb70611d90 inc/Module/Install/Win32.pm
+SHA1 1dd03ca2a5fe24536382d2636bde32a7fefac57e inc/Module/Install/WriteAll.pm
 SHA1 9f0dd1235685ad2efb78ccb70f824eb5ecbb9add lib/Image/Info/BMP.pm
 SHA1 b47fa780d8a4b1012c60ac58b9f36ea024637bc8 lib/Image/Info/GIF.pm
 SHA1 b42941528466b35cfd265177fad4c6f2d5d10800 lib/Image/Info/JPEG.pm
 SHA1 24a4d91c9d86469a2017119847e83451a1056e9a lib/Image/Info/PNG.pm
 SHA1 dffb9c70bdc96fc0e8649e5a205aad5a38f7ee89 lib/Image/Info/PPM.pm
 SHA1 b07f4476f6d61546fbb704da83822c2945d8b9a9 lib/Image/Info/SVG.pm
-SHA1 1f4e5102065040126b33aa0d2d0a9a20e932a0c4 lib/Image/Info/TIFF.pm
+SHA1 9fc13f2a1508fc43856480ef50aac4998114242f lib/Image/Info/TIFF.pm
 SHA1 64fd553234970072b2d3e482c2669ed2bb300569 lib/Image/Info/XBM.pm
 SHA1 69f6ac1388bb51ef1993bc73cd5740fe70892900 lib/Image/Info/XPM.pm
-SHA1 d1811f6f1c60690cc8d4516862aafc1609c71c12 lib/Image/TIFF.pm
+SHA1 4cd105012d2f4d5af5653feb9a4010fff36222fa lib/Image/TIFF.pm
 SHA1 61fdb4822719faa76c20533543bf714763ed9db2 t/bmp.t
 SHA1 eebc298edc3dea38320f0926dfa4f7e8a473d596 t/dim.t
 SHA1 7c5de07e736df47762301982fedc10f168b76486 t/exif.t
@@ -67,15 +67,15 @@ SHA1 cc217a37ee14356bb57e4ea32c1eda94d1a2d8c9 t/pod.t
 SHA1 a8867b6d1a97c51e22eb650cc26e80178f4264e5 t/pod_cov.t
 SHA1 cfc8bace2eee51a69c2aac04d078d0dfa1ed87f9 t/string.t
 SHA1 bfe313465a99a8cf75c2da4ea5ea4c56cbba84e8 t/tiff.t
-SHA1 9303385f0b5050dcb57d57a1c0e11949b36c85a5 t/tiny-pgm.t
+SHA1 21c60748e74cd08f3e8cb12a5e652d225c39f108 t/tiny-pgm.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.4 (GNU/Linux)
 
-iQEVAwUBRAqsJHcLPEOTuEwVAQHCbwf+My4icIB1zCQN9i8B8itweH7XXKo5+Qdb
-YMlwfa8GdGsfYJ4KOzFixxBKSe7J8M2Z7+FaVxfeuIqS2G7gujAoxDHzBlYRFyGZ
-XdkNaH6zlUGwwNtDPlZZmdSgG2a5tQbjC20o8SBqC4J/JMKgqZKEA/VbehU1Iwna
-UndAnuD2L+U0uficjR+14dNVL+RJUsRp6AkqeVjMjq/pFV/MWgYFRXYOSkeGpMrA
-/NLAn8jrfdteezjj1XrVJ7GX6Z+Wi4I5+WFqk4lzGWcZ5nqga7imo4lnzhpYEEzR
-AQk4heJxqdBa676qZWnCv92rBETKjOQ7q+1vzP5u2Ahyeq98A60dCA==
-=e9mh
+iQEVAwUBRBXa6HcLPEOTuEwVAQHYCwf9H5crc47uOYX5CsyXsQx9eHDH4y0PqA0d
+jXhDny7IW/eRkTZ9Nm/N/BVOpNgOs1yTXxEc+tmNAJ2L7TRhtdLUD1CHgvQ3r0Vv
+Muk8GbZP6uGJpSoWM2A5lDdqKcFDIn/KxYhGd5H7ty4jGckgBXvbsGs90/7trr3q
+9gK0ICWnWcsEtHvLRwmNFgFGa8DQNGdS8bOlsa9pWFnGt4YLKTauMTailO5ONRSx
+Pz4CjEcV9p5Eg22Z7E6v14JImSTbH/x4G2CKRy7XSI5d4tr2yY0dn+kuUGUGLvgt
+r+mVE8sds1U4RJJnJ5qX+6i71IRcSkdKGkRoSG6N44lJPCg2fxHMlQ==
+=Oq1O
 -----END PGP SIGNATURE-----
