@@ -1,12 +1,15 @@
 #line 1
 package Module::Install::Build;
 
-use Module::Install::Base;
-@ISA = qw(Module::Install::Base);
-
-$VERSION = '0.61';
-
 use strict;
+use Module::Install::Base;
+
+use vars qw{$VERSION $ISCORE @ISA};
+BEGIN {
+	$VERSION = '0.63';
+	$ISCORE  = 1;
+	@ISA     = qw{Module::Install::Base};
+}
 
 sub Build { $_[0] }
 
@@ -63,4 +66,4 @@ sub ACTION_dist {
 
 __END__
 
-#line 177
+#line 180

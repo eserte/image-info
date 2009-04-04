@@ -1,5 +1,18 @@
 Revision history for Image::Info
 
+2006-07-16 v1.22 Tels 123 tests
+  * fix bug #19071: byteorder for TIFF on 64-bit systems broken
+  * better error message in case SOI is missing in a JPEG
+    (still no fix for #20183)
+  * SVG:
+    + use the correct MIME type "image/svg+xml"
+    + version extraction was broken
+    + comments had too much whitespace at front/end (these should be
+      ignored and not extracted anyway)
+  * add svg.t
+  * resize test.jpg and test.png to make dist smaller
+  * add interlace.png and beef up t/png.t
+
 2006-05-01 v1.21 Tels 96 tests
   * move the code to build Info.pm to dev/build.pl
   * include a pre-generated Info.pm into MANIFEST

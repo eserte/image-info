@@ -1,5 +1,7 @@
 package Image::Info::TIFF;
 
+$VERSION = 0.02;
+
 use strict;
 use Config;
 use Carp qw(confess);
@@ -21,9 +23,18 @@ my @types = (
   [ "DOUBLE",    "d", 8],  
 );
 
+sub _hostbyteorder {
+    my $hbo = $Config{byteorder};
+    # we only care about the order, not the length (for 64 bit, it might
+    # be 12345678)
+    if ($hbo =~ /^1234/) { return '1234' }
+    if ($hbo =~ /4321$/) { return '4321' }
+    die "Unexpected host byteorder: $hbo";
+}
 
 sub _read
 {
+    # read bytes, and move the file pointer forward
     my($source, $len) = @_;
     my $buf;
     my $n = read($source, $buf, $len);
@@ -31,8 +42,10 @@ sub _read
     die "short read ($len/$n)" unless $n == $len;
     $buf;
 }
+
 sub _readbytes
 {
+    # read bytes, but make the file pointer stand still
     my ($fh,$offset,$len) = @_;
     my $curoffset = tell($fh);
     my $buf;
@@ -70,10 +83,10 @@ sub _readrational
 sub _read_order
 {
     my($source, $len,$byteorder) = @_;
-    my $buf;
-    my $n = read($source, $buf, $len);
-    # maybe reverse
-    if ($byteorder ne $Config{byteorder}) {
+
+    my $buf = _read($source,$len);
+    # maybe reverse the read data?
+    if ($byteorder ne _hostbyteorder()) {
 	my @bytes = unpack("C$len",$buf);
 	my @newbytes;
 	# swap bytes
@@ -82,8 +95,6 @@ sub _read_order
 	}
 	$buf = pack("C$len",@newbytes);
     }
-    die "read failed: $!" unless defined $n;
-    die "short read ($len/$n)" unless $n == $len;
     $buf;
 }
 
@@ -103,8 +114,6 @@ sub process_file
     $info->push_info(0, "file_ext" => "tif");
 
     my $byteorder = $order{$soi};
-#    print "TIFF byte order $byteorder, our byte order: $Config{byteorder}\n";
-
     my $ifdoff = unpack("L",_read_order($fh,4,$byteorder));
     my $page = 0;
     do {
@@ -138,7 +147,7 @@ sub _process_ifds {
         ## if it fits into 4 bytes.
         my $len = $typelen * $count;
         if ($len <= 4) {
-	  if (($byteorder ne $Config{byteorder}) && ($len != 4)) {
+          if (($byteorder ne _hostbyteorder()) && ($len != 4)) {
 	    my @bytes = unpack("C4", $value_offset_orig);
 	    for (my $i=0; $i < 4 - $len; $i++) { shift @bytes; }
 	    $value_offset_orig = pack("C$len", @bytes);

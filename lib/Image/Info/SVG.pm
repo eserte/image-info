@@ -1,6 +1,6 @@
 package Image::Info::SVG;
 
-$VERSION = '1.03';
+$VERSION = '1.04';
 
 use strict;
 no strict 'refs';
@@ -19,18 +19,16 @@ sub process_file {
 	    $comment .= $_;
 	}
 	if( /-->/ ){
-	    $comment =~ s/<!--//;
-	    $comment =~ s/-->//;
+	    $comment =~ s/<!--\s*//;
+	    $comment =~ s/\s*-->//;
 	    chomp($comment);
 	    push @comments, $comment;
 	    $comment = '';
 	}
 	$imgdata .= $_;
     }
-    if( $imgdata =~ /<!DOCTYPE\s+svg\s+.+?\s+"(.+?)">/ ){
-	$info{dtd} = $1;
-    }
-    elsif( $imgdata !~ /<svg/ ){
+
+    if( $imgdata !~ /<svg/ ){
 	return $info->push_info(0, "error", "Not a valid SVG image");
     }
 
@@ -41,18 +39,26 @@ sub process_file {
     $xs = XML::Simple->new;
     $img = $xs->XMLin($imgdata);
 
+#    use Data::Dumper; print Dumper($img);
+
     $info->push_info(0, "color_type" => "sRGB");
     $info->push_info(0, "file_ext" => "svg");
-    # XXX not official type yet, may be image/svg+xml
-    $info->push_info(0, "file_media_type" => "image/svg-xml");
+    # "image/svg+xml" is the official MIME type
+    $info->push_info(0, "file_media_type" => "image/svg+xml");
+
     $info->push_info(0, "height", $img->{height});
-#    $info->push_info(0, "resolution", "1/1");
     $info->push_info(0, "width", $img->{width});
-#    $info->push_info(0, "BitsPerSample", 8);
-    #$info->push_info(0, "SamplesPerPixel", -1);
+    $info->push_info(0, "SVG_StandAlone", $info{standalone});
+    $info->push_info(0, "SVG_Version", $img->{version} || 'unknown');
 
     # XXX Description, title etc. could be tucked away in a <g> :-(
     $info->push_info(0, "ImageDescription", $img->{desc}) if $img->{desc};
+    $info->push_info(0, "SVG_Title", $img->{title}) if $img->{title};
+
+#    $info->push_info(0, "SamplesPerPixel", -1);
+#    $info->push_info(0, "resolution", "1/1");
+#    $info->push_info(0, "BitsPerSample", 8);
+
     if( $img->{image} ){
 	if( ref($img->{image}) eq 'ARRAY' ){
 	    foreach my $img (@{$img->{image}}){
@@ -63,9 +69,6 @@ sub process_file {
 	    $info->push_info(0, "SVG_Image", $img->{image}->{'xlink:href'});
 	}
     }
-    $info->push_info(0, "SVG_StandAlone", $info{standalone});
-    $info->push_info(0, "SVG_Title", $img->{title}) if $img->{title};
-    $info->push_info(0, "SVG_Version", $info{dtd}||'unknown');
 
     for (@comments) {
 	$info->push_info(0, "Comment", $_);
@@ -92,14 +95,11 @@ Image::Info::SVG - SVG support for Image::Info
  if (my $error = $info->{error}) {
      die "Can't parse image info: $error\n";
  }
- my $color = $info->{color_type};
+ my $title = $info->{SVG_Title};
 
  my($w, $h) = dim($info);
 
 =head1 DESCRIPTION
-
-A functional yet thus far rudimentary SVG implementation.
-SVG also provides (for) a plethora of attributes and metadata of an image.
 
 This modules supplies the standard key names except for
 BitsPerSample, Compression, Gamma, Interlace, LastModificationTime, as well as:
@@ -139,7 +139,7 @@ Processes one file and sets the found info fields in the C<$info> object.
 
 =head1 FILES
 
-This module requires L<XML::Simple>
+This module requires L<XML::Simple>.
 
 =head1 SEE ALSO
 
@@ -175,8 +175,7 @@ modify it under the same terms as Perl itself.
 
 MAGIC: /^<\?xml/
 
-SVG also provides (for) a plethora of attributes and metadata of an image.
-See L<Image::Info::SVG> for details.
+Provides a plethora of attributes and metadata of an SVG vector grafic.
 
 =end register
 

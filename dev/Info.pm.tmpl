@@ -17,7 +17,7 @@ package Image::Info;
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.21';
+$VERSION = '1.22';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -59,6 +59,7 @@ sub image_info
         }
 
         my %cnf = @_;
+        # call process_file()
         &$sub($info, $source, \%cnf);
         $info->clean_up;
     };

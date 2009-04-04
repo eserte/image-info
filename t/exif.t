@@ -31,4 +31,4 @@ is ($i->{'Olympus-CameraID'}, 'OLYMPUS DIGITAL CAMERA', 'Olympus-CameraID');
 #use Devel::Peek;
 #print Dump($i->{'Olympus-CameraID'});
 
-is (dim($i), '640x480', 'dim()');
+is (dim($i), '320x240', 'dim()');
