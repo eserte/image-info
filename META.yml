@@ -27,4 +27,5 @@ recommends:
   XML::LibXML::Reader: 0
 resources:
   license: http://dev.perl.org/licenses/
+  repository: git@github.com:eserte/image-info.git
 version: 1.28_50
