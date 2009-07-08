@@ -21,7 +21,7 @@ my $requires =
   {
   xpm => 'Image::Xpm',
   xbm => 'Image::Xbm',
-  svg => 'XML::Simple',
+  svg => 'XML::LibXML::Reader', # could also use XML::Simple, but this one is better
   };
 
 SKIP:
