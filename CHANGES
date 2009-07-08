@@ -12,6 +12,13 @@ Revision history for Image::Info
 
     Removed deprecation notice.
 
+    Bundled Module::Install 0.91.
+
+    Ceased a warning in the JPEG parsing code with perl 5.6.x.
+
+    Lowered minimum required Perl version to 5.6.0 (There's no
+    evidence that it does not work with that Perl version).
+
 2008-03-30 v1.28 Tels 128 tests
   * raise minimum required Perl version to v5.6.2
     (it doesn't work on 5.005 anyway, open() with three arguments
