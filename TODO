@@ -3,5 +3,4 @@
 * convert the EXIF parsing code to just use something like
   Image::Exiftool - our code is way to complicated, outdated,
   and it's double work to maintain it
-* get rid of the comment parsing for SVG, it's whacky and undocumented
 
