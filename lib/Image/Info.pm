@@ -18,7 +18,7 @@ package Image::Info;
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.29';
+$VERSION = '1.28_50';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -207,7 +207,7 @@ __END__
 
 =head1 NAME
 
-Image::Info - Extract meta information from image files (DEPRECATED)
+Image::Info - Extract meta information from image files
 
 =head1 SYNOPSIS
 
@@ -228,19 +228,6 @@ Image::Info - Extract meta information from image files (DEPRECATED)
  my($w, $h) = dim($info);
 
 =head1 DESCRIPTION
-
-Please note that this module is B<deprecated> and should not be used.
-Alternatively, try one of the following modules:
-
-L<Image::Size>, L<Image::ExifTool>.
-
-The code in this module is old, unreviewed, hackish, still has
-numerous bugs and is incomplete in quite a few cases.
-
-While this module is sort-of maintained (e.g. the most critical
-security-related bugs are fixed), no new features will be added
-and numerous minor bugs are very likely sprinkled through the entire
-code base. You have been warned.
 
 This module provide functions to extract various kind of meta
 information from image files.
@@ -518,16 +505,11 @@ See L<Image::Info::XPM> for details.
 
 =head1 CAVEATS
 
-Note that while the module is still maintained, no new features
-will be added and numerous bugs remain throughout the code base.
-
-Especially the EXIF parsing code is buggy, not tested at all,
-and quite incomplete (a lot of manufacturer's MakerNotes and tags are
-not parsed at all). If you want a stable, feature-complete, up-to-date
-and tested EXIF parsing library, please use L<Image::ExifTool>.
-
-Likewise, the image parsing code is quite hackish and seems to contain
-an endless supply of bugs that crash, or hang with malformed input.
+While this module is fine for parsing basic image information like
+image type, dimensions and color depth, it is probably not good enough
+for parsing out more advanced information like EXIF data. If you want
+an up-to-date and tested EXIF parsing library, please use
+L<Image::ExifTool>.
 
 =head1 SEE ALSO
 
@@ -540,6 +522,8 @@ Copyright 1999-2004 Gisle Aas.
 See the CREDITS file for a list of contributors and authors.
 
 Now maintained by Tels - (c) 2006 - 2008.
+
+Last release done by Slaven Rezic - (c) 2008 - 2009.
 
 =head1 LICENSE
 

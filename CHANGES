@@ -10,6 +10,8 @@ Revision history for Image::Info
     module can still be used by setting
     @Image::Info::SVG::PREFER_MODULE
 
+    Removed deprecation notice.
+
 2008-03-30 v1.28 Tels 128 tests
   * raise minimum required Perl version to v5.6.2
     (it doesn't work on 5.005 anyway, open() with three arguments
