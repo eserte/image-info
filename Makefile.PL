@@ -25,9 +25,6 @@ EOF
     }
 }
 
-# Get most of the details from the primary module
-all_from	'lib/Image/Info.pm';
-
 requires	'IO::String'		=> '1.03' if $] < 5.008;
 
 recommends	'Image::Xpm'		=> 1.0,
@@ -38,9 +35,12 @@ test_requires  'Test::More'		=> '0.62';
 
 license		'perl';
 
-author		'Tels <nospam-abuse@bloodgate.com>',
+author		'Slaven Rezic',
 		'Gisle Aas',
-		'Slaven Rezic'; 
+		'Tels <nospam-abuse@bloodgate.com>'; 
+
+# Get most of the details from the primary module
+all_from	'lib/Image/Info.pm';
 
 # Do not index these
 no_index        directory       => 'img', 'dev';
