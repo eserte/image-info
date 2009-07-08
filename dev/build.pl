@@ -2,6 +2,7 @@
 
 use strict;
 use File::Spec;
+use Getopt::Long;
 
 #############################################################################
 #############################################################################
@@ -19,6 +20,10 @@ my $updir = File::Spec->updir();
 my $tmpl = File::Spec->catfile("Info.pm.tmpl");
 my $info_pm = File::Spec->catfile($updir,"lib", "Image", "Info.pm");
 my $idir = File::Spec->catdir($updir,"lib", "Image", "Info");
+
+GetOptions("o=s" => \$info_pm)
+    or die "Usage: $0 [-o output]";
+
 opendir(DIR, $idir) || die "Can't opendir $idir: $!";
 my (@code,@desc, $desc);
 for my $file (sort readdir(DIR)) {

@@ -7,6 +7,24 @@ use strict;
 # Load the Module::Install bundled in ./inc/
 use inc::Module::Install;
 
+if (defined $ENV{USER} && $ENV{USER} eq 'eserte') { # fill in the developer's user names here
+    require File::Compare;
+    require File::Temp;
+    my($tmpfh,$tmpfile) = File::Temp::tempfile(SUFFIX => '.pm', UNLINK => 1);
+    system("./dev/build.pl", "-o", $tmpfile);
+    if (File::Compare::compare($tmpfile, 'lib/Image/Info.pm') != 0) {
+        warn <<EOF;
+**********************************************************************
+*** WARNING
+***
+*** Changes in dev/Info.pm.tmpl detected, please run dev/build.pl!
+***
+**********************************************************************
+
+EOF
+    }
+}
+
 # Get most of the details from the primary module
 all_from	'lib/Image/Info.pm';
 
