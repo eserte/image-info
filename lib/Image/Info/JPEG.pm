@@ -91,8 +91,10 @@ sub _process_file
     my($info, $fh, $img_no) = @_;
 
     my $soi = my_read($fh, 2);
-    my $ofs = tell() - 2;
-    die "SOI missing in JPEG file at offset $ofs" unless $soi eq "\xFF\xD8";
+    unless ($soi eq "\xFF\xD8") {
+	my $ofs = tell() - 2;
+	die "SOI missing in JPEG file at offset $ofs";
+    }
 
     $info->push_info($img_no, "file_media_type" => "image/jpeg");
     $info->push_info($img_no, "file_ext" => "jpg");
