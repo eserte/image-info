@@ -10,11 +10,13 @@ BEGIN
   chdir 't' if -d 't';
   use lib '../lib';
 
-  plan skip_all => "Need XML::Simple for this test",
-  unless do {
-    eval "use XML::Simple;";
-    $@ ? 0 : 1;
-    };
+  if (!eval { require XML::LibXML::Reader; 1 } &&
+      !eval { require XML::Simple; 1 }
+     )
+    {
+      plan skip_all => "Need XML::Simple or XML::LibXML::Reader for this test";
+    }
+
   plan tests => 12;
   }
 
@@ -22,6 +24,11 @@ use Image::Info qw(image_info dim);
 
 my $i = image_info("../img/test.svg") ||
   die ("Couldn't read test.svg: $!");
+
+{
+  no warnings 'once';
+  diag "Using SVG module $Image::Info::SVG::USING_MODULE";
+}
 
 #use Data::Dumper; print Dumper($i), "\n";
 

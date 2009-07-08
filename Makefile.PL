@@ -10,18 +10,19 @@ use inc::Module::Install;
 # Get most of the details from the primary module
 all_from	'lib/Image/Info.pm';
 
-requires	'IO::String'	=> '1.03' if $] < 5.008;
+requires	'IO::String'		=> '1.03' if $] < 5.008;
 
-recommends	'Image::Xpm'	=> 1.0,
-		'Image::Xbm'	=> 1.0,
-		'XML::Simple'	=> 0;
+recommends	'Image::Xpm'		=> 1.0,
+		'Image::Xbm'		=> 1.0,
+		'XML::LibXML::Reader'	=> 0;
 
-test_requires  'Test::More'	=> '0.62';
+test_requires  'Test::More'		=> '0.62';
 
 license		'perl';
 
 author		'Tels <nospam-abuse@bloodgate.com>',
-		'Gisle Aas'; 
+		'Gisle Aas',
+		'Slaven Rezic'; 
 
 # Do not index these
 no_index        directory       => 'img', 'dev';

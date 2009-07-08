@@ -3,7 +3,5 @@
 * convert the EXIF parsing code to just use something like
   Image::Exiftool - our code is way to complicated, outdated,
   and it's double work to maintain it
-* get rid of the need for XML::Simple for SVG parsing - half
-  of the parsing is done via custom regexps, anyway.
 * get rid of the comment parsing for SVG, it's whacky and undocumented
 
