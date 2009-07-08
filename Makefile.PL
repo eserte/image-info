@@ -1,7 +1,7 @@
 
 #############################################################################
 
-require 5.006002;
+require 5.006;
 use strict;
 
 # Load the Module::Install bundled in ./inc/
