@@ -3,4 +3,4 @@
 * convert the EXIF parsing code to just use something like
   Image::Exiftool - our code is way to complicated, outdated,
   and it's double work to maintain it
-
+* Get rid of XML::Simple dependency in Image::Info::SVG::XMLLibXMLReader

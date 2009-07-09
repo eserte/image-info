@@ -10,7 +10,7 @@ BEGIN
   chdir 't' if -d 't';
   use lib '../lib';
 
-  if (!eval { require XML::LibXML::Reader; 1 } &&
+  if (!eval { require XML::LibXML::Reader; require XML::Simple; 1 } &&
       !eval { require XML::Simple; 1 }
      )
     {

@@ -19,9 +19,9 @@ BEGIN
 
 my $requires = 
   {
-  xpm => 'Image::Xpm',
-  xbm => 'Image::Xbm',
-  svg => 'XML::LibXML::Reader', # could also use XML::Simple, but this one is better
+  xpm => ['Image::Xpm'],
+  xbm => ['Image::Xbm'],
+  svg => ['XML::LibXML::Reader', 'XML::Simple'],
   };
 
 SKIP:
@@ -37,7 +37,7 @@ SKIP:
 
   my $updir = File::Spec->updir();
 
-  for my $f (@tests)
+TESTFILES: for my $f (@tests)
     {
     # extract the extension of the image file
     $f =~ /\.([a-z]+)\z/i; my $x = lc($1 || '');
@@ -47,12 +47,14 @@ SKIP:
       # test for loading the nec. library
       if (exists $requires->{$x})
         {
-        my $r = $requires->{$x};
-        skip( "Need $r for this test", 2 ) && next
-          unless do {
-            eval "use $r;";
-            $@ ? 0 : 1;
-          };
+	for my $r (@{ $requires->{$x} })
+          {
+          skip( "Need $r for this test", 2 ) && next TESTFILES
+            unless do {
+              eval "use $r;";
+              $@ ? 0 : 1;
+            };
+          }
         }
 
       # 2 tests follow:
