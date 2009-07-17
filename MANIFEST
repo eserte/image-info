@@ -22,6 +22,7 @@ img/test.tif
 img/test.xbm
 img/test.xpm
 img/tiny.pgm
+img/ztxt.png			PNG example with ztxt chunk
 imgdump				Test driver script
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
