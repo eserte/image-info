@@ -1,4 +1,5 @@
 /.prove
+/Image-Info-*.tar.gz
 /MANIFEST.bak
 /Makefile
 /Makefile.old
