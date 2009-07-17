@@ -138,7 +138,7 @@ sub process_file
 	elsif ($type eq "zTXt" && $have_zlib) {
 		my($key, $val) = split(/\0/, $data, 2);
 		my($method,$ctext) = split(//, $val, 2);
-		if ($method == 0) {
+		if ($method eq "\0") {
 		    $info->push_info(0, $key, Compress::Zlib::uncompress($ctext));
 		} else {
 		    $info->push_info(0, "Chunk-$type" => $data);

@@ -1,8 +1,8 @@
 Revision history for Image::Info
 
-2009-07-08  Slaven Rezic  <slaven@rezic.de>
+XXXX-XX-XX  Slaven Rezic  <slaven@rezic.de>
 
-    Release 1.29
+    Release 1.29-to-be
 
     SVG parsing is now done by XML::LibXML::Reader, if available,
     otherwise the old XML::Simple-based code is used. Using the
@@ -18,6 +18,9 @@ Revision history for Image::Info
 
     Lowered minimum required Perl version to 5.6.0 (There's no
     evidence that it does not work with that Perl version).
+
+    Ceased warnings when reading PNG files with ztxt (compressed
+    comment) chunk (RT #28054)
 
 2008-03-30 v1.28 Tels 128 tests
   * raise minimum required Perl version to v5.6.2

@@ -7,7 +7,7 @@ use strict;
 
 BEGIN
    {
-   plan tests => 18;
+   plan tests => 19;
    chdir 't' if -d 't';
    use lib '../lib';
    use_ok ("Image::Info") or die($@);
@@ -48,3 +48,10 @@ is ($i->{Comment}, 'Created with The GIMP', 'Comment');
 
 is (dim($i), '200x100', 'dim()');
 
+#############################################################################
+# ztxt test
+
+# Used to emit warnings (https://rt.cpan.org/Ticket/Display.html?id=28054)
+$i = image_info("../img/ztxt.png") ||
+  die ("Couldn't read ztxt.png: $!");
+is ($i->{comment}, "some image comment\n", 'ztxt comment');
