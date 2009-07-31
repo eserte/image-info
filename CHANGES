@@ -1,8 +1,8 @@
 Revision history for Image::Info
 
-XXXX-XX-XX  Slaven Rezic  <slaven@rezic.de>
+2009-07-31  Slaven Rezic  <srezic@cpan.org>
 
-    Release 1.29-to-be
+    Release 1.29
 
     SVG parsing is now done by XML::LibXML::Reader, if available,
     otherwise the old XML::Simple-based code is used. Using the
