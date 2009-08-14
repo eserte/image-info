@@ -50,8 +50,13 @@ is (dim($i), '200x100', 'dim()');
 
 #############################################################################
 # ztxt test
+SKIP:
+    {
+       skip 'Need Compress::Zlib for this ztxt test', 1
+	   if !eval { require Compress::Zlib; 1 };
 
-# Used to emit warnings (https://rt.cpan.org/Ticket/Display.html?id=28054)
-$i = image_info("../img/ztxt.png") ||
-  die ("Couldn't read ztxt.png: $!");
-is ($i->{comment}, "some image comment\n", 'ztxt comment');
+       # Used to emit warnings (https://rt.cpan.org/Ticket/Display.html?id=28054)
+       $i = image_info("../img/ztxt.png") ||
+	   die ("Couldn't read ztxt.png: $!");
+       is ($i->{comment}, "some image comment\n", 'ztxt comment');
+    }

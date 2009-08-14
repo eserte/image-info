@@ -27,7 +27,8 @@ EOF
 
 requires	'IO::String'		=> '1.03' if $] < 5.008;
 
-recommends	'Image::Xpm'		=> 1.0,
+recommends	'Compress::Zlib'	=> 0,
+		'Image::Xpm'		=> 1.0,
 		'Image::Xbm'		=> 1.0,
 		'XML::LibXML::Reader'	=> 0,
 		'XML::Simple'		=> 0;

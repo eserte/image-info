@@ -1,5 +1,12 @@
 Revision history for Image::Info
 
+XXXX-XX-XX  Slaven Rezic  <srezic@cpan.org>
+
+    Release X.XX
+
+    Marked Compress::Zlib as recommended module and skip a test if it is
+    not installed (RT #48415)
+
 2009-07-31  Slaven Rezic  <srezic@cpan.org>
 
     Release 1.29
