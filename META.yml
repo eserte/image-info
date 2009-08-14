@@ -22,6 +22,7 @@ no_index:
     - inc
     - t
 recommends:
+  Compress::Zlib: 0
   Image::Xbm: 1
   Image::Xpm: 1
   XML::LibXML::Reader: 0
@@ -29,4 +30,4 @@ recommends:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git@github.com:eserte/image-info.git
-version: 1.29
+version: 1.29_50
