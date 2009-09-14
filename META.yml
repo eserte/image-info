@@ -30,4 +30,4 @@ recommends:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git@github.com:eserte/image-info.git
-version: 1.29_50
+version: 1.29_51

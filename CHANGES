@@ -1,5 +1,12 @@
 Revision history for Image::Info
 
+2009-09-14  Slaven Rezic  <srezic@cpan.org>
+
+    Release 1.29_51
+
+    Fixed "substr outside of string" problem with Fujifilm FinePix S1000fd
+    images (RT #49546)
+
 2009-08-14  Slaven Rezic  <srezic@cpan.org>
 
     Release 1.29_50
