@@ -6,3 +6,7 @@
 pm_to_blib
 ^\.git/
 ^\.prove\z
+# The following are too large for the distribution
+^t/fuji_s1000fd_substr_outside_of_string.t
+^img/test0-fuji.jpg
+^img/test1-fuji.jpg
