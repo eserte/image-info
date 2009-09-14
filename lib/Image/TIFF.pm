@@ -9,7 +9,7 @@ package Image::TIFF;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.06';
+$VERSION = '1.07';
 
 my @types = (
   [ "BYTE",      "C1", 1],
@@ -970,7 +970,7 @@ sub add_fields
 		    #print STDERR "# Decoding Makernotes from $maker\n";
 
                     $self->{tag_prefix} = $tag_prefix;
-	            if ($ifd_off == -1) {
+	            if ($ifd_off == -1 && length($val) >= 12) {
                		# fuji kludge -  http://www.butaman.ne.jp/~tsuruzoh/Computer/Digicams/exif-e.html#APP4
                 	my $save_endian = $self->{little_endian};
                 	$self->{little_endian} = 1;
