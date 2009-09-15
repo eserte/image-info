@@ -4,7 +4,7 @@ use Test::More tests => 5;
 
 BEGIN { use_ok( 'Image::Info' ) }
 
-my @widths = qw/2736 1452/;
+my @widths = qw/10 10/;
 
 for(0..1) {
     my $info = Image::Info::image_info("$FindBin::Bin/../img/test$_-fuji.jpg");

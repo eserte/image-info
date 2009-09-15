@@ -10,6 +10,8 @@ img/gps.jpg
 img/graph.svg
 img/interlace.png		Interlaced PNG example
 img/le.tif
+img/test0-fuji.jpg		Testcase for RT #49546
+img/test1-fuji.jpg		Testcase for RT #49546
 img/test.gif			An GIF example
 img/test.jpg			An Exif example from my Digicam
 img/test.pbm
@@ -56,6 +58,7 @@ README
 SIGNATURE
 t/00_basics.t
 t/bmp.t
+t/fuji_s1000fd_substr_outside_of_string.t	Testcase for RT #49546
 t/exif.t
 t/jpg_hang.t
 t/png.t
