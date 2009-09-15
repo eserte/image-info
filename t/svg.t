@@ -28,6 +28,8 @@ my $i = image_info("../img/test.svg") ||
 {
   no warnings 'once';
   diag "Using SVG module $Image::Info::SVG::USING_MODULE";
+  diag "XML::Simple $XML::Simple::VERSION" if defined $XML::Simple::VERSION;
+  diag "XML::LibXML::Reader $XML::LibXML::Reader::VERSION" if defined $XML::LibXML::Reader::VERSION;
 }
 
 #use Data::Dumper; print Dumper($i), "\n";
