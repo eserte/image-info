@@ -50,7 +50,7 @@ no_index        directory       => 'img', 'dev';
 # Auto-install all dependencies from CPAN
 auto_install;
 
-repository	'git@github.com:eserte/image-info.git';
+repository	'git://github.com/eserte/image-info.git';
 
 # Generate the Makefile
 WriteAll;
