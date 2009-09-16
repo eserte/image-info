@@ -19,17 +19,7 @@ Usage is something like this:
 
 Copyright 1999-2004 Gisle Aas.
 
-Now maintained by Tels <nospam-abuse@bloodgate.com>
-
-Last release was done by Slaven Rezic <srezic@cpan.org>
-
-Note that while the module is still maintained, no new features
-will be added.
-
-Especially the EXIF parsing code is buggy, not tested at all,
-and quite incomplete (a lot of manufacturer's MakerNotes and tags are
-not parsed at all). If you want a stable, feature-complete, up-to-date
-and tested EXIF parsing library, please use Image::ExifTool. 
+Now maintained by Slaven Rezic <srezic@cpan.org>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl v5.8.8 itself.
