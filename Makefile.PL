@@ -1,4 +1,4 @@
-
+# -*- cperl -*-
 #############################################################################
 
 require 5.006;
@@ -7,7 +7,8 @@ use strict;
 # Load the Module::Install bundled in ./inc/
 use inc::Module::Install;
 
-if (defined $ENV{USER} && $ENV{USER} eq 'eserte') { # fill in the developer's user names here
+my $is_author_env = defined $ENV{USER} && $ENV{USER} =~ m{^(eserte|slavenr)}; # fill in the developer's user names here
+if ($is_author_env) {
     require File::Compare;
     require File::Temp;
     my($tmpfh,$tmpfile) = File::Temp::tempfile(SUFFIX => '.pm', UNLINK => 1);
@@ -46,11 +47,34 @@ all_from	'lib/Image/Info.pm';
 
 # Do not index these
 no_index        directory       => 'img', 'dev';
-    
+
 # Auto-install all dependencies from CPAN
 auto_install;
 
 repository	'git://github.com/eserte/image-info.git';
+
+if ($is_author_env) {
+    Makefile->postamble(<<EOF);
+predist:
+	./dev/build.pl
+	\$(MAKE) distcheck
+	\$(MAKE) disttest
+	\$(MAKE) distclean
+	\$(PERL) Makefile.PL
+	\$(MAKE) signature
+	git status
+	\$(NOECHO) \$(ECHO) "*** Consider also calling cpan_check_versions and"
+	\$(NOECHO) \$(ECHO) "*** cpan_check_unauthorized (on an older version)"
+
+postdist:
+	\$(NOECHO) \$(ECHO) "*** Run the following commands:"
+	\$(NOECHO) \$(ECHO) cpan-upload \$(DISTVNAME).tar\$(SUFFIX)
+	\$(NOECHO) \$(ECHO) git tag \$(VERSION)
+	\$(NOECHO) \$(ECHO) git push
+	\$(NOECHO) \$(ECHO) git push --tags
+
+EOF
+}
 
 # Generate the Makefile
 WriteAll;
