@@ -1,5 +1,13 @@
 Revision history for Image::Info
 
+2009-09-23  Slaven Rezic  <srezic@cpan.org>
+
+    Release 1.29_53
+
+    SVG parsing: load_ext_dtd is now set to false, to avoid unnecessary
+    possible network connections; this is also ceasing errors with
+    libxml 2.7.x.
+
 2009-09-16  Slaven Rezic  <srezic@cpan.org>
 
     Release 1.29_52

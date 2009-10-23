@@ -18,7 +18,7 @@ package Image::Info;
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.29_52';
+$VERSION = '1.29_53';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -271,6 +271,8 @@ directly.
 
 The image_info() function also take optional key/value style arguments
 that can influence what information is returned.
+
+=item image_type( $file )
 
 =item image_type( \$imgdata )
 
