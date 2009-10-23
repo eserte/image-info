@@ -30,6 +30,8 @@ my $i = image_info("../img/test.svg") ||
   diag "Using SVG module $Image::Info::SVG::USING_MODULE";
   diag "XML::Simple $XML::Simple::VERSION" if defined $XML::Simple::VERSION;
   diag "XML::LibXML::Reader $XML::LibXML::Reader::VERSION" if defined $XML::LibXML::Reader::VERSION;
+  diag "Compiled against libxml2 version: " . XML::LibXML::LIBXML_VERSION() if defined &XML::LibXML::LIBXML_VERSION;
+  diag "Running libxml2 version:          " . XML::LibXML::LIBXML_RUNTIME_VERSION() if defined &XML::LibXML::LIBXML_VERSION;
 }
 
 #use Data::Dumper; print Dumper($i), "\n";
