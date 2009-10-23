@@ -16,7 +16,7 @@ package Image::Info::SVG::XMLLibXMLReader;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '1.03';
+$VERSION = '1.04';
 
 use XML::LibXML::Reader;
 
@@ -30,7 +30,7 @@ sub process_file {
 	push(@warnings, @_);
     };
 
-    my $reader = XML::LibXML::Reader->new(IO => $source)
+    my $reader = XML::LibXML::Reader->new(IO => $source, load_ext_dtd => 0)
 	or die "Cannot read SVG from handle '$source'";
     while($reader->read) {
 	last if $reader->nodeType == XML_READER_TYPE_ELEMENT;
