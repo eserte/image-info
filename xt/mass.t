@@ -7,6 +7,8 @@
 
 # locate .ico | grep '.ico$' | perl -pe 's/\n/\0/g' | xargs -0 ./xt/mass.t
 
+# (locate .jpg | grep '.jpg$'; locate .jpeg | grep '.jpeg$'; locate .gif | grep '.gif$'; locate .png | grep '.png$'; locate .xpm|grep '.xpm$') | perl -pe 's/\n/\0/g' | xargs -0 ./xt/mass.t -testokdb /tmp/testok.db
+
 use strict;
 use FindBin;
 use blib "$FindBin::RealBin/..";
@@ -41,6 +43,7 @@ if ($test_ok_db) {
 for my $file (@files) {
     next if exists $tested_ok{$file};
     next if !-r $file;
+    next if !-s $file;
     if ($file =~ m{\.wbmp$}) {
 	diag "Image::Info cannot handle wbmp files, skipping $file...";
 	next;
@@ -67,6 +70,11 @@ sub normalize_info {
 	    delete $info->{$key} unless $key =~ m{^(width|height|file_ext|error)$};
 	}
     }
+
+    # It seems that embedded thumbnails are not reported by identify
+    if ($info_ref->[0]->{file_ext} eq 'jpg' && @$info_ref > 1) {
+	@$info_ref = ($info_ref->[0]);
+    }	
 }
 
 sub identify_to_image_info {
@@ -81,7 +89,7 @@ sub identify_to_image_info {
 									\s+(\d+)x(\d+) # dim
 									\s+\S+ # geometry
 									\s+\S+ # bits
-									\s+\S+ # visual
+									\s+(PseudoClass\s\d+c|\S+) # visual (+ colors)
 									\s+\S+ # filesize
 									\s*$
 								   }x;
