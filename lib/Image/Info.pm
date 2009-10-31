@@ -156,7 +156,7 @@ sub determine_file_format
    return "ICO" if /^\000\000\001\000/;
    return "PPM" if /^P[1-6]/;
    return "XPM" if /(^\/\* XPM \*\/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)/;
-   return "XBM" if /^#define\s+/;
+   return "XBM" if /^(?:\/\*.*\*\/\n)?#define\s+.*_(?:width|height)\s+\d/;
    return "SVG" if /^<\?xml/;
    return undef;
 }
