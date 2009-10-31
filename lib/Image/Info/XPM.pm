@@ -40,7 +40,9 @@ sub process_file{
 	for(my $y=0; $y<$i->get(-height); $y++){
 	    for(my $x=0; $x<$i->get(-width); $x++){
 		$color = $i->xy($x, $y);
-		if( $color !~ /^#/ ){
+		if( $color =~ /^(none|opaque)$/i ) {
+		    next;
+		} elsif( $color !~ /^#/ ){
 		    unless( exists($RGB{white}) ){
 			local $_;
 			if( open(RGB, $Image::Info::XPM::RGBLIB) ){
@@ -52,17 +54,30 @@ sub process_file{
 			}
 			else{
 			    $RGB{white} = "0 but true";
-			    $info->push_info(0, "Warn", "Unable to open RGB database, you may need to set \$Image::Info::XPM::RGBLIB or define \$RGBLIB in ". __FILE__);
+			    $info->push_info(0, "Warn", "Unable to open RGB database, you may need to set \$Image::Info::XPM::RGBLIB");
 			}
 		    }
 		    $R = $RGB{$color}->[0];
 		    $G = $RGB{$color}->[1];
 		    $B = $RGB{$color}->[2];
 		}
-		else{
+		elsif (length $color == 7) {
 		    $R = hex(substr($color,1,2));
 		    $G = hex(substr($color,3,2));
 		    $B = hex(substr($color,5,2));
+		}
+		elsif (length $color == 13) {
+		    $R = hex(substr($color,1,2));
+		    $G = hex(substr($color,5,2));
+		    $B = hex(substr($color,9,2));
+		}
+		elsif (length $color == 4) {
+		    $R = hex(substr($color,1,1))*16;
+		    $G = hex(substr($color,2,1))*16;
+		    $B = hex(substr($color,3,1))*16;
+		}
+		else {
+		    warn "Unexpected length in color specification '$color'";
 		}
 		if( $opts->{L1D_Histogram} ){
 		    $l1dhist[(.3*$R + .59*$G + .11*$B)]++;
