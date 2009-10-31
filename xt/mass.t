@@ -66,8 +66,12 @@ for my $file (@files) {
 sub normalize_info {
     my($info_ref) = @_;
     for my $info (@$info_ref) {
+	if ($info->{error}) {
+	    $info->{__seen_error__} = 1;
+	    delete $info->{error};
+	}
 	for my $key (keys %$info) {
-	    delete $info->{$key} unless $key =~ m{^(width|height|file_ext|error)$};
+	    delete $info->{$key} unless $key =~ m{^(width|height|file_ext|__seen_error__)$};
 	}
     }
 
@@ -103,13 +107,15 @@ sub identify_to_image_info {
 	    $info->{height} = $height;
 	    push @info, $info;
 	} else {
-	    push @info, { 'error' => 'Unrecognized file format' };
+	    push @info, { '__seen_error__' => 1 };
 	}
     }
     if (!@info) {
-	@info = { 'error' => 'Unrecognized file format' };
+	@info = { '__seen_error__' => 1 };
     }
     @info;
 }
+
+pass 'All done.';
 
 __END__
