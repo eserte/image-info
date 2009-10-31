@@ -121,11 +121,13 @@ sub _head
     my $source = shift;
     my $head;
 
-    # tiny.pgm is 11 bytes
-    my $to_read = 11;
+    # Originally was 32 bytes.
+    # In the meantime lowered to 11 bytes.
+    # But XBM probably need more because of a leading comment.
+    my $to_read = 64;
     my $read = read($source, $head, $to_read);
 
-    return _os_err("Couldn't read $to_read bytes") if $read != $to_read;
+    return _os_err("Couldn't read any bytes") if !$read;
 
     if (ref($source) eq "IO::String") {
 	# XXX workaround until we can trap seek() with a tied file handle
@@ -156,7 +158,7 @@ sub determine_file_format
    return "ICO" if /^\000\000\001\000/;
    return "PPM" if /^P[1-6]/;
    return "XPM" if /(^\/\* XPM \*\/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)/;
-   return "XBM" if /^(?:\/\*.*\*\/\n)?#define\s+.*_(?:width|height)\s+\d/;
+   return "XBM" if /^(?:\/\*.*\*\/\n)?#define\s/;
    return "SVG" if /^<\?xml/;
    return undef;
 }

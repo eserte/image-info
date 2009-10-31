@@ -115,7 +115,7 @@ modify it under the same terms as Perl itself.
 
 =begin register
 
-MAGIC: /^(?:\/\*.*\*\/\n)?#define\s+.*_(?:width|height)\s+\d/
+MAGIC: /^(?:\/\*.*\*\/\n)?#define\s/
 
 See L<Image::Info::XBM> for details.
 
