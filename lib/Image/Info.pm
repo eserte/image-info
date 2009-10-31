@@ -142,6 +142,7 @@ sub determine_file_format
    local($_) = @_;
    return "BMP" if /^BM/;
    return "GIF" if /^GIF8[79]a/;
+   return "ICO" if /^\000\000\001\000/;
    return "JPEG" if /^\xFF\xD8/;
    return "PNG" if /^\x89PNG\x0d\x0a\x1a\x0a/;
    return "PPM" if /^P[1-6]/;;
@@ -456,6 +457,11 @@ image_info() is called in list context.  The Netscape-2.0 extention to
 loop animation sequences is represented by the C<GIF_Loop> key for the
 first image.  The value is either "forever" or a number indicating
 loop count.
+
+=item ICO
+
+This module supports the Microsoft Windows Icon Resource format
+(.ico).
 
 =item JPEG
 
