@@ -16,6 +16,21 @@ BEGIN
   chdir 'dev' if -d 'dev';
   }
 
+# Sort order for image formats. This is just used to have more common
+# (where the "more common" is currently a subjective guess by the
+# author) image formats in front of the magic list.
+#
+# The list was setup like following: the popular image formats in the
+# web (jpeg, png, gif) at the front. Microsoft formats like bmp and
+# ico are probably in wider use than X11 formats like xpm and xbm. svg
+# is quite different from other formats in this list as it is a vector
+# format, not a raster format.
+my @format_priority = qw(JPEG PNG GIF TIFF BMP ICO PPM XPM XBM SVG);
+my %format_to_priority = do {
+    my $priority = 0;
+    map { ($_ => $priority++) } reverse @format_priority;
+};
+
 my $updir = File::Spec->updir();
 my $tmpl = File::Spec->catfile("Info.pm.tmpl");
 my $info_pm = File::Spec->catfile($updir,"lib", "Image", "Info.pm");
@@ -46,10 +61,10 @@ for my $file (sort readdir(DIR)) {
     die "Missing magic for $format" unless @magic;
     for (@magic) {
 	if (m:^/:) {
-	    push(@code, qq(return "$format" if $_;));
+	    push(@code, [$format_to_priority{$format}||0, qq(return "$format" if $_;)]);
 	}
 	else {
-	    push(@code, qq(return "$format" if \$_ eq $_;));
+	    push(@code, [$format_to_priority{$format}||0, qq(return "$format" if \$_ eq $_;)]);
 	}
     }
 
@@ -66,7 +81,7 @@ closedir(DIR);
 my $code = "sub determine_file_format
 {
    local(\$_) = \@_;
-   " . join("\n   ", @code) . "
+   " . join("\n   ", map { $_->[1] } sort { $b->[0] <=> $a->[0] } @code) . "
    return undef;
 }
 ";
