@@ -13,6 +13,7 @@ img/le.tif
 img/test0-fuji.jpg		Testcase for RT #49546
 img/test1-fuji.jpg		Testcase for RT #49546
 img/test.gif			An GIF example
+img/test.ico
 img/test.jpg			An Exif example from my Digicam
 img/test.pbm
 img/test.pgm
@@ -40,6 +41,7 @@ inc/Module/Install/WriteAll.pm
 lib/Image/Info.pm
 lib/Image/Info/BMP.pm
 lib/Image/Info/GIF.pm
+lib/Image/Info/ICO.pm
 lib/Image/Info/JPEG.pm
 lib/Image/Info/PNG.pm
 lib/Image/Info/PPM.pm
@@ -60,6 +62,7 @@ t/00_basics.t
 t/bmp.t
 t/fuji_s1000fd_substr_outside_of_string.t	Testcase for RT #49546
 t/exif.t
+t/ico.t
 t/jpg_hang.t
 t/png.t
 t/pod.t
