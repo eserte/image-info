@@ -85,9 +85,16 @@ sub _source
 {
     my $source = shift;
     if (!ref $source) {
-        require Symbol;
-        my $fh = Symbol::gensym();
-        open($fh, $source) || return _os_err("Can't open $source");
+	my $fh;
+	if ($] < 5.006) {
+	    require Symbol;	
+	    $fh = Symbol::gensym();
+	    open($fh, $source) || return _os_err("Can't open $source");
+	}
+	else {
+	    open $fh, '<', $source
+		or return _os_err("Can't open $source");
+	}
 	${*$fh} = $source;  # keep filename in case somebody wants to know
         binmode($fh);
         $source = $fh;
@@ -457,3 +464,7 @@ This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl v5.8.8 itself.
 
 =cut
+
+# Local Variables: 
+# mode: cperl
+# End: 
