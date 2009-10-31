@@ -45,6 +45,7 @@ sub process_file{
 			local $_;
 			if( open(RGB, $Image::Info::XPM::RGBLIB) ){
 			    while(<RGB>){
+				next if /^\s*!/;
 				/(\d+)\s+(\d+)\s+(\d+)\s+(.*)/;
 				$RGB{$4}=[$1,$2,$3];
 			    }
