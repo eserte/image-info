@@ -7,7 +7,7 @@ package Image::Info::PPM;
 
 =begin register
 
-MAGIC: /^P[1-6]/;
+MAGIC: /^P[1-6]/
 
 =item PBM/PGM/PPM
 
