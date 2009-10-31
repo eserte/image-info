@@ -11,7 +11,7 @@ my (@tests, $tests);
 BEGIN
    {
    @tests = glob("img/test*");
-   $tests = (scalar @tests) * 2;
+   $tests = (scalar @tests) * 3;
    plan tests => $tests;
    chdir 't' if -d 't';
    use lib '../lib';
@@ -63,6 +63,7 @@ TESTFILES: for my $f (@tests)
       my $h1 = image_info($file);
 
       is ($h1->{error}, undef, 'no error');
+      is ($h1->{Warn}, undef, 'no warning');
 
       my $img = cat($file);
       my $h2 = image_info(\$img);
