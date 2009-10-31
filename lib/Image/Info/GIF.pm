@@ -12,7 +12,7 @@ MAGIC: /^GIF8[79]a/
 Both GIF87a and GIF89a are supported and the version number is found
 as C<GIF_Version> for the first image.  GIF files can contain multiple
 images, and information for all images will be returned if
-image_info() is called in list context.  The Netscape-2.0 extention to
+image_info() is called in list context.  The Netscape-2.0 extension to
 loop animation sequences is represented by the C<GIF_Loop> key for the
 first image.  The value is either "forever" or a number indicating
 loop count.

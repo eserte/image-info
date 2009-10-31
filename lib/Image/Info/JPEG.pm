@@ -230,7 +230,7 @@ sub process_app0_jfxx
 		     { 0x10 => "JPEG thumbnail",
 		       0x11 => "Bitmap thumbnail",
 		       0x13 => "RGB thumbnail",
-		     }->{$code} || "Unknown extention code $code");
+		     }->{$code} || "Unknown extension code $code");
 
     if ($code == 0x10) {
 	eval {

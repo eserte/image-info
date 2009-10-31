@@ -1,4 +1,4 @@
-This Perl extention allows you to extract meta information from various
+This Perl extension allows you to extract meta information from various
 types of image files. The following file formats are supported:
 
    JPEG (plain JFIF and Exif)

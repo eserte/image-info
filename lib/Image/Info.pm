@@ -358,7 +358,7 @@ The corresponding value is a string like: "image/png" or "image/jpeg".
 
 =item file_ext
 
-The is the suggested file name extention for a file of the given file
+The is the suggested file name extension for a file of the given file
 format.  The value is a 3 letter, lowercase string like "png", "jpg".
 
 =item width
@@ -462,7 +462,7 @@ For more information see L<Image::Info::BMP>.
 Both GIF87a and GIF89a are supported and the version number is found
 as C<GIF_Version> for the first image.  GIF files can contain multiple
 images, and information for all images will be returned if
-image_info() is called in list context.  The Netscape-2.0 extention to
+image_info() is called in list context.  The Netscape-2.0 extension to
 loop animation sequences is represented by the C<GIF_Loop> key for the
 first image.  The value is either "forever" or a number indicating
 loop count.

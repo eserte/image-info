@@ -504,7 +504,7 @@ Revision history for Image::Info
 
     Various tweaks to the reported info keys for JPEG/PNG/GIF.
 
-    Support Netscape's Loop extention to GIF.
+    Support Netscape's Loop extension to GIF.
 
     Support ColorTable dump for GIF and PNG.
 
