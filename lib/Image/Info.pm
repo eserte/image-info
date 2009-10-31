@@ -477,16 +477,12 @@ This module supports the Microsoft Windows Icon Resource format
 For JPEG files we extract information both from C<JFIF> and C<Exif>
 application chunks.
 
-C<Exif> is the file format written by most digital cameras.  This
+C<Exif> is the file format written by most digital cameras. This
 encode things like timestamp, camera model, focal length, exposure
-time, aperture, flash usage, GPS position, etc.  The following web
-page contain description of the fields that can be present:
-
- http://www.ba.wakwak.com/~tsuruzoh/Computer/Digicams/exif-e.html
+time, aperture, flash usage, GPS position, etc.
 
 The C<Exif> spec can be found at:
-
- http://www.exif.org/specifications.html
+L<http://www.exif.org/specifications.html>.
 
 =item PNG
 
@@ -508,7 +504,7 @@ The C<TIFF> spec can be found at:
 L<http://partners.adobe.com/public/developer/tiff/>
 
 The EXIF spec can be found at:
-L<http://www.exif.org/>
+L<http://www.exif.org/specifications.html>
 
 =item XBM
 
@@ -538,9 +534,9 @@ Copyright 1999-2004 Gisle Aas.
 
 See the CREDITS file for a list of contributors and authors.
 
-Now maintained by Tels - (c) 2006 - 2008.
+Tels - (c) 2006 - 2008.
 
-Last release done by Slaven Rezic - (c) 2008 - 2009.
+Current maintainer: Slaven Rezic - (c) 2008 - 2009.
 
 =head1 LICENSE
 

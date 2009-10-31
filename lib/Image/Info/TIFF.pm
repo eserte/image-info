@@ -265,7 +265,7 @@ The C<TIFF> spec can be found at:
 L<http://partners.adobe.com/public/developer/tiff/>
 
 The EXIF spec can be found at:
-L<http://www.exif.org/>
+L<http://www.exif.org/specifications.html>
 
 =end register
 

@@ -16,16 +16,12 @@ MAGIC: /^\xFF\xD8/
 For JPEG files we extract information both from C<JFIF> and C<Exif>
 application chunks.
 
-C<Exif> is the file format written by most digital cameras.  This
+C<Exif> is the file format written by most digital cameras. This
 encode things like timestamp, camera model, focal length, exposure
-time, aperture, flash usage, GPS position, etc.  The following web
-page contain description of the fields that can be present:
-
- http://www.ba.wakwak.com/~tsuruzoh/Computer/Digicams/exif-e.html
+time, aperture, flash usage, GPS position, etc.
 
 The C<Exif> spec can be found at:
-
- http://www.exif.org/specifications.html
+L<http://www.exif.org/specifications.html>.
 
 =end register
 

@@ -98,15 +98,16 @@ L<Image::Info>, L<Image::Xbm>
 
 =head1 NOTES
 
-For more information about XBM see:
-
- http://www.dcs.ed.ac.uk/home/mxr/gfx/2d/XBM.txt
+For more information about XBM see
+L<http://www.martinreddy.net/gfx/2d/XBM.txt>.
 
 =head1 AUTHOR
 
 Jerrad Pierce <belg4mit@mit.edu>/<webmaster@pthbb.org>
 
-Now maintained by Tels - (c) 2006.
+Tels - (c) 2006
+
+Current maintainer: Slaven Rezic <srezic@cpan.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

@@ -90,7 +90,7 @@ sub process_file {
 
 =head1 NAME
 
-Image::Info:PPM - PPM support Image::Info
+Image::Info::PPM - PPM support Image::Info
 
 =head1 SYNOPSIS
 
@@ -104,7 +104,7 @@ Image::Info:PPM - PPM support Image::Info
 
 =head1 DESCRIPTION
 
-This modules adds ppm support to Image::Info.
+This modules adds ppm support to L<Image::Info>.
 
 It is loaded and used automatically.
 
