@@ -12,6 +12,7 @@ img/interlace.png		Interlaced PNG example
 img/le.tif
 img/test0-fuji.jpg		Testcase for RT #49546
 img/test1-fuji.jpg		Testcase for RT #49546
+img/test-gimp.xbm
 img/test.gif			An GIF example
 img/test.ico
 img/test.jpg			An Exif example from my Digicam
@@ -73,3 +74,6 @@ t/tiff.t
 t/tiff_e.t
 t/tiny-pgm.t
 TODO
+xt/bench.t
+xt/compare.t
+xt/mass.t
