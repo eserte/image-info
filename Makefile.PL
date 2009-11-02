@@ -27,6 +27,8 @@ EOF
     }
 }
 
+perl_version	'5.006';
+
 requires	'IO::String'		=> '1.03' if $] < 5.008;
 
 recommends	'Compress::Zlib'	=> 0,
@@ -35,13 +37,13 @@ recommends	'Compress::Zlib'	=> 0,
 		'XML::LibXML::Reader'	=> 0,
 		'XML::Simple'		=> 0;
 
-test_requires  'Test::More'		=> '0.62';
+test_requires	'Test::More'		=> '0.62';
 
 license		'perl';
 
-author		'Slaven Rezic',
+author		'Slaven Rezic <srezic@cpan.org>',
 		'Gisle Aas',
-		'Tels <nospam-abuse@bloodgate.com>'; 
+		'Tels'; 
 
 # Get most of the details from the primary module
 all_from	'lib/Image/Info.pm';
