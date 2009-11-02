@@ -58,6 +58,8 @@ if ($is_author_env) {
     Makefile->postamble(<<EOF);
 predist:
 	./dev/build.pl
+	rm -rf inc
+	\$(PERL) Makefile.PL
 	\$(MAKE) distcheck
 	\$(MAKE) disttest
 	\$(MAKE) distclean
