@@ -6,12 +6,14 @@ use strict;
 use Test::More;
 use File::Spec;
 
+my $tests_per_file; BEGIN { $tests_per_file = 3 }
+
 my (@tests, $tests);
 
 BEGIN
    {
    @tests = glob("img/test*");
-   $tests = (scalar @tests) * 3;
+   $tests = (scalar @tests) * $tests_per_file;
    plan tests => $tests;
    chdir 't' if -d 't';
    use lib '../lib';
@@ -49,7 +51,7 @@ TESTFILES: for my $f (@tests)
         {
 	for my $r (@{ $requires->{$x} })
           {
-          skip( "Need $r for this test", 2 ) && next TESTFILES
+          skip( "Need $r for this test", $tests_per_file ) && next TESTFILES
             unless do {
               eval "use $r;";
               $@ ? 0 : 1;
