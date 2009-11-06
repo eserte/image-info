@@ -1,7 +1,7 @@
 ---
 abstract: 'Extract meta information from image files'
 author:
-  - 'Slaven Rezic'
+  - 'Slaven Rezic <srezic@cpan.org>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
   Test::More: 0.62
@@ -21,13 +21,16 @@ no_index:
     - img
     - inc
     - t
+    - xt
 recommends:
   Compress::Zlib: 0
   Image::Xbm: 1
   Image::Xpm: 1
   XML::LibXML::Reader: 0
   XML::Simple: 0
+requires:
+  perl: 5.6.0
 resources:
   license: http://dev.perl.org/licenses/
-  repository: git@github.com:eserte/image-info.git
-version: 1.29_51
+  repository: git://github.com/eserte/image-info.git
+version: 1.30
