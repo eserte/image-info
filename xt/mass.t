@@ -48,6 +48,7 @@ for my $file (@files) {
 	diag "Image::Info cannot handle wbmp files, skipping $file...";
 	next;
     }
+    next if $file =~ m{/\.xvpics/[^/]+$}; # ignore xv thumbnail files
     my @info_pm = image_info($file);
     normalize_info(\@info_pm);
     my @info_im = identify_to_image_info($file);
