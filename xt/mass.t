@@ -88,6 +88,7 @@ sub identify_to_image_info {
 	or die $!;
     while(<$fh>) {
 	chomp;
+	s{\d+\.\d+u\s+\d+:\d+$}{}; # time information, appears sometimes
 	my($filename_with_index, $file_type, $width, $height) = $_ =~ m{^(.*) # filename, maybe with image index
 									\s+(\S+) # file type
 									\s+(\d+)x(\d+) # dim
