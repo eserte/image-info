@@ -96,9 +96,17 @@ sub _process_file
     $info->push_info($img_no, "file_ext" => "jpg");
 
     while (1) {
-        my($ff, $mark, $len) = unpack("CCn", my_read($fh, 4));
+        my($ff, $mark) = unpack("CC", my_read($fh, 2));
         last if $ff != 0xFF;
+	if ($mark == 0xFF) {
+	    # JPEG markers can be padded with unlimited 0xFF's
+	    for (;;) {
+		($mark) = unpack("C", my_read($fh, 1));
+		last if $mark != 0xFF;
+            }
+	}
         last if $mark == 0xDA || $mark == 0xD9;  # SOS/EOI
+	my($len) = unpack("n", my_read($fh, 2));
 	last if $len < 2;
         process_chunk($info, $img_no, $mark, my_read($fh, $len - 2));
     }
