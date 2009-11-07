@@ -15,6 +15,7 @@ use Data::Dumper;
 use Benchmark qw(timeit timestr);
 use Image::ExifTool qw();
 use Image::Info qw();
+use Image::Magick qw();
 use Image::Size qw();
 
 my $count = 1;
@@ -63,6 +64,15 @@ my @files = @ARGV;
 		       close $fh or die $!;
 		   });
     diag 'identify: ' . timestr($t, 'all');
+}
+
+{
+    my $t = timeit($count, sub {
+		       for my $file (@files) {
+			   my($w,$h,undef,$format) = Image::Magick->new->Ping($file);
+		       }
+		   });
+    diag 'Image::Magick: ' . timestr($t, 'all');
 }
 
 __END__

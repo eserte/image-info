@@ -19,6 +19,7 @@ use Data::Dumper;
 use DB_File;
 use Getopt::Long;
 use Image::Info qw(image_info);
+use Image::Magick;
 
 sub usage {
     die "usage: $0 [-testokdb dbfile] file ...";
@@ -51,7 +52,7 @@ for my $file (@files) {
     next if $file =~ m{/\.xvpics/[^/]+$}; # ignore xv thumbnail files
     my @info_pm = image_info($file);
     normalize_info(\@info_pm);
-    my @info_im = identify_to_image_info($file);
+    my @info_im = image_magick_to_image_info($file);
 
     local $TODO;
     $TODO = "Minor floating point differences with SVG files" if $file =~ m{\.svg$};
@@ -76,41 +77,29 @@ sub normalize_info {
 	}
     }
 
-    # It seems that embedded thumbnails are not reported by identify
+    # It seems that embedded thumbnails are not reported by Image::Magick
     if ($info_ref->[0]->{file_ext} eq 'jpg' && @$info_ref > 1) {
 	@$info_ref = ($info_ref->[0]);
     }	
 }
 
-sub identify_to_image_info {
+sub image_magick_to_image_info {
     my $file = shift;
     my @info;
-    open my $fh, "-|", "identify", $file
-	or die $!;
-    while(<$fh>) {
-	chomp;
-	s{\d+\.\d+u\s+\d+:\d+$}{}; # time information, appears sometimes
-	my($filename_with_index, $file_type, $width, $height) = $_ =~ m{^(.*) # filename, maybe with image index
-									\s+(\S+) # file type
-									\s+(\d+)x(\d+) # dim
-									\s+\S+ # geometry
-									\s+\S+ # bits
-									\s+(PseudoClass\s\d+c|\S+) # visual (+ colors)
-									\s+\S+ # filesize
-									\s*$
-								   }x;
-	if (defined $filename_with_index) {
-	    my $info = {};
-	    if (!@info) { # only for first array element
-		$info->{file_ext} = lc $file_type;
-		$info->{file_ext} = 'jpg' if $info->{file_ext} eq 'jpeg';
-	    }
-	    $info->{width} = $width;
-	    $info->{height} = $height;
-	    push @info, $info;
-	} else {
-	    push @info, { '__seen_error__' => 1 };
+
+    my $im = Image::Magick->new;
+    my(undef, undef, undef, $format) = $im->Ping($file);
+    $format = lc $format;
+    $format = 'jpg' if $format eq 'jpeg';
+    
+    $im->Read($file);
+    for (my $x = 0; $im->[$x]; $x++) {
+	my %info;
+	@info{qw(width height)} = $im->[$x]->Get(qw(width height));
+	if (@info == 0) {
+	    $info{file_ext} = $format;
 	}
+	push @info, \%info;
     }
     if (!@info) {
 	@info = { '__seen_error__' => 1 };
