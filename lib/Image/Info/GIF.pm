@@ -29,7 +29,7 @@ sub my_read
     my $buf;
     my $n = read($source, $buf, $len);
     die "read failed: $!" unless defined $n;
-    die "short read ($len/$n)" unless $n == $len;
+    die "short read ($len/$n) at pos " . tell($source) unless $n == $len;
     $buf;
 }
 
