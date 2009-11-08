@@ -90,7 +90,11 @@ sub image_magick_to_image_info {
     my $im = Image::Magick->new;
     my(undef, undef, undef, $format) = $im->Ping($file);
     $format = lc $format;
-    $format = 'jpg' if $format eq 'jpeg';
+    if ($format eq 'jpeg') {
+	$format = 'jpg';
+    } elsif ($format eq 'tiff') {
+	$format = 'tif';
+    }
     
     $im->Read($file);
     for (my $x = 0; $im->[$x]; $x++) {
