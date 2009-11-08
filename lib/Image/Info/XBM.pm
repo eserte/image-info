@@ -6,7 +6,7 @@ use Image::Xbm 1.07;
 sub process_file {
     my($info, $source, $opts) = @_;
 
-    $SIG{__WARN__} = sub {
+    local $SIG{__WARN__} = sub {
 	$info->push_info(0, "Warn", shift);
     };
 

@@ -7,7 +7,7 @@ use Image::Xpm 1.08;
 sub process_file{
     my($info, $source, $opts) = @_;
 
-    $SIG{__WARN__} = sub {
+    local $SIG{__WARN__} = sub {
 	$info->push_info(0, "Warn", shift);
     };
 
