@@ -98,6 +98,7 @@ sub process_file
     my @warnings;
 
     while (1) {
+	last if eof($fh); # EOF
 	my $intro = ord(my_read($fh, 1));
 	if ($intro == 0x3B) {  # trailer (end of image)
 	    last;
