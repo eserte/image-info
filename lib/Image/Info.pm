@@ -12,13 +12,13 @@ package Image::Info;
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl v5.8.8 itself.
 #
-# Now maintained by Tels - (c) 2006 - 2008.
-# Latest release done by Slaven Rezic - (c) 2008 - 2009.
+# Previoisly maintained by Tels - (c) 2006 - 2008.
+# Currently maintained by Slaven Rezic - (c) 2008 - 2009.
 
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.30';
+$VERSION = '1.30_50';
 
 require Exporter;
 *import = \&Exporter::import;

@@ -20,7 +20,7 @@ All information available is extracted.
 use strict;
 use vars qw/$VERSION/;
 
-$VERSION = 0.02;
+$VERSION = 0.03;
 
 sub process_file {
     my($info, $fh) = @_;

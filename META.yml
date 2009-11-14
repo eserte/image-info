@@ -32,4 +32,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/eserte/image-info.git
-version: 1.30
+version: 1.30_50

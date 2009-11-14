@@ -18,7 +18,7 @@ Bundle::Image::Info::XBM - XBM (X11 bitmap) support for Image::Info
 
 Image::Info - the base Image::Info module
 
-Image::Xbm 1.0  - reading XBM files
+Image::Xbm 1.07 - reading XBM files
 
 =head1 DESCRIPTION
 

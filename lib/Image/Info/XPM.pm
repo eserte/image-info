@@ -1,7 +1,7 @@
 package Image::Info::XPM;
-$VERSION = '1.06';
+$VERSION = '1.07';
 use strict;
-use Image::Xpm 1.08;
+use Image::Xpm 1.09;
 
 
 sub process_file{

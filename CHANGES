@@ -1,5 +1,9 @@
 Revision history for Image::Info
 
+2009-11-14  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.30_50
+
     Support for Microsoft .ico files (Image::Info::ICO).
 
     Fixes in JPEG parsing (skip pad 0xFF in markers).
