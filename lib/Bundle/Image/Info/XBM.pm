@@ -1,0 +1,32 @@
+# -*- perl -*-
+
+package Bundle::Image::Info::XBM;
+$VERSION = '0.01';
+1;
+
+__END__
+
+=head1 NAME
+
+Bundle::Image::Info::XBM - XBM (X11 bitmap) support for Image::Info
+
+=head1 SYNOPSIS
+
+ perl -MCPAN -e 'install Bundle::Image::Info::XBM'
+
+=head1 CONTENTS
+
+Image::Info - the base Image::Info module
+
+Image::Xbm 1.0  - reading XBM files
+
+=head1 DESCRIPTION
+
+This bundle installs everything needed to get XBM support into
+L<Image::Info>.
+
+=head1 AUTHOR
+
+Slaven Rezic <srezic@cpan.org>
+
+=cut

@@ -23,11 +23,10 @@ no_index:
     - t
     - xt
 recommends:
-  Compress::Zlib: 0
-  Image::Xbm: 1
-  Image::Xpm: 1
-  XML::LibXML::Reader: 0
-  XML::Simple: 0
+  Bundle::Image::Info::PNG: 0
+  Bundle::Image::Info::SVG: 0
+  Bundle::Image::Info::XBM: 0
+  Bundle::Image::Info::XPM: 0
 requires:
   perl: 5.6.0
 resources:

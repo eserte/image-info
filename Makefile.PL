@@ -31,11 +31,11 @@ perl_version	'5.006';
 
 requires	'IO::String'		=> '1.03' if $] < 5.008;
 
-recommends	'Compress::Zlib'	=> 0,
-		'Image::Xpm'		=> 1.0,
-		'Image::Xbm'		=> 1.0,
-		'XML::LibXML::Reader'	=> 0,
-		'XML::Simple'		=> 0;
+recommends	'Bundle::Image::Info::PNG'	=> 0,
+		'Bundle::Image::Info::XPM'	=> 0,
+		'Bundle::Image::Info::XBM'	=> 0,
+		'Bundle::Image::Info::SVG'	=> 0,
+		;
 
 test_requires	'Test::More'		=> '0.62';
 
