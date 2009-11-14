@@ -1,5 +1,24 @@
 Revision history for Image::Info
 
+    Support for Microsoft .ico files (Image::Info::ICO).
+
+    Fixes in JPEG parsing (skip pad 0xFF in markers).
+
+    Fixes in GIF reader ("trailer" seems to be optional).
+
+    Somewhat better recognition of XBM files.
+
+    XPM handling: Corrected color parsing. Try harder to find X11's
+    rgb.txt. Ignore comments in rgb.txt.
+
+    Reordered magic checks to have more common image formats first.
+
+    Introduced Bundles.
+
+    Some Pod cleanups.
+
+    Additional author tests in xt.    
+
 2009-10-31  Slaven Rezic  <srezic@cpan.org>
 
     Release 1.30
