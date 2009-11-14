@@ -1,19 +1,9 @@
 package Image::Info::ICO;
+$VERSION = '0.02';
 
 # Copyright (C) 2009 Slaven Rezic. All rights reserved.
 # This package is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
-
-=begin register
-
-MAGIC: /^\000\000\001\000/
-
-This module supports the Microsoft Windows Icon Resource format
-(.ico).
-
-=end register
-
-=cut
 
 use strict;
 
@@ -55,3 +45,33 @@ sub process_file {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Image::Info::ICO - Microsoft ICO support for Image::Info
+
+=head1 NOTES
+
+This module adds only support for MS Icon files, but not for cursor
+files.
+
+=head1 AUTHOR
+
+Slaven Rezic
+
+=head1 SEE ALSO
+
+L<Image::Info>
+
+=begin register
+
+MAGIC: /^\000\000\001\000/
+
+This module supports the Microsoft Windows Icon Resource format
+(.ico).
+
+=end register
+
+=cut
