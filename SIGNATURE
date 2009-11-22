@@ -15,15 +15,15 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 0a96954d54a1550d26ba39b0f03d7577e7cd8962 .gitignore
-SHA1 a1441b5a793b766c86d0d6bf062af3941b679ae5 CHANGES
+SHA1 fca4a9c229479113a884e0f86128e8b6b5bf32ee CHANGES
 SHA1 517bff80bcf518746150086148acaf8cfa37a17d CREDITS
-SHA1 dc5827104b40bff389c77de38730595cb1c2ec49 MANIFEST
+SHA1 a946b2378a4f6faebb4de6b68156e074012b26c2 MANIFEST
 SHA1 47ed2e0ab57bf1eebbd1e3bc99c2728a8651e3b4 MANIFEST.SKIP
-SHA1 b3726a468476c453a290cba7619ace2cdf4ffeb6 META.yml
+SHA1 96e795dea91fa757ab707d4cfa6185c2945f4ccf META.yml
 SHA1 4262f0ec3344d90a73be5afd780440bf50ca5c1b Makefile.PL
 SHA1 0184503d850cb0d34d0cfe26bd5af84d4cf97dbc README
-SHA1 6cf048b841a1c7af381556c1bf455191f514b4ff TODO
-SHA1 2ac9304513a08c28df77536332a5f118a7c31022 dev/Info.pm.tmpl
+SHA1 36ea8eabe5ac80acc416411aae77b60e1480de1b TODO
+SHA1 3b822dca889ce518f19be74199984120766143e4 dev/Info.pm.tmpl
 SHA1 0685e2446241ef32f201bb30a7b4cfe6ef1e6285 dev/build.pl
 SHA1 38b386e67725abff64ea00abb8e92c46f38e2f59 exifdump
 SHA1 c11f86df48ca57d0364c9afd1449683ebf1979f4 img/be.tif
@@ -33,6 +33,9 @@ SHA1 4243d003552c27c110b75ca121294d5edddc62a8 img/graph.svg
 SHA1 07f4778b513d5c951c1878c376fba49ff0ecd644 img/interlace.png
 SHA1 979ea4a5afe76a6532fe21a2724c3dfc8405bb2a img/le.tif
 SHA1 feaec718770ec0de7fc1010827425eca5b268fb8 img/test-gimp.xbm
+SHA1 1f561889c44c24dae57de74f65401ca7bc089a87 img/test-multi0xff.jpg
+SHA1 44e527641f2af0aadfb1dcc9a7f301f258d8f77d img/test-notrailer.gif
+SHA1 75da6beb9439bc07a0cd8537ce21689d560452da img/test-unknowncode.gif
 SHA1 5d3db653df616830a6a135d862e30e355464a43a img/test.gif
 SHA1 11f4a1f61f932b1eb96d1ab45beb681488e4c13d img/test.ico
 SHA1 6299f38bf7c592409362601fe34a5b0baafdcf47 img/test.jpg
@@ -61,14 +64,15 @@ SHA1 3e83972921d54198d1246f7278f08664006cd65d inc/Module/Install/Makefile.pm
 SHA1 12bf1867955480d47d5171a9e9c6a96fabe0b58f inc/Module/Install/Metadata.pm
 SHA1 f7ee667e878bd2faf22ee9358a7b5a2cc8e91ba4 inc/Module/Install/Win32.pm
 SHA1 8ed29d6cf217e0977469575d788599cbfb53a5ca inc/Module/Install/WriteAll.pm
+SHA1 45d4f0a75274a3946aa861459dd6a19ee4d1dd44 lib/Bundle/Image/Info/Everything.pm
 SHA1 52e684ed4ae8089b3f9c83355dc12d3113673111 lib/Bundle/Image/Info/PNG.pm
 SHA1 8c1fec2e87c5e2ed5fde24d99b47f9c15ce5d318 lib/Bundle/Image/Info/SVG.pm
 SHA1 f348a5f14a0e674ef9077fd7c9a7eedd7b9462b5 lib/Bundle/Image/Info/XBM.pm
 SHA1 6495717c95aee79965e174147c0fb99b54b4f3a1 lib/Bundle/Image/Info/XPM.pm
-SHA1 5d7e4acc2de591502495dae775cf1f3e02b576c7 lib/Image/Info.pm
+SHA1 eacc76e4a252bf1aef4d59e88ffd6041f9f12fc8 lib/Image/Info.pm
 SHA1 7b079b0348bd8204f0527a11746f105ad5df855f lib/Image/Info/BMP.pm
-SHA1 a0c5ba83926cea6cb9fa91f743bc8ffdf06fb0ad lib/Image/Info/GIF.pm
-SHA1 6bab5661fc75b0a387f1a0350bbb470b75f6a433 lib/Image/Info/ICO.pm
+SHA1 6f63955e7d15c4c43355145e2a8c2952c64c1afa lib/Image/Info/GIF.pm
+SHA1 fb628cb66c566ab66a1b7953a1bb29cfde1c79c7 lib/Image/Info/ICO.pm
 SHA1 2b3d19b55fb41063dde438623e4c40a50e5aef01 lib/Image/Info/JPEG.pm
 SHA1 df4bd657aae33fe5ef9cbad6546674ec2de9d53f lib/Image/Info/PNG.pm
 SHA1 e021de17a08e040fd593d14fb452fbbbf7cf6e09 lib/Image/Info/PPM.pm
@@ -88,7 +92,7 @@ SHA1 3443c36fd2dbc7f58599cf175e0793c5e8601ea9 t/jpg_hang.t
 SHA1 966b714313073d7e04fdc55526ca42424117758c t/png.t
 SHA1 cc217a37ee14356bb57e4ea32c1eda94d1a2d8c9 t/pod.t
 SHA1 a8867b6d1a97c51e22eb650cc26e80178f4264e5 t/pod_cov.t
-SHA1 f921aa0f95384c7e3cce56ee4b42a85f5bcae9ac t/string.t
+SHA1 ac7d8c56d08fe5ecd23435387cf09e7dc99f837e t/string.t
 SHA1 4331055772da9744fe7ce0d86e7d4aa930e3ccf1 t/svg.t
 SHA1 4946d0695d7b48a04723b790ba70815ba42ef385 t/tiff.t
 SHA1 76e7e08522799dc0f39896c8925aff1d42b09da4 t/tiff_e.t
@@ -99,7 +103,7 @@ SHA1 ff51f053c3ba8bfc3285571315ff2c78425fc4f9 xt/mass.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.8 (FreeBSD)
 
-iQBVAwUBSv7acL9kDNo3Bl+NAQJUmwIAqShcqGBtvGSi+p9f6/X7Y+AmrbWurO7b
-Nt9IGEQAOFhJbCWshnxfNe/fVG6s1DD1KxZI605XgEyxgo2WdRBNjg==
-=lSGe
+iQBVAwUBSwm2Sb9kDNo3Bl+NAQIJyAH7BDd7pgRdU1WTeMi8IKIjm5UvmCtKMLme
+kQfzZbLx347yL1p7XXX7iFZfw8Ei5X5LavVWpJxpjJDWOwUWaRqjPA==
+=uX/4
 -----END PGP SIGNATURE-----

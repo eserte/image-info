@@ -1,5 +1,5 @@
 package Image::Info::GIF;
-$VERSION = '1.01';
+$VERSION = '1.02';
 
 # Copyright 1999-2000, Gisle Aas.
 #

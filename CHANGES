@@ -1,5 +1,14 @@
 Revision history for Image::Info
 
+2009-11-22  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.30_51
+
+    Fixes in GIF reader (unknown intro codes are now only warnings,
+    application chunks are forced into the first image data)
+
+    Added some test images for previous fixes.
+
 2009-11-14  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.30_50
