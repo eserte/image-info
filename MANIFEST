@@ -11,6 +11,9 @@ img/graph.svg
 img/interlace.png		Interlaced PNG example
 img/le.tif
 img/test-gimp.xbm
+img/test-multi0xff.jpg
+img/test-notrailer.gif
+img/test-unknowncode.gif
 img/test.gif			An GIF example
 img/test.ico
 img/test.jpg			An Exif example from my Digicam
@@ -39,6 +42,7 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
+lib/Bundle/Image/Info/Everything.pm
 lib/Bundle/Image/Info/PNG.pm
 lib/Bundle/Image/Info/SVG.pm
 lib/Bundle/Image/Info/XBM.pm
