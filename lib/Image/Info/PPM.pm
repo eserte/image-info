@@ -48,6 +48,7 @@ sub process_file {
 	    unless (/^\d+$/) {
 		die "Badly formatted $type file";
 	    }
+	    $_ += 0; # strip leading zeroes
 	}
 
 	next unless @header >= $num_wanted;
