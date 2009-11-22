@@ -176,7 +176,8 @@ sub process_file
 	    }
 	}
 	else {
-	    die "Unknown introduced code $intro, bad GIF";
+	    push @warnings, "Unknown introduced code $intro, ignoring following chunks";
+	    last;
 	}
     }
 

@@ -4,6 +4,7 @@
 
 use strict;
 use Test::More;
+use File::Basename qw(basename);
 use File::Spec;
 
 my $tests_per_file; BEGIN { $tests_per_file = 3 }
@@ -24,6 +25,11 @@ my $requires =
   xpm => ['Image::Xpm'],
   xbm => ['Image::Xbm'],
   svg => ['XML::LibXML::Reader', 'XML::Simple'],
+  };
+
+my $expected_warnings =
+  {
+  'test-unknowncode.gif' => 'Unknown introduced code 10, ignoring following chunks',
   };
 
 SKIP:
@@ -62,10 +68,12 @@ TESTFILES: for my $f (@tests)
       # 2 tests follow:
 
       my $file = File::Spec->catfile($updir,$f);
+      my $base = basename $file;
       my $h1 = image_info($file);
 
       is ($h1->{error}, undef, 'no error');
-      is ($h1->{Warn}, undef, 'no warning');
+      my $expected_warning = $expected_warnings->{$base};
+      is ($h1->{Warn}, $expected_warning, 'no/expected warning');
 
       my $img = cat($file);
       my $h2 = image_info(\$img);
