@@ -166,9 +166,9 @@ sub process_file
 		    && $data =~ /^\01/) {
 		    my $loop = unpack("xv", $data);
 		    $loop = "forever" unless $loop;
-		    $info->push_info($img_no, "GIF_Loop" => $loop);
+		    $info->push_info(0, "GIF_Loop" => $loop);
 		} else {
-		    $info->push_info($img_no, "APP-$app-$auth" => $data);
+		    $info->push_info(0, "APP-$app-$auth" => $data);
 		}
 	    }
 	    else {
