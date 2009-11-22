@@ -81,6 +81,9 @@ sub normalize_info {
     if ($info_ref->[0]->{file_ext} eq 'jpg' && @$info_ref > 1) {
 	@$info_ref = ($info_ref->[0]);
     }	
+    if ($info_ref->[0] && $info_ref->[0]->{file_ext} =~ m{^p[gbp]m$}) {
+	$info_ref->[0]->{file_ext} = 'pnm';
+    }
 }
 
 sub image_magick_to_image_info {
