@@ -51,9 +51,7 @@ sub process_file {
 	    $_ += 0; # strip leading zeroes
 	}
 
-	if (@header < $num_wanted) {
-	    die "Too few numbers expected in header (wanted $num_wanted, got " . scalar(@header) . ")";
-	}
+	next unless @header >= $num_wanted;
 
 	# Now we know everything there is to know...
 	$info->push_info(0, "file_media_type" => "image/$type");
