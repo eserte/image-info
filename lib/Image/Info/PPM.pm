@@ -29,6 +29,7 @@ sub process_file {
     my $type;
     my $num_wanted = 3;
     my $binary;
+    my $read_header;
 
     local($/, $_) = ("\n");
     while (<$fh>) {
@@ -54,6 +55,7 @@ sub process_file {
 	next unless @header >= $num_wanted;
 
 	# Now we know everything there is to know...
+	$read_header = 1;
 	$info->push_info(0, "file_media_type" => "image/$type");
 	$info->push_info(0, "file_ext" => "$type");
 	$info->push_info(0, "width", shift @header);
@@ -82,6 +84,10 @@ sub process_file {
 	    $info->push_info(0, "MaxSampleValue", shift @header) if $type ne 'pbm';
 	}
 	last;
+    }
+
+    if (!$read_header) {
+	$info->push_info(0, 'error' => 'Incomplete PBM/PGM/PPM header');
     }
 }
 
