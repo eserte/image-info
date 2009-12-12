@@ -58,6 +58,10 @@ sub process_file {
 	    my $name = $reader->name;
 	    if (!$desc && $name eq 'desc') {
 		require XML::Simple;
+		# Don't take any chances which XML::SAX is defaulted
+		# by the user. We know that we have XML::LibXML, so
+		# use this one.
+		local $XML::Simple::PREFERRED_PARSER = 'XML::LibXML::SAX::Parser';
 		my $xs = XML::Simple->new;
 		my $desc_xml = $reader->readOuterXml;
 		$desc = $xs->XMLin($desc_xml);
