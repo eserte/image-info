@@ -13,12 +13,12 @@ package Image::Info;
 # modify it under the same terms as Perl v5.8.8 itself.
 #
 # Previoisly maintained by Tels - (c) 2006 - 2008.
-# Currently maintained by Slaven Rezic - (c) 2008 - 2009.
+# Currently maintained by Slaven Rezic - (c) 2008 - 2010.
 
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.30_51';
+$VERSION = '1.30_52';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -536,7 +536,7 @@ See the CREDITS file for a list of contributors and authors.
 
 Tels - (c) 2006 - 2008.
 
-Current maintainer: Slaven Rezic - (c) 2008 - 2009.
+Current maintainer: Slaven Rezic - (c) 2008 - 2010.
 
 =head1 LICENSE
 

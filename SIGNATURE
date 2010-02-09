@@ -15,15 +15,15 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 0a96954d54a1550d26ba39b0f03d7577e7cd8962 .gitignore
-SHA1 fca4a9c229479113a884e0f86128e8b6b5bf32ee CHANGES
+SHA1 1f18be7dc776d9ad6a01f92521fe4a1c0dcda93f CHANGES
 SHA1 517bff80bcf518746150086148acaf8cfa37a17d CREDITS
 SHA1 a946b2378a4f6faebb4de6b68156e074012b26c2 MANIFEST
 SHA1 47ed2e0ab57bf1eebbd1e3bc99c2728a8651e3b4 MANIFEST.SKIP
-SHA1 96e795dea91fa757ab707d4cfa6185c2945f4ccf META.yml
+SHA1 3cbd462f8502bec69a7139ceec0923baec37ae77 META.yml
 SHA1 4262f0ec3344d90a73be5afd780440bf50ca5c1b Makefile.PL
 SHA1 0184503d850cb0d34d0cfe26bd5af84d4cf97dbc README
 SHA1 36ea8eabe5ac80acc416411aae77b60e1480de1b TODO
-SHA1 3b822dca889ce518f19be74199984120766143e4 dev/Info.pm.tmpl
+SHA1 6ce5738f303ac17c1db4884ac591ab6aac779b7e dev/Info.pm.tmpl
 SHA1 0685e2446241ef32f201bb30a7b4cfe6ef1e6285 dev/build.pl
 SHA1 38b386e67725abff64ea00abb8e92c46f38e2f59 exifdump
 SHA1 c11f86df48ca57d0364c9afd1449683ebf1979f4 img/be.tif
@@ -53,31 +53,31 @@ SHA1 603d6eed47d8822cf4bae53bafa18b8044c035a6 img/test1-fuji.jpg
 SHA1 d33e338aa7a45dc6fa4cefcdd376916e2267f3f9 img/tiny.pgm
 SHA1 684ef627299906409c258ed2a66990a26dd13794 img/ztxt.png
 SHA1 376cc1bd8424b1123f0073df81ce5433be4df58e imgdump
-SHA1 e5fb92ac217988bfc7a6af739b0459627020a27e inc/Module/AutoInstall.pm
-SHA1 fd5f3c4f0418efee3b9b16cf8c3902e8374909df inc/Module/Install.pm
-SHA1 5c529e96420d964b192f011b121283a4916f7331 inc/Module/Install/AutoInstall.pm
-SHA1 7cd7c349afdf3f012e475507b1017bdfa796bfbd inc/Module/Install/Base.pm
-SHA1 ba186541bbf6439111f01fc70769cf24d22869bf inc/Module/Install/Can.pm
-SHA1 aaa50eca0d7751db7a4d953fac9bc72c6294e238 inc/Module/Install/Fetch.pm
-SHA1 219da5a95c290312a81477b226f005997d97dcfd inc/Module/Install/Include.pm
-SHA1 3e83972921d54198d1246f7278f08664006cd65d inc/Module/Install/Makefile.pm
-SHA1 12bf1867955480d47d5171a9e9c6a96fabe0b58f inc/Module/Install/Metadata.pm
-SHA1 f7ee667e878bd2faf22ee9358a7b5a2cc8e91ba4 inc/Module/Install/Win32.pm
-SHA1 8ed29d6cf217e0977469575d788599cbfb53a5ca inc/Module/Install/WriteAll.pm
+SHA1 8842ca38ce27ccf75e1ce8f5dfb93fa62d933b2e inc/Module/AutoInstall.pm
+SHA1 682537493a9ac7e5380fe0317227966c398aaf21 inc/Module/Install.pm
+SHA1 10866586dc3accef631b203f59a7926b27040cee inc/Module/Install/AutoInstall.pm
+SHA1 b57260c9f8addb4db719073b198313c5fa93fd15 inc/Module/Install/Base.pm
+SHA1 dd8428fbee604b485c70ca2e67458c52207d9c87 inc/Module/Install/Can.pm
+SHA1 7319d8dee245541f822b6bd2225b1b80eacf4c26 inc/Module/Install/Fetch.pm
+SHA1 264f6f5e05812e5983047bd28b9ee566708faf04 inc/Module/Install/Include.pm
+SHA1 cf81ba92b8b26e1038796753955dbd50c161a047 inc/Module/Install/Makefile.pm
+SHA1 d5730e8f72bfb4338ab56cb29360b5faeca2841c inc/Module/Install/Metadata.pm
+SHA1 926823a948aad6c8df6b5848640c92d1a98bbadf inc/Module/Install/Win32.pm
+SHA1 f3945158d30a5a53986d6a61cd27c4542c4deb2c inc/Module/Install/WriteAll.pm
 SHA1 45d4f0a75274a3946aa861459dd6a19ee4d1dd44 lib/Bundle/Image/Info/Everything.pm
 SHA1 52e684ed4ae8089b3f9c83355dc12d3113673111 lib/Bundle/Image/Info/PNG.pm
 SHA1 8c1fec2e87c5e2ed5fde24d99b47f9c15ce5d318 lib/Bundle/Image/Info/SVG.pm
 SHA1 f348a5f14a0e674ef9077fd7c9a7eedd7b9462b5 lib/Bundle/Image/Info/XBM.pm
 SHA1 6495717c95aee79965e174147c0fb99b54b4f3a1 lib/Bundle/Image/Info/XPM.pm
-SHA1 eacc76e4a252bf1aef4d59e88ffd6041f9f12fc8 lib/Image/Info.pm
+SHA1 53b9fb7dcece1a587688cece2d86b7b5a46d8819 lib/Image/Info.pm
 SHA1 7b079b0348bd8204f0527a11746f105ad5df855f lib/Image/Info/BMP.pm
 SHA1 6f63955e7d15c4c43355145e2a8c2952c64c1afa lib/Image/Info/GIF.pm
 SHA1 fb628cb66c566ab66a1b7953a1bb29cfde1c79c7 lib/Image/Info/ICO.pm
 SHA1 2b3d19b55fb41063dde438623e4c40a50e5aef01 lib/Image/Info/JPEG.pm
 SHA1 df4bd657aae33fe5ef9cbad6546674ec2de9d53f lib/Image/Info/PNG.pm
-SHA1 e021de17a08e040fd593d14fb452fbbbf7cf6e09 lib/Image/Info/PPM.pm
+SHA1 219fc10c07d1bd59d0745ef7a0ca81eebcd2aedd lib/Image/Info/PPM.pm
 SHA1 687b0121fc21ec3a5ae08a0a28d37b37f654df16 lib/Image/Info/SVG.pm
-SHA1 bbb01656300339aa7cccc1032670b4be67083abd lib/Image/Info/SVG/XMLLibXMLReader.pm
+SHA1 e2c4f7ff2bba5a50e2de64e5b43d78fd44b00d6c lib/Image/Info/SVG/XMLLibXMLReader.pm
 SHA1 827501c639b7db47dac2a7e050df6bf887f08161 lib/Image/Info/SVG/XMLSimple.pm
 SHA1 75075891cb380be2a8960252e10d2a161d5bd069 lib/Image/Info/TIFF.pm
 SHA1 df9b8cfb6ee96e175a687a70e4668cd143a7a055 lib/Image/Info/XBM.pm
@@ -97,13 +97,13 @@ SHA1 4331055772da9744fe7ce0d86e7d4aa930e3ccf1 t/svg.t
 SHA1 4946d0695d7b48a04723b790ba70815ba42ef385 t/tiff.t
 SHA1 76e7e08522799dc0f39896c8925aff1d42b09da4 t/tiff_e.t
 SHA1 21c60748e74cd08f3e8cb12a5e652d225c39f108 t/tiny-pgm.t
-SHA1 120743ffb4cdb5ee6ef57e98470008804d636d3b xt/bench.t
-SHA1 3745ddb3a10ab0a8b30affc614cd48de3a5572d3 xt/compare.t
-SHA1 ff51f053c3ba8bfc3285571315ff2c78425fc4f9 xt/mass.t
+SHA1 212ee47119c2b605f79c090b2e6401c93dfa8f35 xt/bench.t
+SHA1 0cd1c4a76c4bda70f1a2a04458379eef0e81b20f xt/compare.t
+SHA1 1f4d2b48448129058b151e5583aeeaf09c34d2f4 xt/mass.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.8 (FreeBSD)
+Version: GnuPG v1.4.10 (FreeBSD)
 
-iQBVAwUBSwm2Sb9kDNo3Bl+NAQIJyAH7BDd7pgRdU1WTeMi8IKIjm5UvmCtKMLme
-kQfzZbLx347yL1p7XXX7iFZfw8Ei5X5LavVWpJxpjJDWOwUWaRqjPA==
-=uX/4
+iQBVAwUBS3G/ur9kDNo3Bl+NAQLvfAH/QYOgBHwCnE0LsMlf57Gu4boWx2Yw8Hrt
+e1hN3YyeqvxYgUE7NyzfZmIJMScDx1wYof5dNi06XDX0kK0zI+ly4w==
+=Nx7k
 -----END PGP SIGNATURE-----

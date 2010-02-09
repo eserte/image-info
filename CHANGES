@@ -1,5 +1,14 @@
 Revision history for Image::Info
 
+2010-02-09  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.30_52
+
+    Force using libxml's SAX parser.
+
+    Fixed some PPM issues (e.g. incomplete header, numify
+    width/height...)
+
 2009-11-22  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.30_51
