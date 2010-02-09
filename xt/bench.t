@@ -12,6 +12,7 @@ use blib "$FindBin::RealBin/..";
 use Test::More 'no_plan';
 
 use Data::Dumper;
+use File::Glob qw(bsd_glob);
 use Benchmark qw(timeit timestr);
 use Image::ExifTool qw();
 use Image::Info qw();
@@ -20,6 +21,10 @@ use Image::Size qw();
 
 my $count = 1;
 my @files = @ARGV;
+if (!@files) {
+    diag "Note: no files provided, using supplied test files...";
+    @files = bsd_glob("$FindBin::RealBin/../img/*.{gif,jpg,png,bmp,tif}");
+}
 
 {
     my $t = timeit($count, sub {
@@ -74,5 +79,7 @@ my @files = @ARGV;
 		   });
     diag 'Image::Magick: ' . timestr($t, 'all');
 }
+
+pass "Benchmark tests done!";
 
 __END__

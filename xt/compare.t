@@ -10,6 +10,7 @@ use FindBin;
 use blib "$FindBin::RealBin/..";
 
 use Data::Dumper;
+use File::Glob qw(bsd_glob);
 use Test::More 'no_plan';
 
 use Image::ExifTool qw();
@@ -17,7 +18,12 @@ use Image::Info qw();
 use Image::Size qw();
 use Imager;
 
-die "Please specify image file" if !@ARGV;
+$Data::Dumper::Useqq = 1; # protect from non-prinatble chars
+
+if (!@ARGV) {
+    diag "Note: no files provided, using supplied test files...";
+    @ARGV = bsd_glob("$FindBin::RealBin/../img/*.{gif,jpg,png,bmp,tif}");
+}
 for my $file (@ARGV) {
     print "======== $file ========\n";
     print "Image::Info: " . Dumper(Image::Info::image_info($file, L1D_Histogram => 1, ColorPalette => 1)) . "\n";
