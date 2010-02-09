@@ -2,6 +2,13 @@ Revision history for Image::Info
 
 2010-02-09  Slaven Rezic  <slaven@rezic.de>
 
+    Release 1.30_53
+
+    Repacked because Module::Install 0.93 does not ignore xt tests.
+    See https://rt.cpan.org/Ticket/Display.html?id=54450
+
+2010-02-09  Slaven Rezic  <slaven@rezic.de>
+
     Release 1.30_52
 
     Force using libxml's SAX parser.

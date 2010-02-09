@@ -82,6 +82,3 @@ t/tiff.t
 t/tiff_e.t
 t/tiny-pgm.t
 TODO
-xt/bench.t
-xt/compare.t
-xt/mass.t
