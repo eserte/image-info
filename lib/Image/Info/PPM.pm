@@ -68,8 +68,7 @@ sub process_file {
 	    $info->push_info(0, "MaxSampleValue", $MSV);
 	    $info->push_info(0, "color_type", "RGB");
 
-	    my $double = 1; $double = 2 if $MSV > 256;
-	    $info->push_info(0, "SamplesPerPixel", $double * 3);
+	    $info->push_info(0, "SamplesPerPixel", 3);
 	    if ($binary) {
 		for (1..3) {
 		    $info->push_info(0, "BitsPerSample", int(log($MSV + 1) / log(2) ) );
