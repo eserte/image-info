@@ -23,6 +23,10 @@ time, aperture, flash usage, GPS position, etc.
 The C<Exif> spec can be found at:
 L<http://www.exif.org/specifications.html>.
 
+The C<color_type> element may have the following values: C<Gray>,
+C<YCbCr>, and C<CMYK>. Note that detecting C<RGB> and C<YCCK>
+currently does not work, but will hopefully in future.
+
 =end register
 
 =cut
