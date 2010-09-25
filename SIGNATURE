@@ -73,9 +73,9 @@ SHA1 abdcba664cf7583193d238487d3723e591887947 lib/Image/Info.pm
 SHA1 7b079b0348bd8204f0527a11746f105ad5df855f lib/Image/Info/BMP.pm
 SHA1 6f63955e7d15c4c43355145e2a8c2952c64c1afa lib/Image/Info/GIF.pm
 SHA1 fb628cb66c566ab66a1b7953a1bb29cfde1c79c7 lib/Image/Info/ICO.pm
-SHA1 aeb3cb6cce14e3bd03ebcde77a95861ef2c67ecb lib/Image/Info/JPEG.pm
+SHA1 ee63c87567533b8d1a1901408a1c0f006681dc88 lib/Image/Info/JPEG.pm
 SHA1 df4bd657aae33fe5ef9cbad6546674ec2de9d53f lib/Image/Info/PNG.pm
-SHA1 6ec125d52516f2676b858bb36d88c6012c7fed6a lib/Image/Info/PPM.pm
+SHA1 1b69276ab386d1795469773d6af70ff510c15feb lib/Image/Info/PPM.pm
 SHA1 687b0121fc21ec3a5ae08a0a28d37b37f654df16 lib/Image/Info/SVG.pm
 SHA1 e2c4f7ff2bba5a50e2de64e5b43d78fd44b00d6c lib/Image/Info/SVG/XMLLibXMLReader.pm
 SHA1 827501c639b7db47dac2a7e050df6bf887f08161 lib/Image/Info/SVG/XMLSimple.pm
@@ -100,7 +100,7 @@ SHA1 0a5f7c518af4b72fd76fa8def1f51e8691727bdd t/tiny-pgm.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (FreeBSD)
 
-iQBVAwUBTJ4XVb9kDNo3Bl+NAQI4BQIAhXSy0MURYS/neQtzv2If7sI6DNyTI8bK
-+d9FSEA4xejtalCto+INOvCmt2LXfN+/infinjC7moWDOlxZ7uHFJg==
-=Z9HQ
+iQBVAwUBTJ4X1L9kDNo3Bl+NAQLAcQH+Ogeq/XI0MzP97IIHntlERA1ShkYPjEvC
+fuZNwNkx/YmdAAYGRwHY3EHEfCTF7hyrpfUQyu4MEY4iYEA5arPVLg==
+=g1u7
 -----END PGP SIGNATURE-----
