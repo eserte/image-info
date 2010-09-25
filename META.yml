@@ -2,13 +2,15 @@
 abstract: 'Extract meta information from image files'
 author:
   - 'Slaven Rezic <srezic@cpan.org>'
+  - 'Gisle Aas'
+  - Tels
 build_requires:
   ExtUtils::MakeMaker: 6.42
   Test::More: 0.62
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.93'
+generated_by: 'Module::Install version 1.00'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -32,4 +34,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/eserte/image-info.git
-version: 1.30_53
+version: 1.31
