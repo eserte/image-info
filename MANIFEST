@@ -31,13 +31,10 @@ img/test1-fuji.jpg		Testcase for RT #49546
 img/tiny.pgm
 img/ztxt.png			PNG example with ztxt chunk
 imgdump				Test driver script
-inc/Module/AutoInstall.pm
 inc/Module/Install.pm
-inc/Module/Install/AutoInstall.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
-inc/Module/Install/Include.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
