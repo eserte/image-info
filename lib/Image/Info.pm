@@ -159,7 +159,7 @@ sub determine_file_format
    return "PPM" if /^P[1-6]/;
    return "XPM" if /(^\/\* XPM \*\/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)/;
    return "XBM" if /^(?:\/\*.*\*\/\n)?#define\s/;
-   return "SVG" if /^<(\?xml|svg\b)/;
+   return "SVG" if /^(<\?xml|[\012\015\t ]*<svg\b)/;
    return undef;
 }
 

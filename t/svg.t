@@ -71,7 +71,7 @@ is (dim($i), '209x51', 'dim()');
 	    $buf .= $_;
 	}
     }
-    $buf =~ s{^<\?xml.*?>\n+}{}; # strip XML preamble
+    $buf =~ s{^<\?xml.*?>}{}; # strip XML preamble
     $i = image_info(\$buf);
     is ($i->{file_media_type}, 'image/svg+xml', 'file_media_type (svg without xml preamble)');
 }
