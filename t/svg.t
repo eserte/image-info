@@ -17,7 +17,7 @@ BEGIN
       plan skip_all => "Need XML::Simple or XML::LibXML::Reader for this test";
     }
 
-  plan tests => 12;
+  plan tests => 13;
   }
 
 use Image::Info qw(image_info dim);
@@ -60,3 +60,18 @@ is ($i->{SVG_Version}, '1.1', 'SVG_Version 1.1');
 
 is (dim($i), '209x51', 'dim()');
 
+#############################################################################
+# first file without xml preamble
+{
+    my $buf;
+    {
+	open my $fh, "../img/test.svg" or die $!;
+	local $/ = \4096;
+	while (<$fh>) {
+	    $buf .= $_;
+	}
+    }
+    $buf =~ s{^<\?xml.*?>\n+}{}; # strip XML preamble
+    $i = image_info(\$buf);
+    is ($i->{file_media_type}, 'image/svg+xml', 'file_media_type (svg without xml preamble)');
+}

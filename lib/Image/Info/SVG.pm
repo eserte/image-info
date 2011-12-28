@@ -144,7 +144,7 @@ modify it under the same terms as Perl itself.
 
 =begin register
 
-MAGIC: /^<\?xml/
+MAGIC: /^<(\?xml|svg\b)/
 
 Provides a plethora of attributes and metadata of an SVG vector grafic.
 
