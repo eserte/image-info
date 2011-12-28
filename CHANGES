@@ -6,6 +6,8 @@ Revision history for Image::Info
 
     SVG files without XML preamble are now also recognized.
 
+    Bundled Module::Install 1.04.
+
 2010-09-25  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.31
