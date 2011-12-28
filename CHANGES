@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2011-12-28  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.31_50
+
+    SVG files without XML preamble are now also recognized.
+
 2010-09-25  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.31
