@@ -1,6 +1,8 @@
 /.prove
 /Image-Info-*.tar.gz
 /MANIFEST.bak
+/MYMETA.json
+/MYMETA.yml
 /Makefile
 /Makefile.old
 /blib
