@@ -71,7 +71,7 @@ predist:
 postdist:
 	\$(NOECHO) \$(ECHO) "*** Run the following commands:"
 	\$(NOECHO) \$(ECHO) cpan-upload \$(DISTVNAME).tar\$(SUFFIX)
-	\$(NOECHO) \$(ECHO) git tag -a -m "* \$(VERSION)" \$(VERSION)
+	\$(NOECHO) \$(ECHO) "git tag -a -m '* \$(VERSION)' \$(VERSION)"
 	\$(NOECHO) \$(ECHO) git push
 	\$(NOECHO) \$(ECHO) git push --tags
 
