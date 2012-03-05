@@ -5,6 +5,9 @@
 # Author: Slaven Rezic
 #
 
+# (locate .jpg | grep '.jpg$'; locate .jpeg | grep '.jpeg$'; locate .gif | grep '.gif$'; locate .png | grep '.png$'; locate .xpm|grep '.xpm$') > /tmp/filelist
+# prove --exec './xt/mass.t -testokdb /tmp/testok.db' mass.t
+
 # locate .ico | grep '.ico$' | perl -pe 's/\n/\0/g' | xargs -0 ./xt/mass.t
 
 # (locate .jpg | grep '.jpg$'; locate .jpeg | grep '.jpeg$'; locate .gif | grep '.gif$'; locate .png | grep '.png$'; locate .xpm|grep '.xpm$') | perl -pe 's/\n/\0/g' | xargs -0 ./xt/mass.t -testokdb /tmp/testok.db
@@ -23,16 +26,30 @@ use Image::Info qw(image_info);
 use Image::Magick;
 
 sub usage {
-    die "usage: $0 [-testokdb dbfile] file ...";
+    die "usage: $0 [-testokdb dbfile] [-filelist | file ...]";
 }
 
 my $test_ok_db;
-GetOptions("testokdb=s" => \$test_ok_db)
+my $filelist;
+GetOptions(
+	   "testokdb=s" => \$test_ok_db,
+	   "filelist=s" => \$filelist,
+	  )
     or usage;
-my @files = @ARGV;
-if (!@files) {
-    diag "Note: no files provided, using supplied test files...";
-    @files = bsd_glob("$FindBin::RealBin/../img/*.{gif,jpg,png,bmp,tif}");
+my @files;
+if ($filelist) {
+    open my $fh, $filelist
+	or die "Can't open $filelist: $!";
+    while(<$fh>) {
+	chomp;
+	push @files, $_;
+    }
+} else {
+    @files = @ARGV;
+    if (!@files) {
+	diag "Note: no files provided, using supplied test files...";
+	@files = bsd_glob("$FindBin::RealBin/../img/*.{gif,jpg,png,bmp,tif}");
+    }
 }
 
 my %tested_ok;
@@ -81,6 +98,8 @@ sub normalize_info {
 	}
     }
 
+    no warnings 'uninitialized'; # file_ext may be undef
+
     # It seems that embedded thumbnails are not reported by Image::Magick
     if ($info_ref->[0]->{file_ext} eq 'jpg' && @$info_ref > 1) {
 	@$info_ref = ($info_ref->[0]);
@@ -96,6 +115,8 @@ sub normalize_info {
 sub image_magick_to_image_info {
     my $file = shift;
     my @info;
+
+    no warnings 'uninitialized'; # $format may be undef
 
     my $im = Image::Magick->new;
     my(undef, undef, undef, $format) = $im->Ping($file);
