@@ -78,6 +78,7 @@ for my $file (@files) {
     local $TODO;
     $TODO = "Minor floating point differences with SVG files" if $file =~ m{\.svg$};
     $TODO = "Buffer for magic checks is known to be too small" if $file =~ m{\.xbm$};
+    $TODO = "Photoshop files not handled by Image::Info" if $info_im[0] && $info_im[0]->{file_ext} && $info_im[0]->{file_ext} eq 'psd';
     my $success = is_deeply(\@info_pm, \@info_im, "Check for $file");
     if ($success) {
 	$tested_ok{$file} = 1;
