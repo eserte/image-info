@@ -31,14 +31,6 @@ img/test1-fuji.jpg		Testcase for RT #49546
 img/tiny.pgm
 img/ztxt.png			PNG example with ztxt chunk
 imgdump				Test driver script
-inc/Module/Install.pm
-inc/Module/Install/Base.pm
-inc/Module/Install/Can.pm
-inc/Module/Install/Fetch.pm
-inc/Module/Install/Makefile.pm
-inc/Module/Install/Metadata.pm
-inc/Module/Install/Win32.pm
-inc/Module/Install/WriteAll.pm
 lib/Bundle/Image/Info/Everything.pm
 lib/Bundle/Image/Info/PNG.pm
 lib/Bundle/Image/Info/SVG.pm
@@ -61,7 +53,6 @@ lib/Image/TIFF.pm		Parse TIFF tags
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
-META.yml			Module meta-data
 README
 SIGNATURE
 t/00_basics.t

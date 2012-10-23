@@ -4,9 +4,7 @@
 
 require 5.006;
 use strict;
-
-# Load the Module::Install bundled in ./inc/
-use inc::Module::Install;
+use ExtUtils::MakeMaker;
 
 my $is_author_env = defined $ENV{USER} && $ENV{USER} =~ m{^(eserte|slavenr)}; # fill in the developer's user names here
 if ($is_author_env) {
@@ -25,36 +23,9 @@ if ($is_author_env) {
 
 EOF
     }
-}
 
-perl_version	'5.006';
-
-requires	'IO::String'		=> '1.03' if $] < 5.008;
-
-recommends	'Bundle::Image::Info::PNG'	=> 0,
-		'Bundle::Image::Info::XPM'	=> 0,
-		'Bundle::Image::Info::XBM'	=> 0,
-		'Bundle::Image::Info::SVG'	=> 0,
-		;
-
-test_requires	'Test::More'		=> 0;
-
-license		'perl';
-
-author		'Slaven Rezic <srezic@cpan.org>',
-		'Gisle Aas',
-		'Tels'; 
-
-# Get most of the details from the primary module
-all_from	'lib/Image/Info.pm';
-
-# Do not index these
-no_index        directory       => 'img', 'dev';
-
-repository	'git://github.com/eserte/image-info.git';
-
-if ($is_author_env) {
-    Makefile->postamble(<<EOF);
+    *MY::postamble = sub {
+	<<EOF;
 predist:
 	./dev/build.pl
 	rm -rf inc
@@ -76,7 +47,48 @@ postdist:
 	\$(NOECHO) \$(ECHO) git push --tags
 
 EOF
+    };
 }
 
-# Generate the Makefile
-WriteAll;
+my $eumm_recent_enough = $ExtUtils::MakeMaker::VERSION >= 6.54;
+if (!$eumm_recent_enough) {
+    *MY::dist_core = sub {
+	<<'EOF';
+dist :
+	$(NOECHO) $(ECHO) "Sorry, use a newer EUMM!"
+
+EOF
+    };
+}
+
+WriteMakefile(
+	      AUTHOR => 'Slaven Rezic <srezic@cpan.org>',
+	      # previous authors:
+	      # - Gisle Aas <gisle@ActiveState.com
+	      # - Tels
+	      NAME          => 'Image::Info',
+	      VERSION_FROM  => 'lib/Image/Info.pm',
+	      ABSTRACT_FROM => 'lib/Image/Info.pm',
+	      PREREQ_PM     => {
+				($] < 5.008 ? ('IO::String' => '1.03') : ()),
+			       },
+	      LICENSE       => 'perl',
+	      MIN_PERL_VERSION => 5.006,
+
+	      ($eumm_recent_enough
+	       ? (META_MERGE => { resources  => { repository => 'git://github.com/eserte/image-info.git' },
+				  no_index   => { directory => [qw(dev img xt)] },
+				  recommends => {
+						 'Bundle::Image::Info::PNG' => 0,
+						 'Bundle::Image::Info::XPM' => 0,
+						 'Bundle::Image::Info::XBM' => 0,
+						 'Bundle::Image::Info::SVG' => 0,
+						},
+				  author     => ['Gisle Aas <gisle@ActiveState.com', 'Tels'],
+				},
+		  META_ADD   => {
+				},
+		 )
+	       : ()
+	      ),
+);

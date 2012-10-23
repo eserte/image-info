@@ -1,5 +1,12 @@
 Revision history for Image::Info
 
+2012-10-23  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.32_50
+
+    Repacked because of Module::Install 1.04 problems (see mail from
+    Miyagawa). Now Image::Info is again using good old EUMM.
+
 2012-02-21  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.32
