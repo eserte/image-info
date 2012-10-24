@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2012-10-24  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.32_51
+
+    Signature fix.
+
 2012-10-23  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.32_50

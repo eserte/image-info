@@ -54,7 +54,6 @@ Makefile.PL
 MANIFEST
 MANIFEST.SKIP
 README
-SIGNATURE
 t/00_basics.t
 t/bmp.t
 t/exif.t

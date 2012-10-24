@@ -34,7 +34,6 @@ predist:
 	\$(MAKE) disttest
 	\$(MAKE) distclean
 	\$(PERL) Makefile.PL
-	\$(MAKE) signature
 	git status
 	\$(NOECHO) \$(ECHO) "*** Consider also calling cpan_check_versions and"
 	\$(NOECHO) \$(ECHO) "*** cpan_check_unauthorized (on an older version)"
@@ -74,6 +73,7 @@ WriteMakefile(
 			       },
 	      LICENSE       => 'perl',
 	      MIN_PERL_VERSION => 5.006,
+	      SIGN          => 1,
 
 	      ($eumm_recent_enough
 	       ? (META_MERGE => { resources  => { repository => 'git://github.com/eserte/image-info.git' },
