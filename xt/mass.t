@@ -88,6 +88,9 @@ sub normalize_info {
     if ($info_ref->[0] && $info_ref->[0]->{file_ext} =~ m{^p[gbp]m$}) {
 	$info_ref->[0]->{file_ext} = 'pnm';
     }
+    if ($info_ref->[0] && $info_ref->[0]->{file_ext} =~ m{^rle$}) {
+	$info_ref->[0]->{file_ext} = 'bmp';
+    }
 }
 
 sub image_magick_to_image_info {
