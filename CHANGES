@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2012-10-25  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.32_52
+
+    Handle BMP files with negative heights (RT #78471).
+
 2012-10-24  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.32_51
