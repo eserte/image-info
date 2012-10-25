@@ -1,13 +1,18 @@
 package Image::Info::BMP;
-$VERSION = '1.02';
+$VERSION = '1.03';
 use strict;
+
+use constant _CAN_LITTLE_ENDIAN_PACK => $] >= 5.009002;
 
 sub process_file {
     my($info, $source, $opts) = @_;
     my(@comments, @warnings, @header, %info, $buf, $total);
 
     read($source, $buf, 54) == 54 or die "Can't reread BMP header: $!";
-    @header = unpack("vVv2V2V2v2V2V2V2", $buf);
+    @header = unpack((_CAN_LITTLE_ENDIAN_PACK
+		      ? "vVv2V2Vl<v2V2V2V2"
+		      : "vVv2V2V2v2V2V2V2"
+		     ), $buf);
     $total += length($buf);
 
     if( $header[9] && $header[9] < 24 ){
@@ -23,7 +28,11 @@ sub process_file {
     else{
 	$info->push_info(0, "file_ext" => "bmp"); # || dib
     }
-    $info->push_info(0, "height", abs($header[7]));
+
+    $info->push_info(0, "height", (_CAN_LITTLE_ENDIAN_PACK
+				   ? abs($header[7])
+				   : ($header[7] >= 2**31 ? 2**32 - $header[7] : $header[7])
+				  ));
     $info->push_info(0, "resolution", "$header[12]/$header[13]");
     $info->push_info(0, "width", $header[6]);
     $info->push_info(0, "BitsPerSample" => $header[9]);
