@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2012-11-03  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.33
+
+    Added test image for RT #78471.
+
 2012-10-25  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.32_52
