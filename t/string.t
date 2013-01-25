@@ -13,7 +13,7 @@ my (@tests, $tests);
 
 BEGIN
    {
-   @tests = glob("img/test*");
+   @tests = grep { !/\.wbmp$/ } glob("img/test*");
    $tests = (scalar @tests) * $tests_per_file;
    plan tests => $tests;
    chdir 't' if -d 't';
