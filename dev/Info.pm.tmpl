@@ -13,12 +13,12 @@ package Image::Info;
 # modify it under the same terms as Perl v5.8.8 itself.
 #
 # Previoisly maintained by Tels - (c) 2006 - 2008.
-# Currently maintained by Slaven Rezic - (c) 2008 - 2012.
+# Currently maintained by Slaven Rezic - (c) 2008 - 2013.
 
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.33';
+$VERSION = '1.33_50';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -41,7 +41,6 @@ sub image_info
     my $format = determine_file_format($head)
         or return { error => 'Unrecognized file format' };
 
-    no strict 'refs';
     my $mod = "Image::Info::$format";
     my $sub = "$mod\::process_file";
     my $info = bless [], "Image::Info::Result";
@@ -60,8 +59,11 @@ sub image_info
         }
 
         my %cnf = @_;
-        # call process_file()
-        &$sub($info, $source, \%cnf);
+        {
+	    # call process_file()
+	    no strict 'refs';
+	    &$sub($info, $source, \%cnf);
+	}
         $info->clean_up;
     };
     return { error => $@ } if $@;
