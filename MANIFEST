@@ -24,6 +24,7 @@ img/test.ppm
 img/test.rle
 img/test.svg
 img/test.tif
+img/test.wbmp
 img/test.xbm
 img/test.xpm
 img/test0-fuji.jpg		Testcase for RT #49546
@@ -48,6 +49,7 @@ lib/Image/Info/SVG.pm
 lib/Image/Info/SVG/XMLLibXMLReader.pm
 lib/Image/Info/SVG/XMLSimple.pm
 lib/Image/Info/TIFF.pm
+lib/Image/Info/WBMP.pm
 lib/Image/Info/XBM.pm
 lib/Image/Info/XPM.pm
 lib/Image/TIFF.pm		Parse TIFF tags
@@ -69,4 +71,5 @@ t/svg.t
 t/tiff.t
 t/tiff_e.t
 t/tiny-pgm.t
+t/wbmp.t
 TODO
