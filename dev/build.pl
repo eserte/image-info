@@ -47,6 +47,7 @@ for my $file (sort readdir(DIR)) {
 
     open(F, File::Spec->catfile($idir, $file)) || die "Can't open '$idir/$file': $!";
     my @magic;
+    my $no_magic;
     my @desc;
     while (<F>) {
 	if (/^=begin\s+register\b/ ... /^=end\s+register\b/) {
@@ -55,16 +56,22 @@ for my $file (sort readdir(DIR)) {
 		push(@magic, $1);
 		next;
 	    }
+	    elsif (/^NO MAGIC:\s+true/) {
+		$no_magic = 1;
+		next;
+	    }
 	    push(@desc, $_);
 	}
     }
-    die "Missing magic for $format" unless @magic;
-    for (@magic) {
-	if (m:^/:) {
-	    push(@code, [$format_to_priority{$format}||0, qq(return "$format" if $_;)]);
-	}
-	else {
-	    push(@code, [$format_to_priority{$format}||0, qq(return "$format" if \$_ eq $_;)]);
+    if (!$no_magic) {
+	die "Missing magic for $format" unless @magic;
+	for (@magic) {
+	    if (m:^/:) {
+		push(@code, [$format_to_priority{$format}||0, qq(return "$format" if $_;)]);
+	    }
+	    else {
+		push(@code, [$format_to_priority{$format}||0, qq(return "$format" if \$_ eq $_;)]);
+	    }
 	}
     }
 
