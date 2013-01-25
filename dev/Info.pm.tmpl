@@ -41,6 +41,15 @@ sub image_info
     my $format = determine_file_format($head)
         or return { error => 'Unrecognized file format' };
 
+    return _image_info_for_format($format, $source);
+}
+
+# Note: this function is private, but may be used by Image::Info::*
+# implementations (i.e. the WBMP implementation)
+sub _image_info_for_format
+{
+    my($format, $source) = @_;
+
     my $mod = "Image::Info::$format";
     my $sub = "$mod\::process_file";
     my $info = bless [], "Image::Info::Result";
@@ -83,6 +92,8 @@ sub image_type
     return { file_type => $format };
 }
 
+# Note: this function is private, but may be used by Image::Info::*
+# implementations (i.e. the WBMP implementation)
 sub _source
 {
     my $source = shift;
