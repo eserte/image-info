@@ -523,6 +523,11 @@ L<http://partners.adobe.com/public/developer/tiff/>
 The EXIF spec can be found at:
 L<http://www.exif.org/specifications.html>
 
+=item WBMP
+
+wbmp files have no magic, so cannot be used with the normal
+Image::Info functions. See L<Image::Info::WBMP> for more information.
+
 =item XBM
 
 See L<Image::Info::XBM> for details.
