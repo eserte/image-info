@@ -30,6 +30,7 @@ my $requires =
 my $expected_warnings =
   {
   'test-unknowncode.gif' => 'Unknown introduced code 10, ignoring following chunks',
+  'test-corruptchunk.jpg' => 'Corrupt JPEG data, 4 extraneous bytes before marker 0xdb',
   };
 
 SKIP:

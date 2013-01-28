@@ -10,6 +10,7 @@ img/gps.jpg
 img/graph.svg
 img/interlace.png		Interlaced PNG example
 img/le.tif
+img/test-corruptchunk.jpg
 img/test-gimp.xbm
 img/test-multi0xff.jpg
 img/test-notrailer.gif
@@ -62,6 +63,7 @@ t/bmp.t
 t/exif.t
 t/fuji_s1000fd_substr_outside_of_string.t	Testcase for RT #49546
 t/ico.t
+t/jpg_corruptchunk.t
 t/jpg_hang.t
 t/png.t
 t/pod.t

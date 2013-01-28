@@ -101,7 +101,18 @@ sub _process_file
 
     while (1) {
         my($ff, $mark) = unpack("CC", my_read($fh, 2));
-        last if $ff != 0xFF;
+	last if !defined $ff;
+        if ($ff != 0xFF) {
+	    my $corrupt_bytes = 2;
+	    while(1) {
+		my($ff) = unpack("C", my_read($fh,1));
+		return if !defined $ff;
+		last if $ff == 0xFF;
+		$corrupt_bytes++;
+	    }
+	    $mark = unpack("C", my_read($fh,1));
+	    $info->push_info($img_no, "Warn", sprintf("Corrupt JPEG data, $corrupt_bytes extraneous bytes before marker 0x%02x", $mark));
+	}
 	if ($mark == 0xFF) {
 	    # JPEG markers can be padded with unlimited 0xFF's
 	    for (;;) {
