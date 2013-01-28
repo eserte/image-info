@@ -1,8 +1,14 @@
 Revision history for Image::Info
 
-2013-01-25  Slaven Rezic  <slaven@rezic.de>
+2013-01-28  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.33_51
+
+    Handle corrupt JPEG files with extraneous bytes
+
+2013-01-25  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.33_50
 
     Limited support for WBMP files.
 
