@@ -4,6 +4,7 @@ CREDITS
 dev/build.pl
 dev/Info.pm.tmpl		Will become lib/Image/Info.pm
 exifdump			Test driver script
+img/bad-exif-1.jpg
 img/be.tif
 img/cynic_hang.jpg		cycle in IFD's causing hangs in older than v1.25
 img/gps.jpg
@@ -59,6 +60,7 @@ MANIFEST
 MANIFEST.SKIP
 README
 t/00_basics.t
+t/bad_exif.t
 t/bmp.t
 t/exif.t
 t/fuji_s1000fd_substr_outside_of_string.t	Testcase for RT #49546

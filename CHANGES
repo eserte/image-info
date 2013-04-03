@@ -1,6 +1,14 @@
 Revision history for Image::Info
 
-2012-02-29  Slaven Rezic  <slaven@rezic.de>
+2013-04-03  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.34_50
+
+    image_info on Jpeg with bad EXIF data produced "substr outside of
+    string" exception in Image::TIFF (RT #84122, patch provided by
+    Steve Purkis)
+
+2013-02-29  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.34
 
