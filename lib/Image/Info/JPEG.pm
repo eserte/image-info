@@ -302,9 +302,11 @@ sub process_app1_exif
 		my $jdata = substr($data, $ipos, $ilen);
 		#$info->push_info($i, "JPEGImage" => $jdata);
 
-		with_io_string {
-		    _process_file($info, $_, $i);
-		} $jdata;
+		if ($jdata) {
+		    with_io_string {
+			_process_file($info, $_, $i);
+		    } $jdata;
+		}
 	    }
 	}
 
