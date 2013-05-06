@@ -2,40 +2,40 @@
 
 use Test::More;
 use strict;
-my $tests;
 
-BEGIN
-   {
-   $tests = 7;
-   plan tests => $tests;
-   chdir 't' if -d 't';
-   use lib '../lib';
-   };
+if (!eval q{ use Test::Pod::Coverage 1.00; 1 }) {
+    plan skip_all => "Test::Pod::Coverage 1.00 required for testing POD coverage";
+    exit 0;
+}
 
-SKIP:
-  {
-  skip("Test::Pod::Coverage 1.00 required for testing POD coverage", $tests)
-    unless do {
-    eval "use Test::Pod::Coverage;";
-    $@ ? 0 : 1;
-    };
-  for my $m (qw[
-    Info
-    Info::BMP
-    Info::PPM
-    Info::SVG
-    Info::XBM
-    Info::XPM
-    Info::TIFF
-    ])
-    {
-    pod_coverage_ok( 'Image::' . $m, "$m is covered" );
+my @mod_defs = (
+		['Info'],
+		['Info::BMP'],
+		['Info::PPM'],
+		['Info::SVG'],
+		['Info::XBM'],
+		['Info::XPM'],
+		['Info::TIFF'],
+		['TIFF',       uncovered => 1],
+		['Info::GIF',  uncovered => 1],
+		['Info::PNG',  uncovered => 1],
+		['Info::JPEG', uncovered => 1],
+	       );
+
+plan tests => scalar @mod_defs;
+
+for my $mod_def (@mod_defs) {
+    my $mod = 'Image::' . shift(@$mod_def);
+    my %test_opts = @$mod_def;
+    local $TODO;
+    if ($test_opts{uncovered}) {
+	$TODO = "$mod is not yet covered";
     }
-  # XXX TODO:
-#    TIFF
-#    Info::GIF
-#    Info::PNG
-#    Info::JPEG
 
-  }
+ SKIP: {
+	skip "Cannot test Pod coverage of $mod, maybe prereqs are missing", 1
+	    if !eval qq{ require $mod; 1 };
 
+	pod_coverage_ok($mod, "$mod is covered");
+    }
+}
