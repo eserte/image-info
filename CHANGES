@@ -1,5 +1,13 @@
 Revision history for Image::Info
 
+2013-06-28  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.35_51
+
+    Ignore reading jpeg thumbnail image with no content, patch
+    provided by Kosei Moriyama,
+    https://github.com/eserte/image-info/pull/2)
+
 2013-05-06  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.35_50
