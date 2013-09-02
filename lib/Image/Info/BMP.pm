@@ -102,7 +102,7 @@ __END__
 
 =head1 NAME
 
-Image::Info::BMP - Windows Device Indepdent Bitmap support for Image::Info
+Image::Info::BMP - Windows Device Independent Bitmap support for Image::Info
 
 =head1 SYNOPSIS
 
