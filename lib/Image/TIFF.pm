@@ -515,7 +515,7 @@ my %exif_tags = (
 		2 => "Fluorescent",
 		3 => "Tungsten",
 		4 => "Flash",
-		# 5 .. 8 reserveed in EXIF 2.2
+		# 5 .. 8 reserved in EXIF 2.2
 		9 => "Fine weather",
 		10 => "Cloudy weather",
 		11 => "Shade",
