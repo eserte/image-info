@@ -12,7 +12,7 @@ sub process_file{
     };
 
     my $i = Image::Xpm->new(-width => 0, -height => 0);
-    # loading the file as a seperate step avoids a "-r" test, this would
+    # loading the file as a separate step avoids a "-r" test, this would
     # file with in-memory strings (aka fake files)
     $i->load($source);
 
