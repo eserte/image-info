@@ -293,7 +293,7 @@ sub process_app1_exif
 	}
 
 	# If we find JPEGInterchangeFormat/JPEGInterchangeFormatLngth,
-	# then we should apply process_file kind of recusively to extract
+	# then we should apply process_file kind of recursively to extract
 	# information of this (thumbnail) image file...
 	if (my($ipos) = $info->get_info($i, "JPEGInterchangeFormat", 1)) {
 	    my($ilen) = $info->get_info($i, "JPEGInterchangeFormatLength", 1);
