@@ -50,7 +50,7 @@ sub process_file {
 					'JPEG',		#V5
 					'PNG',		#V5
 					]->[$header[10]]);
-    #Version 5 Header ammendements
+    #Version 5 Header amendments
     # XXX Discard for now, need a test image
     if( $header[5] > 40 ){
 	read($source, $buf, $header[5]-40);  # XXX test

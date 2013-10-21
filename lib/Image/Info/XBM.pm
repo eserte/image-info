@@ -11,7 +11,7 @@ sub process_file {
     };
 
     my $i = Image::Xbm->new(-width => 0, -height => 0);
-    # loading the file as a seperate step avoids a "-r" test, this would
+    # loading the file as a separate step avoids a "-r" test, this would
     # file with in-memory strings (aka fake files)
     $i->load($source);
 
@@ -72,7 +72,7 @@ Set to -1 if there is no hotspot.
 
 =item L1D_Histogram
 
-Reference to an array representing a one dimensioanl luminance
+Reference to an array representing a one dimensional luminance
 histogram. This key is only present if C<image_info> is invoked
 as C<image_info($file, L1D_Histogram=E<gt>1)>. The range is from 0 to 1.
 
