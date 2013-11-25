@@ -1010,7 +1010,7 @@ sub add_fields
 		    next FIELD;
 		}
 		if (my $sub = $tag->{__ARRAYOFFSET__}) {
-		    my $prefix = $tag = $self->{tag_prefix} . '-' if $self->{tag_prefix};	    
+		    my $prefix; $prefix = $tag = $self->{tag_prefix} . '-' if $self->{tag_prefix};	    
 		    for (my $i=0; $i < @$val; $i++) {
 		      if ( exists($sub->{$i}) )
 		      { if ( ref($sub->{$i}) eq "HASH" && exists($sub->{$i}->{__TAG__}) ) 
