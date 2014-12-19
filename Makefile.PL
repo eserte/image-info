@@ -69,7 +69,8 @@ WriteMakefile(
 	      VERSION_FROM  => 'lib/Image/Info.pm',
 	      ABSTRACT_FROM => 'lib/Image/Info.pm',
 	      PREREQ_PM     => {
-				($] < 5.008 ? ('IO::String' => '1.03') : ()),
+				# PerlIO::scalar 0.21 appears first in perl 5.21.7
+				(!eval { require PerlIO::scalar; PerlIO::scalar->VERSION(0.21) } ? ('IO::Scalar' => 0) : ()),
 			       },
 	      LICENSE       => 'perl',
 	      MIN_PERL_VERSION => 5.006,

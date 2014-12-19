@@ -12,13 +12,13 @@ package Image::Info;
 # This library is free software; you can redistribute it and/or
 # modify it under the same terms as Perl v5.8.8 itself.
 #
-# Previoisly maintained by Tels - (c) 2006 - 2008.
-# Currently maintained by Slaven Rezic - (c) 2008 - 2013.
+# Previously maintained by Tels - (c) 2006 - 2008.
+# Currently maintained by Slaven Rezic - (c) 2008 - 2014.
 
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.36';
+$VERSION = '1.36_51';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -113,13 +113,16 @@ sub _source
         $source = $fh;
     }
     elsif (ref($source) eq "SCALAR") {
-	if ($] >= 5.008) {
+	# Earlier PerlIO::scalar versions may segfault or consume lots
+	# of memory for some invalid images, see
+	# RT #100847 and img/segfault.tif
+	if (eval { require PerlIO::scalar; PerlIO::scalar->VERSION(0.21) } ||
+	    !eval { require IO::Scalar; 1 }) {
 	    open(my $s, "<", $source) or return _os_err("Can't open string");
 	    $source = $s;
 	}
 	else {
-	    require IO::String;
-	    $source = IO::String->new($$source);
+	    $source = IO::Scalar->new($source);
 	}
     }
     else {
@@ -558,7 +561,7 @@ See the CREDITS file for a list of contributors and authors.
 
 Tels - (c) 2006 - 2008.
 
-Current maintainer: Slaven Rezic - (c) 2008 - 2013.
+Current maintainer: Slaven Rezic - (c) 2008 - 2014.
 
 =head1 LICENSE
 
