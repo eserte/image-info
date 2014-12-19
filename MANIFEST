@@ -12,6 +12,7 @@ img/graph.svg
 img/interlace.png		Interlaced PNG example
 img/le.tif
 img/no-thumbnail.jpg
+img/segfault.tif
 img/test-corruptchunk.jpg
 img/test-gimp.xbm
 img/test-multi0xff.jpg
@@ -76,6 +77,7 @@ t/string.t
 t/svg.t
 t/tiff.t
 t/tiff_e.t
+t/tiff_segfault.t
 t/tiny-pgm.t
 t/wbmp.t
 TODO
