@@ -1,5 +1,18 @@
 Revision history for Image::Info
 
+2014-12-19  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.36_51
+
+    Use IO::Scalar instead of opening a scalar, for all
+    perls < 5.21.7. This is to prevent possible segmentation faults
+    with faulty images. See RT #100847 and
+    https://rt.perl.org/Ticket/Display.html?id=123443
+
+    Fix a "Variable declared in conditional statement" error.
+
+    Fix a couple of typos.
+
 2012-07-05  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.36
