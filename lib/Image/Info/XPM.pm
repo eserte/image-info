@@ -1,5 +1,5 @@
 package Image::Info::XPM;
-$VERSION = '1.08';
+$VERSION = '1.09';
 use strict;
 use Image::Xpm 1.09;
 

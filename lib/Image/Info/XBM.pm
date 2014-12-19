@@ -1,5 +1,5 @@
 package Image::Info::XBM;
-$VERSION = '1.07';
+$VERSION = '1.08';
 use strict;
 use Image::Xbm 1.07;
 

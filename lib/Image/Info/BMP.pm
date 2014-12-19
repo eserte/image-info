@@ -1,5 +1,5 @@
 package Image::Info::BMP;
-$VERSION = '1.03';
+$VERSION = '1.04';
 use strict;
 
 use constant _CAN_LITTLE_ENDIAN_PACK => $] >= 5.009002;
