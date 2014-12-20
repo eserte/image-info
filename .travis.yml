@@ -7,3 +7,22 @@ perl:
   - "5.12"
   - "5.10"
   - "5.8"
+matrix:
+  include:
+    - perl: 5.18
+      env: WITH_TEST_POD_COVERAGE=1
+    - perl: 5.18
+      env: WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1
+    - perl: 5.18
+      env: WITH_XML_SIMPLE=1
+    - perl: 5.18
+      env: WITH_IMAGE_XBM=1
+    - perl: 5.18
+      env: WITH_IMAGE_XPM=1
+before_install:
+  - '[ "$WITH_TEST_POD" = 1 ]          && cpanm --quiet --notest Test::Pod           || true'
+  - '[ "$WITH_TEST_POD_COVERAGE" = 1 ] && cpanm --quiet --notest Test::Pod::Coverage || true'
+  - '[ "$WITH_XML_LIBXML_READER" = 1 ] && cpanm --quiet --notest XML::LibXML::Reader || true'
+  - '[ "$WITH_XML_SIMPLE" = 1 ]        && cpanm --quiet --notest XML::Simple         || true'
+  - '[ "$WITH_IMAGE_XBM" = 1 ]         && cpanm --quiet --notest Image::Xbm          || true'
+  - '[ "$WITH_IMAGE_XPM" = 1 ]         && cpanm --quiet --notest Image::Xpm          || true'
