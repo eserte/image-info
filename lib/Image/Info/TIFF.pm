@@ -135,8 +135,10 @@ sub _process_ifds {
 	my $tag = unpack("S",_read_order($fh,2,$byteorder));
 	my $fieldtype = unpack("S",_read_order($fh,2,$byteorder));
 	unless ($types[$fieldtype]) {
-	  warn "Unrecognised fieldtype $fieldtype, skipping\n";
-	  next;
+	  my $warnmsg = "Unrecognised fieldtype $fieldtype, ignoring following entries";
+	  warn "$warnmsg\n";
+	  $info->push_info($page, "Warn" => $warnmsg);
+	  return 0;
 	}
         my ($typename, $typepack, $typelen) = @{$types[$fieldtype]};
 	my $count = unpack("L",_read_order($fh,4,$byteorder));
