@@ -1,5 +1,12 @@
 Revision history for Image::Info
 
+2014-12-29  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.36_52
+
+    Handle invalid TIFF chunks: stop processing if an unrecognized
+    fieldtype is encountered. This is an additional fix for RT #100847.
+
 2014-12-19  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.36_51
