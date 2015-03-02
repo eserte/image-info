@@ -16,7 +16,11 @@ Bundle::Image::Info::XBM - XBM (X11 bitmap) support for Image::Info
 
 =head1 SYNOPSIS
 
+=for test_synopsis BEGIN { die "SKIP: shell code\n"; }
+
  perl -MCPAN -e 'install Bundle::Image::Info::XBM'
+
+=end
 
 =head1 CONTENTS
 
