@@ -1,7 +1,11 @@
 # -*- perl -*-
 
 package Bundle::Image::Info::PNG;
+
+use strict;
+use vars qw($VERSION);
 $VERSION = '0.01';
+
 1;
 
 __END__
