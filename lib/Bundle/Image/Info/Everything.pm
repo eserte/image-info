@@ -1,7 +1,11 @@
 # -*- perl -*-
 
 package Bundle::Image::Info::Everything;
+
+use strict;
+use vars qw($VERSION);
 $VERSION = '0.01';
+
 1;
 
 __END__
@@ -12,7 +16,11 @@ Bundle::Image::Info::Everything - complete support for Image::Info
 
 =head1 SYNOPSIS
 
+=for test_synopsis BEGIN { die "SKIP: shell code\n"; }
+
  perl -MCPAN -e 'install Bundle::Image::Info::Everything'
+
+=end
 
 =head1 CONTENTS
 
