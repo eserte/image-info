@@ -118,7 +118,7 @@ Image::Info::BMP - Windows Device Independent Bitmap support for Image::Info
 
 =head1 DESCRIPTION
 
-This modules supplies the standard key names
+This module supplies the standard key names
 except for Gamma, Interlace, LastModificationTime, as well as:
 
 =over
@@ -131,8 +131,8 @@ displaying the bitmap. If this value is zero, all colors are required.
 =item BMP_Origin
 
 If true the bitmap is a bottom-up DIB and its origin is the lower-left corner.
-Otherwise,
-the bitmap is a top-down DIB and its origin is the upper-left corner. 
+Otherwise, the bitmap is a top-down DIB and its origin is the upper-left 
+corner. 
 
 =item ColorPalette
 
@@ -144,7 +144,7 @@ as C<image_info($file, ColorPalette=E<gt>1)>.
 
 The number of colors the image uses.
 If 0 then this is a true color image.
-The number of color I<available> is 2 ^ B<BitsPerSample>.
+The number of colors I<available> is 2 ^ B<BitsPerSample>.
 
 =back
 
@@ -190,14 +190,14 @@ Random notes:
 
 =item Size mismatch
 
-The image may be correct, the filesize does not match the internally stored
+The image may be correct, but the filesize does not match the internally stored
 value.
 
 =back
 
 =head1 BUGS
 
-The current implementation only function on little-endian architectures.
+The current implementation only functions on little-endian architectures.
 Consequently erroneous data concerning compression (including
 B<file_ext> and B<file_mime_type>) may be reported.
 

@@ -210,3 +210,49 @@ sub color_table
 }
 
 1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Image::Info::GIF - Graphics Interchange Format support for Image::Info
+
+=head1 SYNOPSIS
+
+ use Image::Info qw(image_info dim);
+
+ my $info = image_info("image.gif");
+ if (my $error = $info->{error}) {
+     die "Can't parse image info: $error\n";
+ }
+ my $color = $info->{color_type};
+
+ my($w, $h) = dim($info);
+
+=head1 DESCRIPTION
+
+This module supplies the standard key names as well as
+
+=over
+
+=item GIF_Loop
+
+The Netscape-2.0 extension to loop animation sequences is represented by the GIF_Loop key for the first image. The value is either "forever" or a number indicating loop count.
+
+=back
+
+head1 METHODS
+
+=head2 process_file()
+    
+	$info->process_file($source, $options);
+
+Processes one file and sets the found info fields in the C<$info> object.
+
+=head1 SEE ALSO
+
+L<Image::Info>
+
+=cut
