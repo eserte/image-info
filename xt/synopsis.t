@@ -4,6 +4,7 @@
 #
 # Author: Peter Mayr
 #
+use strict;
 use Test::More;
 
 eval "use Test::Synopsis";
