@@ -126,6 +126,8 @@ sub image_magick_to_image_info {
 	$format = 'jpg';
     } elsif ($format eq 'tiff') {
 	$format = 'tif';
+    } elsif ($format eq 'bmp3') {
+	$format = 'bmp';
     }
     
     $im->Read($file);
