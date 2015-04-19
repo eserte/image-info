@@ -9,15 +9,17 @@ perl:
   - "5.8"
 matrix:
   include:
-    - perl: 5.18
+    - perl: "5.20"
+      env: WITH_XT_TESTS=1 WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1 WITH_IMAGE_XBM=1 WITH_IMAGE_XPM=1
+    - perl: "5.18"
       env: WITH_TEST_POD_COVERAGE=1
-    - perl: 5.18
+    - perl: "5.18"
       env: WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1
-    - perl: 5.18
+    - perl: "5.18"
       env: WITH_XML_SIMPLE=1
-    - perl: 5.18
+    - perl: "5.18"
       env: WITH_IMAGE_XBM=1
-    - perl: 5.18
+    - perl: "5.18"
       env: WITH_IMAGE_XPM=1
 before_install:
   - '[ "$WITH_TEST_POD" = 1 ]          && cpanm --quiet --notest Test::Pod           || true'
@@ -26,3 +28,9 @@ before_install:
   - '[ "$WITH_XML_SIMPLE" = 1 ]        && cpanm --quiet --notest XML::Simple         || true'
   - '[ "$WITH_IMAGE_XBM" = 1 ]         && cpanm --quiet --notest Image::Xbm          || true'
   - '[ "$WITH_IMAGE_XPM" = 1 ]         && cpanm --quiet --notest Image::Xpm          || true'
+  - '[ "$WITH_XT_TESTS" = 1 ]          && (sudo apt-get update -qq && sudo apt-get install -qq libdb-dev) || true'
+  - '[ "$WITH_XT_TESTS" = 1 ]          && cpanm --quiet --notest Image::ExifTool Image::Size Imager DB_File Test::Strict Test::Synopsis Test::Kwalitee || true'
+script:
+  - '[ "$WITH_XT_TESTS" =  1 ] || (perl Makefile.PL && make test)'
+# skip xt/mass.t, because installing Image::Magick is difficult
+  - '[ "$WITH_XT_TESTS" != 1 ] || (perl Makefile.PL && make && prove -l t xt)'
