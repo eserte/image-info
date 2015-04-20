@@ -16,14 +16,18 @@ use strict;
 use FindBin;
 use blib "$FindBin::RealBin/..";
 
-use Test::More 'no_plan';
+use Test::More;
 
 use Data::Dumper;
 use DB_File;
 use File::Glob qw(bsd_glob);
 use Getopt::Long;
 use Image::Info qw(image_info);
-use Image::Magick;
+
+if (!eval q{ use Image::Magick; 1 }) {
+    plan skip_all => 'Image::Magick not available';
+}
+plan 'no_plan';
 
 sub usage {
     die "usage: $0 [-testokdb dbfile] [-filelist | file ...]";
