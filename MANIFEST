@@ -81,3 +81,6 @@ t/tiff_segfault.t
 t/tiny-pgm.t
 t/wbmp.t
 TODO
+xt/kwalitee.t
+xt/strict.t
+xt/synopsis.t
