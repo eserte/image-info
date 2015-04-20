@@ -1,5 +1,13 @@
 Revision history for Image::Info
 
+2015-04-19  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.38
+
+    Pod typo fixes (by hatorikibble)
+
+    New xt tests (synopsis, strict, kwalitee, by hatorikibble)
+
 2014-12-31  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.37

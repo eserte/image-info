@@ -13,12 +13,12 @@ package Image::Info;
 # modify it under the same terms as Perl v5.8.8 itself.
 #
 # Previously maintained by Tels - (c) 2006 - 2008.
-# Currently maintained by Slaven Rezic - (c) 2008 - 2014.
+# Currently maintained by Slaven Rezic - (c) 2008 - 2015.
 
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.37';
+$VERSION = '1.38';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -255,7 +255,7 @@ Image::Info - Extract meta information from image files
 
 =head1 DESCRIPTION
 
-This module provide functions to extract various kind of meta
+This module provide functions to extract various kinds of meta
 information from image files.
 
 =head2 EXPORTS
@@ -287,15 +287,15 @@ describing the images inside the file.  If there is only one image in
 the file only one hash is returned.  In scalar context, only the hash
 for the first image is returned.
 
-In case of error, and hash containing the "error" key will be
+In case of error, a hash containing the "error" key will be
 returned.  The corresponding value will be an appropriate error
 message.
 
-If a reference to a scalar is passed as argument to this function,
+If a reference to a scalar is passed as an argument to this function,
 then it is assumed that this scalar contains the raw image data
 directly.
 
-The image_info() function also take optional key/value style arguments
+The C<image_info()> function also take optional key/value style arguments
 that can influence what information is returned.
 
 =item image_type( $file )
@@ -319,7 +319,7 @@ returns in the same format, with the same error message style. That is,
 it returns a HASH reference, with the C<< $type->{error} >> key set if
 there was an error.
 
-On success, the HASH reference will contain the single key 'file_type',
+On success, the HASH reference will contain the single key C<< file_type >>,
 which represents the type of the file, expressed as the type code used for
 the various drivers ('GIF', 'JPEG', 'TIFF' and so on).
 
@@ -333,7 +333,7 @@ inside the file is going to be the same as that of the file itself.
 
 =item dim( $info_hash )
 
-Takes an hash as returned from image_info() and returns the dimensions
+Takes an hash as returned from C<image_info()> and returns the dimensions
 ($width, $height) of the image.  In scalar context returns the
 dimensions as a string.
 
@@ -355,7 +355,7 @@ the format, like "BMP" or "JPEG".
 
 =head1 Image descriptions
 
-The image_info() function returns meta information about each image in
+The C<image_info()> function returns meta information about each image in
 the form of a reference to a hash.  The hash keys used are in most
 cases based on the TIFF element names.  All lower case keys are
 mandatory for all file formats and will always be there unless an
@@ -383,7 +383,7 @@ This is the number of pixels horizontally in the image.
 
 =item height
 
-This is the number of pixels vertically in the image.  (TIFF use the
+This is the number of pixels vertically in the image.  (TIFF uses the
 name ImageLength for this field.)
 
 =item color_type
@@ -403,7 +403,7 @@ These names can also be prefixed by "Indexed-" if the image is
 composed of indexes into a palette.  Of these, only "Indexed-RGB" is
 likely to occur.
 
-It is similar to the TIFF field PhotometricInterpretation, but this
+It is similar to the TIFF field "PhotometricInterpretation", but this
 name was found to be too long, so we used the PNG inpired term
 instead.
 
@@ -442,7 +442,7 @@ array if there are multiple comments found.
 
 =item Interlace
 
-If the image is interlaced, then this tell which interlace method is
+If the image is interlaced, then this tells which interlace method is
 used.
 
 =item Compression
@@ -561,7 +561,7 @@ See the CREDITS file for a list of contributors and authors.
 
 Tels - (c) 2006 - 2008.
 
-Current maintainer: Slaven Rezic - (c) 2008 - 2014.
+Current maintainer: Slaven Rezic - (c) 2008 - 2015.
 
 =head1 LICENSE
 
