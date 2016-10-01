@@ -3,7 +3,7 @@
 #
 # Author: Slaven Rezic
 #
-# Copyright (C) 2009,2011 Slaven Rezic. All rights reserved.
+# Copyright (C) 2009,2011,2016 Slaven Rezic. All rights reserved.
 # This package is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 #
@@ -12,7 +12,7 @@ package Image::Info::SVG;
 
 use strict;
 use vars qw($VERSION @PREFER_MODULE $USING_MODULE);
-$VERSION = '2.02';
+$VERSION = '2.03';
 
 @PREFER_MODULE = qw(Image::Info::SVG::XMLLibXMLReader
 		    Image::Info::SVG::XMLSimple
@@ -100,7 +100,7 @@ This module requires either L<XML::LibXML::Reader> or L<XML::Simple>.
 
 Previous versions (until Image-Info-1.28) used L<XML::Simple> as the
 underlying parser. Since Image-Info-1.29 the default parser is
-L<XML::LibXML::Reader> (which is much more faster, memory-efficient,
+L<XML::LibXML::Reader> which is much more faster, memory-efficient,
 and does not rely on regular expressions for some aspects of XML
 parsing. If for some reason you need the old parser, you can force it
 by setting the variable C<@Image::Info::SVG::PREFER_MODULE> as early
@@ -112,9 +112,19 @@ as possible:
 The variable C<$Image::Info::SVG::USING_MODULE> can be queried to see
 which parser is in use (after B<Image::Info::SVG> is required).
 
+Since 1.38_50 processing of XML external entities (XXE) is not done
+anymore for security reasons in both backends
+(B<Image::Info::SVG::XMLLibXMLReader> and
+B<Image::Info::SVG::XMLSimple>). Controlling XXE processing behavior
+in B<XML::Simple> is not really possible (see
+L<https://rt.cpan.org/Ticket/Display.html?id=83794>), so as a
+workaround the underlying SAX parser is fixed to L<XML::SAX::PurePerl>
+which is uncapable of processing external entities E<0x2014> but
+unfortunately it is also a slow parser.
+
 =head1 SEE ALSO
 
-L<Image::Info>, L<XML::LibXML::Reader>, L<XML::Simple>
+L<Image::Info>, L<XML::LibXML::Reader>, L<XML::Simple>, L<XML::SAX::PurePerl>
 
 =head1 NOTES
 
