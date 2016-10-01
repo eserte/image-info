@@ -2,6 +2,10 @@ Revision history for Image::Info
 
 2016-10-01  Slaven Rezic  <slaven@rezic.de>
 
+    Release 1.38_51
+
+    Just recreated distribution with a changed SIGNATURE.
+
     Release 1.38_50
 
     Don't allow XXE (XML External Entities) processing. Addresses RT
