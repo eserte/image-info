@@ -1,6 +1,6 @@
 package Image::Info::SVG::XMLSimple;
 
-$VERSION = '1.04';
+$VERSION = '1.05';
 
 use strict;
 no strict 'refs';
@@ -36,6 +36,12 @@ sub process_file {
 	push(@warnings, @_);
     };
 
+    # XML::SAX::PurePerl is the only SAX parser which is not capable
+    # of expanding external entities, so it's the only one not
+    # vulnerable against XXE processing. On the other hand,
+    # XML::SAX::PurePerl is probably the slowest parser, but for
+    # speed one should use XML::LibXML instead.
+    local $XML::Simple::PREFERRED_PARSER = 'XML::SAX::PurePerl';
     $xs = XML::Simple->new;
     $img = $xs->XMLin($imgdata);
 

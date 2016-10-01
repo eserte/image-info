@@ -4,7 +4,7 @@
 # $Id: Image_Info_SVG_LibXML.pm,v 1.2 2008/11/22 14:34:16 eserte Exp eserte $
 # Author: Slaven Rezic
 #
-# Copyright (C) 2008,2009 Slaven Rezic. All rights reserved.
+# Copyright (C) 2008,2009,2016 Slaven Rezic. All rights reserved.
 # This package is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 #
@@ -16,7 +16,7 @@ package Image::Info::SVG::XMLLibXMLReader;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '1.04';
+$VERSION = '1.05';
 
 use XML::LibXML::Reader;
 
@@ -30,7 +30,7 @@ sub process_file {
 	push(@warnings, @_);
     };
 
-    my $reader = XML::LibXML::Reader->new(IO => $source, load_ext_dtd => 0)
+    my $reader = XML::LibXML::Reader->new(IO => $source, load_ext_dtd => 0, expand_entities => 0)
 	or die "Cannot read SVG from handle '$source'";
     while($reader->read) {
 	last if $reader->nodeType == XML_READER_TYPE_ELEMENT;
