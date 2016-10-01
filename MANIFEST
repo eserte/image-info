@@ -81,6 +81,8 @@ t/tiff_e.t
 t/tiff_segfault.t
 t/tiny-pgm.t
 t/wbmp.t
+t/xbm.t
+t/xpm.t
 TODO
 xt/kwalitee.t
 xt/rt118099.t
