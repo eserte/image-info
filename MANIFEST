@@ -35,6 +35,7 @@ img/test0-fuji.jpg		Testcase for RT #49546
 img/test1-fuji.jpg		Testcase for RT #49546
 img/tiny.pgm
 img/upside-down.bmp
+img/xxe.svg			Testcase for RT #118099
 img/ztxt.png			PNG example with ztxt chunk
 imgdump				Test driver script
 lib/Bundle/Image/Info/Everything.pm
@@ -82,5 +83,6 @@ t/tiny-pgm.t
 t/wbmp.t
 TODO
 xt/kwalitee.t
+xt/rt118099.t
 xt/strict.t
 xt/synopsis.t
