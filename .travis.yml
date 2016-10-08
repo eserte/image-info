@@ -24,7 +24,18 @@ matrix:
       env: WITH_IMAGE_XBM=1
     - perl: "5.18"
       env: WITH_IMAGE_XPM=1
+    # The perl does not matter here, system perl will be used
+    - perl: "5.18"
+      os: osx
+    # Actually the perl here does not matter
+    - perl: "5.14"
+      env: USE_SYSTEM_PERL=1
+    # Actually the perl here does not matter
+    - perl: "5.18"
+      env: USE_SYSTEM_PERL=1
+      dist: trusty
 before_install:
+  - '[ "$USE_SYSTEM_PERL" = 1 ]        && perlbrew off                               || true'
   - '[ "$WITH_TEST_POD" = 1 ]          && cpanm --quiet --notest Test::Pod           || true'
   - '[ "$WITH_TEST_POD_COVERAGE" = 1 ] && cpanm --quiet --notest Test::Pod::Coverage || true'
   - '[ "$WITH_XML_LIBXML_READER" = 1 ] && cpanm --quiet --notest XML::LibXML::Reader || true'
@@ -33,6 +44,9 @@ before_install:
   - '[ "$WITH_IMAGE_XPM" = 1 ]         && cpanm --quiet --notest Image::Xpm          || true'
   - '[ "$WITH_XT_TESTS" = 1 ]          && (sudo apt-get update -qq && sudo apt-get install -qq libdb-dev) || true'
   - '[ "$WITH_XT_TESTS" = 1 ]          && cpanm --quiet --notest Image::ExifTool Image::Size Imager DB_File Test::Strict Test::Synopsis Test::Kwalitee XML::SAX::ExpatXS IPC::Run || true'
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; brew install cpanminus; fi
+install:
+  - if [ "$USE_SYSTEM_PERL" = "1" -o "$TRAVIS_OS_NAME" = "osx" ]; then cpanm --sudo --quiet --installdeps --notest .; else cpanm --quiet --installdeps --notest .; fi
 script:
   - '[ "$WITH_XT_TESTS" =  1 ] || (perl Makefile.PL && make test)'
 # skip xt/mass.t, because installing Image::Magick is difficult
