@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2016-10-08  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.39
+
+    Stable release with all changes in 1.38_50..1.38_51
+
 2016-10-01  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.38_51
@@ -8,8 +14,9 @@ Revision history for Image::Info
 
     Release 1.38_50
 
-    Don't allow XXE (XML External Entities) processing. Addresses RT
-    #118205.
+    Don't allow XXE (XML External Entities) processing while parsing
+    SVG files. Addresses RT #118205. This is a potentially
+    incompatible change; however usually SVG files do not rely on XXE.
 
 2015-04-19  Slaven Rezic  <slaven@rezic.de>
 
