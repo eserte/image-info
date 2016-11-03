@@ -359,7 +359,7 @@ The C<image_info()> function returns meta information about each image in
 the form of a reference to a hash.  The hash keys used are in most
 cases based on the TIFF element names.  All lower case keys are
 mandatory for all file formats and will always be there unless an
-error occured (in which case the "error" key will be present.)  Mixed
+error occurred (in which case the "error" key will be present.)  Mixed
 case keys will only be present when the corresponding information
 element is available in the image.
 
