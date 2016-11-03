@@ -156,7 +156,7 @@ modify it under the same terms as Perl itself.
 
 MAGIC: /^(<\?xml|[\012\015\t ]*<svg\b)/
 
-Provides a plethora of attributes and metadata of an SVG vector grafic.
+Provides a plethora of attributes and metadata of an SVG vector graphic.
 
 =end register
 
