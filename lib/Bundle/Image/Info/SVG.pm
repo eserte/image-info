@@ -20,8 +20,6 @@ Bundle::Image::Info::SVG - SVG support for Image::Info
 
  perl -MCPAN -e 'install Bundle::Image::Info::SVG'
 
-=end
-
 =head1 CONTENTS
 
 Image::Info - the base Image::Info module

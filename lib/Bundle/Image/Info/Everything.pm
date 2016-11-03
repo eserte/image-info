@@ -20,8 +20,6 @@ Bundle::Image::Info::Everything - complete support for Image::Info
 
  perl -MCPAN -e 'install Bundle::Image::Info::Everything'
 
-=end
-
 =head1 CONTENTS
 
 Image::Info - the base Image::Info module

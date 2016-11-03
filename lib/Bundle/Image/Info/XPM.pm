@@ -20,8 +20,6 @@ Bundle::Image::Info::XPM - XPM (X11 pixmap) support for Image::Info
 
  perl -MCPAN -e 'install Bundle::Image::Info::XPM'
 
-=end
-
 =head1 CONTENTS
 
 Image::Info 1.31 - the base Image::Info module

@@ -20,8 +20,6 @@ Bundle::Image::Info::XBM - XBM (X11 bitmap) support for Image::Info
 
  perl -MCPAN -e 'install Bundle::Image::Info::XBM'
 
-=end
-
 =head1 CONTENTS
 
 Image::Info - the base Image::Info module

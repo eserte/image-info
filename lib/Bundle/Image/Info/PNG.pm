@@ -20,8 +20,6 @@ Bundle::Image::Info::PNG - full PNG support for Image::Info
 
  perl -MCPAN -e 'install Bundle::Image::Info::PNG'
 
-=end
-
 =head1 CONTENTS
 
 Image::Info - the base Image::Info module
