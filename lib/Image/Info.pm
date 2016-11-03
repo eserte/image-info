@@ -255,7 +255,7 @@ Image::Info - Extract meta information from image files
 
 =head1 DESCRIPTION
 
-This module provide functions to extract various kinds of meta
+This module provides functions to extract various kinds of meta
 information from image files.
 
 =head2 EXPORTS
@@ -404,7 +404,7 @@ composed of indexes into a palette.  Of these, only "Indexed-RGB" is
 likely to occur.
 
 It is similar to the TIFF field "PhotometricInterpretation", but this
-name was found to be too long, so we used the PNG inpired term
+name was found to be too long, so we used the PNG inspired term
 instead.
 
 =item resolution
@@ -516,7 +516,7 @@ All information available is extracted.
 
 =item SVG
 
-Provides a plethora of attributes and metadata of an SVG vector grafic.
+Provides a plethora of attributes and metadata of an SVG vector graphic.
 
 =item TIFF
 
