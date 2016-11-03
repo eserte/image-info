@@ -58,8 +58,8 @@ sub process_file
 
 	if (@chunks) {
 	    my $last = $chunks[-1];
-	    $last =~ s/\s(\d+)$//;
-	    my $count = $1 || 1;
+	    my $count = 1;
+	    $count = $1 if $last =~ s/\s(\d+)$//;
 	    if ($last eq $type) {
 		$count++;
 		$chunks[-1] = "$type $count";
