@@ -161,9 +161,11 @@ sub _process_ifds {
           @$val = _readbytes($fh, $value_offset, $count - 1);
 	} elsif ($fieldtype == 5) {
 	  ## Unsigned Rational
+	  $val = [];
 	  _readrational($fh,$value_offset,$byteorder,$count,$val,0);
         } elsif ($fieldtype == 10) {
 	  ## Signed Rational
+	  $val = [];
           _readrational($fh,$value_offset,$byteorder,$count,$val,1);
         } else {
           ## Just read $count thingies from the offset

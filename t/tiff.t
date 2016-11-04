@@ -8,7 +8,7 @@ BEGIN
   chdir 't' if -d 't';
   use lib '../blib/';
   use lib '../lib/';
-  plan tests => 15;
+  plan tests => 19;
   }
 
 use Image::Info qw(image_info dim);
@@ -39,6 +39,14 @@ if ( $i[0]->{Software} eq $soft_text ) {
       warn sprintf("Strings differ at offset $i (expected: %s / found: %s)\n", $tagc[$i], $tstc[$i]);
     }
   }
+}
+
+{
+  my($xres,$yres) = ($i[0]->{XResolution}, $i[0]->{YResolution});
+  isa_ok $xres, 'Image::TIFF::Rational';
+  isa_ok $yres, 'Image::TIFF::Rational';
+  is "$xres", "1207959552/16777216", 'XResolution, stringified';
+  is "$yres", "1207959552/16777216", 'YResolution, stringified';
 }
 
 ## Second image
