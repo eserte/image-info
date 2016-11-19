@@ -1,6 +1,3 @@
-branches:
- except:
-  - /appveyor/
 language: perl
 perl:
   - "5.20"
@@ -34,6 +31,7 @@ matrix:
     - perl: "5.18"
       env: USE_SYSTEM_PERL=1
       dist: trusty
+
 before_install:
   - '[ "$USE_SYSTEM_PERL" = 1 ]        && perlbrew off                               || true'
   - '[ "$WITH_TEST_POD" = 1 ]          && cpanm --quiet --notest Test::Pod           || true'
@@ -51,3 +49,7 @@ script:
   - '[ "$WITH_XT_TESTS" =  1 ] || (perl Makefile.PL && make test)'
 # skip xt/mass.t, because installing Image::Magick is difficult
   - '[ "$WITH_XT_TESTS" != 1 ] || (perl Makefile.PL && make && prove -l t xt)'
+
+branches:
+ except:
+  - /appveyor/
