@@ -1,5 +1,15 @@
 Revision history for Image::Info
 
+2017-03-19  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.39_50
+
+    Rational values work again (RT #117480)
+
+    Fix warnings while processing PNGs (RT #118495) (by Johan Vromans)
+
+    Pod spelling fixes (by Salvatore Bonaccorso and Slaven Rezic)
+
 2016-10-08  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.39

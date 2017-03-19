@@ -1,6 +1,6 @@
 package Image::Info::TIFF;
 
-$VERSION = 0.04;
+$VERSION = 0.05;
 
 use strict;
 use Config;

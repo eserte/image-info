@@ -20,7 +20,7 @@ key.
 use strict;
 use vars qw/$VERSION/;
 
-$VERSION = 1.01;
+$VERSION = 1.02;
 
 # Test for Compress::Zlib (for reading zTXt chunks)
 my $have_zlib = 0;
