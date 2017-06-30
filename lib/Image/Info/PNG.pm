@@ -29,6 +29,13 @@ eval {
     $have_zlib++;
 };
 
+# Test for Encode (for reading iTXt chunks)
+my $have_encode = 0;
+eval {
+    require Encode;
+    $have_encode++;
+};
+
 sub my_read
 {
     my($source, $len) = @_;
@@ -132,16 +139,38 @@ sub process_file
 	    }
 	    $info->push_info(0, "resolution" => $res)
 	}
-	elsif ($type eq "tEXt" || $type eq "zTXt") {
+	elsif ($type eq "tEXt" || $type eq "zTXt" || $type eq "iTXt") {
 	    my($key, $val) = split(/\0/, $data, 2);
-            if ($type eq "zTXt") {
-		my($method,$ctext) = split(//, $val, 2);
+            my($method,$ctext,$is_i);
+            if ($type eq "iTXt") {
+                ++$is_i;
+                (my $compressed, $method, my $lang, my $trans, $ctext)
+                    = unpack "CaZ*Z*a*", $val;
+                unless ($compressed) {
+                    undef $method;
+                    $val = $ctext;
+                }
+            }
+            elsif ($type eq "zTXt") {
+		($method,$ctext) = split(//, $val, 2);
+            }
+
+            if (defined $method) {
                 if ($have_zlib && $method eq "\0") {
                     $val = Compress::Zlib::uncompress($ctext);
                 } else {
                     undef $val;
                 }
             }
+
+            if ($is_i) {
+                if ($have_encode) {
+                    $val = Encode::decode("UTF-8", $val);
+                } else {
+                    undef $val;
+                }
+            }
+
             if (defined $val) {
                 # XXX should make sure $key is not in conflict with any
                 # other key we might generate
