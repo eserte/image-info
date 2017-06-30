@@ -132,20 +132,23 @@ sub process_file
 	    }
 	    $info->push_info(0, "resolution" => $res)
 	}
-	elsif ($type eq "tEXt") {
+	elsif ($type eq "tEXt" || $type eq "zTXt") {
 	    my($key, $val) = split(/\0/, $data, 2);
-	    # XXX should make sure $key is not in conflict with any
-	    # other key we might generate
-	    $info->push_info(0, $key, $val);
-	}
-	elsif ($type eq "zTXt" && $have_zlib) {
-		my($key, $val) = split(/\0/, $data, 2);
+            if ($type eq "zTXt") {
 		my($method,$ctext) = split(//, $val, 2);
-		if ($method eq "\0") {
-		    $info->push_info(0, $key, Compress::Zlib::uncompress($ctext));
-		} else {
-		    $info->push_info(0, "Chunk-$type" => $data);
-		}
+                if ($have_zlib && $method eq "\0") {
+                    $val = Compress::Zlib::uncompress($ctext);
+                } else {
+                    undef $val;
+                }
+            }
+            if (defined $val) {
+                # XXX should make sure $key is not in conflict with any
+                # other key we might generate
+                $info->push_info(0, $key, $val);
+            } else {
+                $info->push_info(0, "Chunk-$type" => $data);
+            }
 	}
 	elsif ($type eq "tIME" && $len == 7) {
 	    $info->push_info(0, "LastModificationTime",
