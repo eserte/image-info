@@ -76,6 +76,7 @@ sub _image_info_for_format
         $info->clean_up;
     };
     return { error => $@ } if $@;
+    seek($source, 0, 0) or return _os_err("Can't rewind");
     return wantarray ? @$info : $info->[0];
 }
 
