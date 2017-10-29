@@ -76,7 +76,13 @@ sub _image_info_for_format
         $info->clean_up;
     };
     return { error => $@ } if $@;
-    seek($source, 0, 0) or return _os_err("Can't rewind");
+    if (ref($source) eq "IO::String") {
+	# XXX workaround until we can trap seek() with a tied file handle
+	$source->setpos(0);
+    }
+    else {
+	seek($source, 0, 0) or return _os_err("Can't rewind");
+    }
     return wantarray ? @$info : $info->[0];
 }
 
