@@ -50,6 +50,10 @@ script:
 # skip xt/mass.t, because installing Image::Magick is difficult
   - '[ "$WITH_XT_TESTS" != 1 ] || (perl Makefile.PL && make && prove -l t xt)'
 
+after_script:
+  - make distcheck
+  - HARNESS_OPTIONS=j4:c make disttest
+
 branches:
  except:
   - /appveyor/
