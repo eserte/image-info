@@ -1,32 +1,41 @@
 language: perl
-perl:
-  - "5.20"
-  - "5.18"
-  - "5.16"
-  - "5.14"
-  - "5.12"
-  - "5.10"
-  - "5.8"
 matrix:
   include:
+    - perl: "5.30"
+      dist: xenial
+    - perl: "5.28"
+      dist: xenial
+    - perl: "5.26"
+      dist: xenial
+    - perl: "5.24"
+      dist: xenial
+    - perl: "5.22"
+      dist: xenial
     - perl: "5.20"
       env: WITH_XT_TESTS=1 WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1 WITH_IMAGE_XBM=1 WITH_IMAGE_XPM=1
-    - perl: "5.18"
+      dist: precise
+    - perl: "5.16"
       env: WITH_TEST_POD_COVERAGE=1
-    - perl: "5.18"
+      dist: precise
+    - perl: "5.14"
       env: WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1
-    - perl: "5.18"
+      dist: precise
+    - perl: "5.12"
       env: WITH_XML_SIMPLE=1
-    - perl: "5.18"
+      dist: precise
+    - perl: "5.10"
       env: WITH_IMAGE_XBM=1
-    - perl: "5.18"
+      dist: precise
+    - perl: "5.8"
       env: WITH_IMAGE_XPM=1
+      dist: precise
     # The perl does not matter here, system perl will be used
     - perl: "5.18"
       os: osx
     # Actually the perl here does not matter
     - perl: "5.14"
       env: USE_SYSTEM_PERL=1
+      dist: precise
     # Actually the perl here does not matter
     - perl: "5.18"
       env: USE_SYSTEM_PERL=1
