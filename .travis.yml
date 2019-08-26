@@ -2,10 +2,9 @@ language: perl
 matrix:
   include:
     - perl: "5.30"
+      env: WITH_XT_TESTS=1 WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1 WITH_IMAGE_XBM=1 WITH_IMAGE_XPM=1
       dist: xenial
     - perl: "5.28"
-      dist: xenial
-    - perl: "5.26"
       dist: xenial
     - perl: "5.24"
       dist: xenial
@@ -40,8 +39,14 @@ matrix:
     - perl: "5.18"
       env: USE_SYSTEM_PERL=1
       dist: trusty
+    # Actually the perl here does not matter
+    - perl: "5.26"
+      env: USE_SYSTEM_PERL=1
+      dist: xenial
 
 before_install:
+  # Remove broken deb repo:
+  - '[ "`lsb_release -cs`" = "precise" ] && sudo rm -f /etc/apt/sources.list.d/mongodb.list || true'
   - '[ "$USE_SYSTEM_PERL" = 1 ]        && perlbrew off                               || true'
   - '[ "$WITH_TEST_POD" = 1 ]          && cpanm --quiet --notest Test::Pod           || true'
   - '[ "$WITH_TEST_POD_COVERAGE" = 1 ] && cpanm --quiet --notest Test::Pod::Coverage || true'
