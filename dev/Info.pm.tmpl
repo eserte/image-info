@@ -18,7 +18,7 @@ package Image::Info;
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.41';
+$VERSION = '1.41_50';
 
 require Exporter;
 *import = \&Exporter::import;

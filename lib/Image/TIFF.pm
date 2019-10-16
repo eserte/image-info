@@ -9,7 +9,7 @@ package Image::TIFF;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.09';
+$VERSION = '1.10';
 
 my @types = (
   [ "BYTE",      "C1", 1],

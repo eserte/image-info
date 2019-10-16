@@ -1,5 +1,15 @@
 Revision history for Image::Info
 
+2019-10-16  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.41_50
+
+    Support for WEBP files (RT #130529) (by Nicolas Clark)
+
+    Cease a warning (by H.Merijn Brand)
+
+    Various minor test and CI polishing
+
 2017-07-12  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.41
