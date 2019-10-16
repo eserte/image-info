@@ -6,6 +6,8 @@ use Test::More;
 
 use Image::Info qw(image_info);
 
+plan tests => 21;
+
 my $img_dir = "$FindBin::RealBin/../img";
 
 my $i = image_info("$img_dir/test.webp") ||
@@ -46,5 +48,3 @@ is ($i->{Animation}, 1, 'animation');
 is ($i->{Compression}, undef, 'no compression given for animations');
 is ($i->{width}, 1, 'width');
 is ($i->{height}, 1, 'height');
-
-done_testing();
