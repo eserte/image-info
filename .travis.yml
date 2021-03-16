@@ -71,5 +71,7 @@ after_script:
   - HARNESS_OPTIONS=j4:c make disttest
 
 branches:
- except:
-  - /appveyor/
+  except:
+    - /appveyor/
+    - /github-actions/
+    - /doozer/
