@@ -28,9 +28,11 @@ matrix:
     - perl: "5.8"
       env: WITH_IMAGE_XPM=1
       dist: precise
-    # The perl does not matter here, system perl will be used
+    # The perl does not matter here, system perl will be used. Also set language to ruby to avoid the anyway failing perl tarball download.
     - perl: "5.18"
+      language: ruby
       os: osx
+      osx_image: xcode12.2
     # Actually the perl here does not matter
     - perl: "5.14"
       env: USE_SYSTEM_PERL=1
