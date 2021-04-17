@@ -937,7 +937,14 @@ sub add_fields
 	    }
 
 	    my $val = (@v > 1) ? \@v : $v[0];
-	    bless $val, "Image::TIFF::Rational" if $type =~ /^S?RATIONAL$/;
+	    if ($type =~ /^S?RATIONAL$/) {
+		if (ref $val) {
+		    bless $val, "Image::TIFF::Rational";
+		} else {
+		    print STDERR "# invalid rational value\n";
+		    $val = undef;
+		}
+	    }
 
 	    if ($type eq 'ASCII' || $type eq 'UNDEFINED')
 		{
