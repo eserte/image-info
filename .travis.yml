@@ -60,7 +60,7 @@ before_install:
   - '[ "$WITH_XT_TESTS" = 1 ]          && cpanm --quiet --notest Image::ExifTool Image::Size Imager DB_File Test::Strict Test::Synopsis Test::Kwalitee XML::SAX::ExpatXS IPC::Run || true'
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; brew install cpanminus; fi
 install:
-  - if [ "$USE_SYSTEM_PERL" = "1" -o "$TRAVIS_OS_NAME" = "osx" ]; then cpanm --sudo --quiet --installdeps --notest .; else cpanm --quiet --installdeps --notest .; fi
+  - if [ "$USE_SYSTEM_PERL" = "1" -o "$TRAVIS_OS_NAME" = "osx" ]; then cpanm --sudo --quiet --installdeps --notest .; else if ! cpanm --quiet --installdeps --notest .; then cat ~/.cpanm/work/*/build.log; false; fi; fi
 script:
   - '[ "$WITH_XT_TESTS" =  1 ] || (perl Makefile.PL && make test)'
 # skip xt/mass.t, because installing Image::Magick is difficult
