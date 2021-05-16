@@ -48,7 +48,7 @@ matrix:
 
 before_install:
   # Remove broken deb repo:
-  - '[ "`lsb_release -cs`" = "precise" ] && sudo rm -f /etc/apt/sources.list.d/mongodb.list || true'
+  - '[ "`lsb_release -cs`" = "precise" ] && (cd /etc/apt/sources.list.d && sudo rm -f mongodb.list google-chrome.list cassandra.list github_git-lfs.list couchdb.list pgdg.list) || true'
   - '[ "$USE_SYSTEM_PERL" = 1 ]        && perlbrew off                               || true'
   - '[ "$WITH_TEST_POD" = 1 ]          && cpanm --quiet --notest Test::Pod           || true'
   - '[ "$WITH_TEST_POD_COVERAGE" = 1 ] && cpanm --quiet --notest Test::Pod::Coverage || true'
