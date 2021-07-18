@@ -1,50 +1,74 @@
 language: perl
+arch:
+  - arm64
 matrix:
   include:
-    - perl: "5.30"
+    - dist: xenial
+      perl: 5.24
       env: WITH_XT_TESTS=1 WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1 WITH_IMAGE_XBM=1 WITH_IMAGE_XPM=1
-      dist: xenial
-    - perl: "5.28"
-      dist: xenial
-    - perl: "5.24"
-      dist: xenial
-    - perl: "5.22"
-      dist: xenial
-    - perl: "5.20"
-      env: WITH_XT_TESTS=1 WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1 WITH_IMAGE_XBM=1 WITH_IMAGE_XPM=1
-      dist: precise
-    - perl: "5.16"
-      env: WITH_TEST_POD_COVERAGE=1
-      dist: precise
-    - perl: "5.14"
-      env: WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1
-      dist: precise
-    - perl: "5.12"
+    - dist: xenial
+      perl: 5.24
       env: WITH_XML_SIMPLE=1
-      dist: precise
-    - perl: "5.10"
+    - dist: bionic
+      perl: 5.26
+      env: WITH_TEST_POD_COVERAGE=1
+    - dist: bionic
+      perl: 5.26
       env: WITH_IMAGE_XBM=1
-      dist: precise
-    - perl: "5.8"
+    - dist: focal
+      perl: 5.32
+      env: WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1
+    - dist: focal
+      perl: 5.32
       env: WITH_IMAGE_XPM=1
-      dist: precise
-    # The perl does not matter here, system perl will be used. Also set language to ruby to avoid the anyway failing perl tarball download.
-    - perl: "5.18"
-      language: ruby
-      os: osx
-      osx_image: xcode12.2
-    # Actually the perl here does not matter
-    - perl: "5.14"
+    - dist: focal
+      perl: 5.32
       env: USE_SYSTEM_PERL=1
-      dist: precise
-    # Actually the perl here does not matter
-    - perl: "5.18"
-      env: USE_SYSTEM_PERL=1
-      dist: trusty
-    # Actually the perl here does not matter
-    - perl: "5.26"
-      env: USE_SYSTEM_PERL=1
-      dist: xenial
+
+#    - perl: "5.30"
+#      env: WITH_XT_TESTS=1 WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1 WITH_IMAGE_XBM=1 WITH_IMAGE_XPM=1
+#      dist: xenial
+#    - perl: "5.28"
+#      dist: xenial
+#    - perl: "5.24"
+#      dist: xenial
+#    - perl: "5.22"
+#      dist: xenial
+#    - perl: "5.20"
+#      env: WITH_XT_TESTS=1 WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1 WITH_IMAGE_XBM=1 WITH_IMAGE_XPM=1
+#      dist: precise
+#    - perl: "5.16"
+#      env: WITH_TEST_POD_COVERAGE=1
+#      dist: precise
+#    - perl: "5.14"
+#      env: WITH_XML_LIBXML_READER=1 WITH_XML_SIMPLE=1
+#      dist: precise
+#    - perl: "5.12"
+#      env: WITH_XML_SIMPLE=1
+#      dist: precise
+#    - perl: "5.10"
+#      env: WITH_IMAGE_XBM=1
+#      dist: precise
+#    - perl: "5.8"
+#      env: WITH_IMAGE_XPM=1
+#      dist: precise
+#    # The perl does not matter here, system perl will be used. Also set language to ruby to avoid the anyway failing perl tarball download.
+#    - perl: "5.18"
+#      language: ruby
+#      os: osx
+#      osx_image: xcode12.2
+#    # Actually the perl here does not matter
+#    - perl: "5.14"
+#      env: USE_SYSTEM_PERL=1
+#      dist: precise
+#    # Actually the perl here does not matter
+#    - perl: "5.18"
+#      env: USE_SYSTEM_PERL=1
+#      dist: trusty
+#    # Actually the perl here does not matter
+#    - perl: "5.26"
+#      env: USE_SYSTEM_PERL=1
+#      dist: xenial
 
 before_install:
   # Remove broken deb repo:
