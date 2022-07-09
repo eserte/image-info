@@ -17,13 +17,15 @@ BEGIN
       plan skip_all => "Need XML::Simple or XML::LibXML::Reader for this test";
     }
 
-  plan tests => 13;
+  plan tests => 14;
   }
 
 use Image::Info qw(image_info dim);
 
-my $i = image_info("../img/test.svg") ||
-  die ("Couldn't read test.svg: $!");
+my $test_svg = "../img/test.svg";
+my $i = image_info($test_svg) ||
+  die ("Couldn't read $test_svg: $!");
+is $i->{error}, undef, "no error while reading $test_svg";
 
 {
   no warnings 'once';
