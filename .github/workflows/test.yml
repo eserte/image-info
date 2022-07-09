@@ -83,6 +83,9 @@ jobs:
           - perlimage: 5.36.0-bullseye
             prereqs:   XML::Simple XML::Parser
             hides:     XML::SAX
+          - perlimage: 5.34.1-buster
+            prereqs:   Test::Pod Test::Pod::Coverage XML::LibXML::Reader XML::Simple Image::Xbm Image::Xpm
+            hides:     ''
     steps:
     - uses: actions/checkout@v3
     - name: install prereqs
