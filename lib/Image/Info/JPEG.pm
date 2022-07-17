@@ -7,7 +7,7 @@ package Image::Info::JPEG;
 
 # maintained by Tels 2007 - 2008
 
-$VERSION = 0.05;
+$VERSION = 0.06;
 
 =begin register
 
