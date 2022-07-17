@@ -72,3 +72,39 @@ jobs:
         cpanm --quiet --installdeps --notest .
         perl Makefile.PL
         make all test
+
+  test_prereqs:
+    name: Test with perl ${{ matrix.perlimage }}, prereqs ${{ matrix.prereqs }} and hides ${{ matrix.hides }}
+    runs-on: ubuntu-latest
+    container: perl:${{ matrix.perlimage }}
+    strategy:
+      matrix:
+        include:
+          - perlimage: 5.36.0-bullseye
+            prereqs:   XML::Simple XML::Parser
+            hides:     XML::SAX
+          - perlimage: 5.34.1-buster
+            prereqs:   Test::Pod Test::Pod::Coverage XML::LibXML::Reader XML::Simple Image::Xbm Image::Xpm
+            hides:     ''
+    steps:
+    - uses: actions/checkout@v3
+    - name: install prereqs
+      run: |
+        cpanm --quiet --notest ${{ matrix.prereqs }}
+      if: ${{ matrix.prereqs != '' }}
+    - name: install Devel::Hide
+      run: |
+        cpanm --quiet --notest Devel::Hide
+      if: ${{ matrix.hides != '' }}
+    - name: build
+      run: |
+        perl Makefile.PL
+        make all
+    - name: test with hides
+      run: |
+        env PERL5OPT=-MDevel::Hide=${{ join(matrix.hides, ',') }} make test
+      if: ${{ matrix.hides != '' }}
+    - name: test without hides
+      run: |
+        make test
+      if: ${{ matrix.hides == '' }}
