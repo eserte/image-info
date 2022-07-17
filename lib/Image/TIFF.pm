@@ -966,7 +966,7 @@ sub add_fields
 		$maker =~ /^([A-Z]+)/; $maker = $1 || ''; # "OLYMPUS ..." > "OLYMPUS"
 
 		# if 'Panasonic' doesn't exist, try 'Panasonic DMC-FZ5'
-		$maker = join " " => grep m/\S/ => $self->{Make}, $self->{Model}
+		$maker = join " ", grep { defined && m/\S/ } $self->{Make}, $self->{Model}
 		    unless exists $makernotes{$maker};
 
 		if (exists $makernotes{$maker}) {
