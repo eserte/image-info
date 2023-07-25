@@ -52,19 +52,20 @@ jobs:
         make all test
 
   test_in_container:
-    name: Test with perl ${{ matrix.perlimage }}
+    name: Test with ${{ matrix.image }}
     runs-on: ubuntu-latest
-    container: perl:${{ matrix.perlimage }}
+    container: ${{ matrix.image }}
     strategy:
       matrix:
         include:
-          - perlimage: 5.8.9-threaded-stretch
-          - perlimage: 5.10.1-buster
-          - perlimage: 5.12.5-stretch
-          - perlimage: 5.14.4-stretch
-          - perlimage: 5.16.3-buster
-          - perlimage: 5.18.4-buster
-          - perlimage: 5.22.4-stretch
+          - image: perl:5.8.9-threaded-stretch
+          - image: perl:5.10.1-buster
+          - image: perl:5.12.5-stretch
+          - image: perl:5.14.4-stretch
+          - image: perl:5.16.3-buster
+          - image: perl:5.18.4-buster
+          - image: perl:5.22.4-stretch
+          - image: perl:5.38.0-slim-bookworm
 
     steps:
     - uses: actions/checkout@v3
@@ -75,18 +76,21 @@ jobs:
         make all test
 
   test_prereqs:
-    name: Test with perl ${{ matrix.perlimage }}, prereqs ${{ matrix.prereqs }} and hides ${{ matrix.hides }}
+    name: Test with ${{ matrix.image }}, prereqs ${{ matrix.prereqs }} and hides ${{ matrix.hides }}
     runs-on: ubuntu-latest
-    container: perl:${{ matrix.perlimage }}
+    container: ${{ matrix.image }}
     strategy:
       matrix:
         include:
-          - perlimage: 5.36.0-bullseye
+          # note: do not use both with_disttest and with_xt
+          - image: perl:5.36.0-bullseye
             prereqs:   XML::Simple XML::Parser
             hides:     XML::SAX
-          - perlimage: 5.34.1-buster
+            with_disttest: 1
+          - image: perl:5.34.1-buster
             prereqs:   Test::Pod Test::Pod::Coverage XML::LibXML::Reader XML::Simple Image::Xbm Image::Xpm
             hides:     ''
+            with_xt: 1
     steps:
     - uses: actions/checkout@v3
     - name: install prereqs
@@ -109,3 +113,21 @@ jobs:
       run: |
         make test
       if: ${{ matrix.hides == '' }}
+
+    - name: system and cpan prereqs for xt tests
+      run: |
+        apt-get update -qq && apt-get install -q --no-install-recommends -y libdb-dev strace
+        cpanm --quiet --notest Imager Image::ExifTool Test::Kwalitee IPC::Run Test::Strict Image::Size
+      if: ${{ matrix.with_xt }}
+    - name: xt tests
+      run: |
+        make metafile && prove -l xt
+      if: ${{ matrix.with_xt }}
+
+    - name: "finally: distcheck and disttest"
+      run: |
+        perl Makefile.PL SIGN=0
+        make distcheck
+        HARNESS_OPTIONS=j4:c make disttest
+      if: ${{ matrix.with_disttest }}
+
