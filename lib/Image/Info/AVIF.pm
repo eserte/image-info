@@ -4,7 +4,7 @@ package Image::Info::AVIF;
 use warnings;
 use strict;
 
-our $VERSION = "0.00";
+our $VERSION = "0.01";
 
 sub die_for_info($) { die bless({ err=>$_[0] }, __PACKAGE__."::__ERROR__") }
 
