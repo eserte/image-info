@@ -74,7 +74,7 @@ WriteMakefile(
 			       },
 	      LICENSE       => 'perl',
 	      MIN_PERL_VERSION => 5.006,
-	      SIGN          => 1,
+	      SIGN          => 0,
 
 	      ($eumm_recent_enough
 	       ? (META_MERGE => { resources  => { repository => 'git://github.com/eserte/image-info.git' },

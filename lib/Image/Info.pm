@@ -18,7 +18,7 @@ package Image::Info;
 use strict;
 use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.44';
+$VERSION = '1.44b';
 
 require Exporter;
 *import = \&Exporter::import;
@@ -176,6 +176,7 @@ sub determine_file_format
    return "XPM" if /(^\/\* XPM \*\/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)/;
    return "XBM" if /^(?:\/\*.*\*\/\n)?#define\s/;
    return "AVIF" if /\A....ftypavif/s;
+   return "HEIC" if /\A....ftypheic/s;
    return "SVG" if /^(<\?xml|[\012\015\t ]*<svg\b)/;
    return "WEBP" if /^RIFF.{4}WEBP/s;
    return undef;
