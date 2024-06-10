@@ -66,6 +66,7 @@ jobs:
           - image: perl:5.18.4-buster
           - image: perl:5.22.4-stretch
           - image: perl:5.38.0-slim-bookworm
+          - image: perl:5.40.0-slim-bookworm
 
     steps:
     - uses: actions/checkout@v3
