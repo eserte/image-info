@@ -7,9 +7,8 @@ package Image::TIFF;
 # modify it under the same terms as Perl v5.8.8 itself.
 
 use strict;
-use vars qw($VERSION);
 
-$VERSION = '1.11';
+our $VERSION = '1.11';
 
 my @types = (
   [ "BYTE",      "C1", 1],
