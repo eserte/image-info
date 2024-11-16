@@ -27,7 +27,7 @@ jobs:
         sudo apt-get remove -y libgd3 nginx
       if: "startsWith(matrix.os, 'ubuntu-')"
 
-    - uses: actions/checkout@v3
+    - uses: taiki-e/checkout-action@v1
 
     - name: "perl installation (macos)"
       run: |
@@ -66,9 +66,21 @@ jobs:
           - image: perl:5.18.4-buster
           - image: perl:5.22.4-stretch
           - image: perl:5.38.0-slim-bookworm
+          - image: perl:5.40.0-slim-bookworm
 
     steps:
-    - uses: actions/checkout@v3
+    - name: apt hacks
+      run: |
+        set -e
+        CODENAME=$(perl -nle '/^VERSION_CODENAME="?([^"]+)/ and $codename=$1; /^VERSION="\d+ \((.*)\)/ and $maybe_codename=$1; END { print $codename || $maybe_codename }' /etc/os-release)
+        case "$CODENAME" in
+          wheezy|jessie|stretch)
+            echo "APT::Get::AllowUnauthenticated 1;" > /etc/apt/apt.conf.d/02allow-unsigned
+            echo "deb [check-valid-until=no] http://archive.debian.org/debian $CODENAME main"                   >  /etc/apt/sources.list
+            echo "deb [check-valid-until=no] http://archive.debian.org/debian-security/ $CODENAME/updates main" >> /etc/apt/sources.list
+            ;;
+        esac
+    - uses: taiki-e/checkout-action@v1
     - name: "build and test"
       run: |
         cpanm --quiet --installdeps --notest .
@@ -92,7 +104,7 @@ jobs:
             hides:     ''
             with_xt: 1
     steps:
-    - uses: actions/checkout@v3
+    - uses: taiki-e/checkout-action@v1
     - name: install prereqs
       run: |
         cpanm --quiet --notest ${{ matrix.prereqs }}
