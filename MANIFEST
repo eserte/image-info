@@ -87,6 +87,7 @@ t/jpg_hang.t
 t/jpg_ignore_thumbnail.t
 t/jpg_nowarnings.t
 t/png.t
+t/ppm_error.t
 t/pod.t
 t/pod_cov.t
 t/string.t
