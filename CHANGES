@@ -1,5 +1,17 @@
 Revision history for Image::Info
 
+2024-11-20  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.44_50
+
+    Stop propagating error on thumbnail image to main image (PR #15, by nanto)
+
+    Parse SRATIONAL values appropriately (PR #14, by nanto)
+
+    Replace "use vars" with "our" (by nanto)
+
+    Smaller CI improvements.
+
 2023-08-03  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.44
