@@ -307,9 +307,12 @@ sub process_app1_exif
 		#$info->push_info($i, "JPEGImage" => $jdata);
 
 		if ($jdata) {
-		    with_io_string {
-			_process_file($info, $_, $i);
-		    } $jdata;
+		    eval {
+			with_io_string {
+			    _process_file($info, $_, $i);
+			} $jdata;
+		    };
+		    $info->push_info($i, "error" => $@) if $@;
 		}
 	    }
 	}
