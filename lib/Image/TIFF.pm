@@ -8,7 +8,7 @@ package Image::TIFF;
 
 use strict;
 
-our $VERSION = '1.11';
+our $VERSION = '1.12';
 
 my @types = (
   [ "BYTE",      "C1", 1],

@@ -12,7 +12,7 @@ package Image::Info::SVG;
 
 use strict;
 our (@PREFER_MODULE, $USING_MODULE);
-our $VERSION = '2.04';
+our $VERSION = '2.05';
 
 @PREFER_MODULE = qw(Image::Info::SVG::XMLLibXMLReader
 		    Image::Info::SVG::XMLSimple

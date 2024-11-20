@@ -3,7 +3,7 @@
 package Bundle::Image::Info::Everything;
 
 use strict;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 1;
 

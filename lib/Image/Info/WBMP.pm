@@ -9,7 +9,7 @@
 package Image::Info::WBMP;
 
 use strict;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 require Exporter;
 *import = \&Exporter::import;

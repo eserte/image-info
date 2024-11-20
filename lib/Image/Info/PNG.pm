@@ -19,7 +19,7 @@ key.
 
 use strict;
 
-our $VERSION = 1.03;
+our $VERSION = 1.04;
 
 # Test for Compress::Zlib (for reading zTXt chunks)
 my $have_zlib = 0;
