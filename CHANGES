@@ -8,7 +8,7 @@ Revision history for Image::Info
 
     Parse SRATIONAL values appropriately (PR #14, by nanto)
 
-    Replace "use vars" with "our" (by nanto)
+    Replace "use vars" with "our" (PR #13, by JRaspass)
 
     Smaller CI improvements.
 
