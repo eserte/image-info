@@ -1,5 +1,11 @@
 Revision history for Image::Info
 
+2024-11-23  Slaven Rezic  <slaven@rezic.de>
+
+    Release 1.44_51
+
+    Added t/ppm_error.t test.
+
 2024-11-20  Slaven Rezic  <slaven@rezic.de>
 
     Release 1.44_50
