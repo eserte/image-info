@@ -41,8 +41,12 @@ sub process_file {
 	my @dimensions;
 	my $viewbox = $reader->getAttribute('viewBox');
 	@dimensions = split(/(?: |,)/, $viewbox) if $viewbox;
-	my $height = $reader->getAttribute('height') || $dimensions[3];
-	my $width  = $reader->getAttribute('width')  || $dimensions[2];
+	my $height =
+        $reader->getAttribute('height') ||
+        $dimensions[3] ? int($dimensions[3]) : undef;
+	my $width  =
+        $reader->getAttribute('width')  ||
+        $dimensions[2] ? int($dimensions[2]) : undef;
 	$info->push_info(0, 'height', $height);
 	$info->push_info(0, 'width', $width);
 
