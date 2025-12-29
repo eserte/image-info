@@ -40,7 +40,7 @@ sub process_file {
     if ($root_name eq 'svg') {
 	my @dimensions;
 	my $viewbox = $reader->getAttribute('viewBox');
-	@dimensions = split(/(\w|,)/, $viewbox) if $viewbox;
+	@dimensions = split(/(?: |,)/, $viewbox) if $viewbox;
 	my $height = $reader->getAttribute('height') || $dimensions[3];
 	my $width  = $reader->getAttribute('width')  || $dimensions[2];
 	$info->push_info(0, 'height', $height);
