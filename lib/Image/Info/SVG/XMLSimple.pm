@@ -53,14 +53,14 @@ sub process_file {
     $info->push_info(0, "file_media_type" => "image/svg+xml");
 
     my @dimensions;
-    @dimensions = split(/(?: |,)/, $img->{viewBox}) if $img->{viewBox};
+    if ($img->{viewBox}) {
+        @dimensions =
+            map { int($_) }
+            split(/(?: |,)/, $img->{viewBox});
+    }
 
-    my $height =
-        $img->{height} ||
-        $dimensions[3] ? int($dimensions[3]) : undef;
-    my $width =
-        $img->{width} ||
-        $dimensions[2] ? int($dimensions[2]) : undef;
+    my $height = $img->{height} || $dimensions[3];
+    my $width  = $img->{width}  || $dimensions[2];
 
     $info->push_info(0, "height", $height);
     $info->push_info(0, "width", $width);

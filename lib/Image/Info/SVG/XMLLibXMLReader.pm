@@ -38,15 +38,16 @@ sub process_file {
     # first XML element
     my $root_name = $reader->name;
     if ($root_name eq 'svg') {
-	my @dimensions;
-	my $viewbox = $reader->getAttribute('viewBox');
-	@dimensions = split(/(?: |,)/, $viewbox) if $viewbox;
-	my $height =
-        $reader->getAttribute('height') ||
-        $dimensions[3] ? int($dimensions[3]) : undef;
-	my $width  =
-        $reader->getAttribute('width')  ||
-        $dimensions[2] ? int($dimensions[2]) : undef;
+    my @dimensions;
+    my $viewbox = $reader->getAttribute('viewBox');
+    if ($viewbox) {
+        @dimensions =
+            map { int($_) }
+            split(/(?: |,)/, $viewbox)
+    }
+
+	my $height = $reader->getAttribute('height') || $dimensions[3];
+	my $width  = $reader->getAttribute('width')  || $dimensions[2];
 	$info->push_info(0, 'height', $height);
 	$info->push_info(0, 'width', $width);
 
