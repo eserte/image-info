@@ -64,7 +64,7 @@ sub process_file {
 
     $info->push_info(0, "height", $height);
     $info->push_info(0, "width", $width);
-    $info->push_info(0, "SVG_StandAlone", $info{standalone});
+    $info->push_info(0, "SVG_StandAlone", $info{standalone} || 'no');
     $info->push_info(0, "SVG_Version", $img->{version} || 'unknown');
 
     # XXX Description, title etc. could be tucked away in a <g> :-(
