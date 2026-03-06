@@ -37,6 +37,12 @@ sub _read
     # read bytes, and move the file pointer forward
     my($source, $len) = @_;
     my $buf;
+    my $current_pos = tell($source);
+    seek($source, 0, 2) or die "Cannot seek to end of file: $!";
+    my $file_size = tell($source);
+    die "Cannot read data starting at position $current_pos from file size $file_size"
+        if $current_pos  > $file_size;
+    seek($source, $current_pos, 0) or die "Cannot restore file position: $!";
     my $n = read($source, $buf, $len);
     die "read failed: $!" unless defined $n;
     die "short read ($len/$n) at pos " . tell($source) unless $n == $len;
@@ -126,7 +132,11 @@ sub process_file
 sub _process_ifds {
     my($info, $fh, $page, $tagsseen, $byteorder, $ifdoffset) = @_;
     my $curpos = tell($fh);
-    seek($fh,$ifdoffset,0);
+    seek($fh, 0, 2) or die "Cannot seek to end of file: $!";
+    my $file_size = tell($fh);
+    #die "short seek ($ifdoffset/$file_size) at pos " . tell($fh) unless ($ifdoffset <= $file_size);
+    seek($fh,$curpos,0) or die "Cannot restore original position $curpos";
+    seek($fh,$ifdoffset,0) or die "Cannot seek to position $ifdoffset";
 
     my $n = unpack("S",_read_order($fh, 2, $byteorder)); ## Number of entries
     my $i = 1;
