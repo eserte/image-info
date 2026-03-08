@@ -7,9 +7,8 @@ package Image::TIFF;
 # modify it under the same terms as Perl v5.8.8 itself.
 
 use strict;
-use vars qw($VERSION);
 
-$VERSION = '1.09';
+our $VERSION = '1.12';
 
 my @types = (
   [ "BYTE",      "C1", 1],
@@ -19,7 +18,6 @@ my @types = (
   [ "RATIONAL",  "N2", 8],
   [ "SBYTE",     "c1", 1],
   [ "UNDEFINED", "a1", 1],
-  [ "BINARY",    "a1", 1],  # treat binary data as UNDEFINED	
   [ "SSHORT",    "n1", 2],
   [ "SLONG",     "N1", 4],
   [ "SRATIONAL", "N2", 8],
@@ -937,7 +935,14 @@ sub add_fields
 	    }
 
 	    my $val = (@v > 1) ? \@v : $v[0];
-	    bless $val, "Image::TIFF::Rational" if $type =~ /^S?RATIONAL$/;
+	    if ($type =~ /^S?RATIONAL$/) {
+		if (ref $val) {
+		    bless $val, "Image::TIFF::Rational";
+		} else {
+		    print STDERR "# invalid rational value\n";
+		    $val = undef;
+		}
+	    }
 
 	    if ($type eq 'ASCII' || $type eq 'UNDEFINED')
 		{
@@ -966,7 +971,7 @@ sub add_fields
 		$maker =~ /^([A-Z]+)/; $maker = $1 || ''; # "OLYMPUS ..." > "OLYMPUS"
 
 		# if 'Panasonic' doesn't exist, try 'Panasonic DMC-FZ5'
-		$maker = $self->{Make}.' '.$self->{Model}
+		$maker = join " ", grep { defined && m/\S/ } $self->{Make}, $self->{Model}
 		    unless exists $makernotes{$maker};
 
 		if (exists $makernotes{$maker}) {

@@ -8,6 +8,8 @@ types of image files. The following file formats are supported:
    SVG
    XBM/XPM
    BMP/DIB/RLE
+   WEBP
+   AVIF
 
 Usage is something like this:
 

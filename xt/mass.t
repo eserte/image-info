@@ -19,13 +19,17 @@ use blib "$FindBin::RealBin/..";
 use Test::More;
 
 use Data::Dumper;
-use DB_File;
 use File::Glob qw(bsd_glob);
 use Getopt::Long;
 use Image::Info qw(image_info);
 
-if (!eval q{ use Image::Magick; 1 }) {
-    plan skip_all => 'Image::Magick not available';
+BEGIN {
+    if (!eval q{ use DB_File; 1 }) {
+	plan skip_all => 'DB_File not available';
+    }
+    if (!eval q{ use Image::Magick; 1 }) {
+	plan skip_all => 'Image::Magick not available';
+    }
 }
 plan 'no_plan';
 

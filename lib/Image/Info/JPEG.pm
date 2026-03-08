@@ -7,7 +7,7 @@ package Image::Info::JPEG;
 
 # maintained by Tels 2007 - 2008
 
-$VERSION = 0.05;
+$VERSION = 0.07;
 
 =begin register
 
@@ -275,7 +275,11 @@ sub process_app1_exif
     }
 
     require Image::TIFF;
-    my $t = Image::TIFF->new(\$data);
+    my $t = eval { Image::TIFF->new(\$data) };
+    if (!$t) {
+	$info->push_info(0, "Warn", "Cannot parse APP1 EXIF segment");
+	return;
+    }
 
 
     for my $i (0 .. $t->num_ifds - 1) {
@@ -303,9 +307,12 @@ sub process_app1_exif
 		#$info->push_info($i, "JPEGImage" => $jdata);
 
 		if ($jdata) {
-		    with_io_string {
-			_process_file($info, $_, $i);
-		    } $jdata;
+		    eval {
+			with_io_string {
+			    _process_file($info, $_, $i);
+			} $jdata;
+		    };
+		    $info->push_info($i, "error" => $@) if $@;
 		}
 	    }
 	}

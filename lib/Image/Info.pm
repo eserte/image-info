@@ -13,17 +13,16 @@ package Image::Info;
 # modify it under the same terms as Perl v5.8.8 itself.
 #
 # Previously maintained by Tels - (c) 2006 - 2008.
-# Currently maintained by Slaven Rezic - (c) 2008 - 2017.
+# Currently maintained by Slaven Rezic - (c) 2008 - 2023.
 
 use strict;
-use vars qw($VERSION @EXPORT_OK);
 
-$VERSION = '1.41';
+our $VERSION = '1.45';
 
 require Exporter;
 *import = \&Exporter::import;
 
-@EXPORT_OK = qw(image_info dim html_dim image_type determine_file_format);
+our @EXPORT_OK = qw(image_info dim html_dim image_type determine_file_format);
 
 # already required and failed sub-modules are remembered here
 my %mod_failure;
@@ -182,7 +181,9 @@ sub determine_file_format
    return "PPM" if /^P[1-6]/;
    return "XPM" if /(^\/\* XPM \*\/)|(static\s+char\s+\*\w+\[\]\s*=\s*{\s*"\d+)/;
    return "XBM" if /^(?:\/\*.*\*\/\n)?#define\s/;
+   return "AVIF" if /\A....ftypavif/s;
    return "SVG" if /^(<\?xml|[\012\015\t ]*<svg\b)/;
+   return "WEBP" if /^RIFF.{4}WEBP/s;
    return undef;
 }
 
@@ -473,6 +474,10 @@ The following image file formats are supported:
 =over
 
 
+=item AVIF
+
+Supports the basic standard info key names.
+
 =item BMP
 
 This module supports the Microsoft Device Independent Bitmap format
@@ -537,6 +542,12 @@ L<http://www.exif.org/specifications.html>
 
 wbmp files have no magic, so cannot be used with the normal
 Image::Info functions. See L<Image::Info::WBMP> for more information.
+
+=item WEBP
+
+VP8 (lossy), VP8L (lossless) and VP8X (extended) files are supported.
+Sets the key C<Animation> to true if the file is an animation. Otherwise
+sets the key C<Compression> to either C<VP8> or C<Lossless>.
 
 =item XBM
 
