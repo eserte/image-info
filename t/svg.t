@@ -17,7 +17,7 @@ BEGIN
       plan skip_all => "Need XML::Simple+XML::SAX::PurePerl or XML::LibXML::Reader+XML::Simple for this test";
     }
 
-  plan tests => 14;
+  plan tests => 19;
   }
 
 use Image::Info qw(image_info dim);
@@ -66,6 +66,20 @@ is ($i->{SVG_Title}, 'Untitled graph', 'title');
 is ($i->{SVG_Version}, '1.1', 'SVG_Version 1.1');
 
 is (dim($i), '209x51', 'dim()');
+
+#############################################################################
+# third test file
+$i = image_info("../img/logo.svg") ||
+  die ("Couldn't read logo.svg: $!");
+
+#use Data::Dumper; print Dumper($i), "\n";
+
+is ($i->{SVG_StandAlone}, 'no', 'SVG_StandAlone');
+is ($i->{file_ext}, 'svg', 'file_ext');
+is ($i->{file_media_type}, 'image/svg+xml', 'file_media_type');
+is ($i->{SVG_Title}, 'Logo-rdv', 'title');
+
+is (dim($i), '383x57', 'dim()');
 
 #############################################################################
 # first file without xml preamble

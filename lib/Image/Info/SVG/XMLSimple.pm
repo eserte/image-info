@@ -52,9 +52,19 @@ sub process_file {
     # "image/svg+xml" is the official MIME type
     $info->push_info(0, "file_media_type" => "image/svg+xml");
 
-    $info->push_info(0, "height", $img->{height});
-    $info->push_info(0, "width", $img->{width});
-    $info->push_info(0, "SVG_StandAlone", $info{standalone});
+    my @dimensions;
+    if ($img->{viewBox}) {
+        @dimensions =
+            map { int($_) }
+            split(/(?: |,)/, $img->{viewBox});
+    }
+
+    my $height = $img->{height} || $dimensions[3];
+    my $width  = $img->{width}  || $dimensions[2];
+
+    $info->push_info(0, "height", $height);
+    $info->push_info(0, "width", $width);
+    $info->push_info(0, "SVG_StandAlone", $info{standalone} || 'no');
     $info->push_info(0, "SVG_Version", $img->{version} || 'unknown');
 
     # XXX Description, title etc. could be tucked away in a <g> :-(
